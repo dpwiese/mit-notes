@@ -1,0 +1,2126 @@
+\chapter{Aircraft Equations of Motion}
+
+\section{Introduction}
+
+The equations of rigid body motion are expanded and expressed in state space form.
+The expression of the equations in this form assumes the Earth is flat, and inertially fixed.
+The atmosphere is stationary with respect to the Earth.
+
+\begin{itemize}
+  \item{Show linear equations represented in stability axes \dots}
+  \item{Show Taylor series expansion}
+  \item{%
+    Stability derivative has dimensions.
+    Stability coefficient does not\ (Nelson pg 109).
+  }
+  \item{Express stability derivatives in terms of stability coefficients}
+  \item{How to know before linearization that longitudinal and lateral equations can be decoupled?}
+\end{itemize}
+
+\subsection{Notation}
+
+I use $R$ for rotation matrix, and $T$ for the transformation matrix from body axes to Euler axes.
+Etkin uses $L$ for rotation matrices, and $\boldsymbol{R}$ for the transformation matrix from body axes to Euler axes.
+Bilimoria and Schmidt use $[T]$ for rotation matrices and $[L]$ for the transformation matrix from body axes to Euler axes.
+Some of the standard notation describing the expression of vectors in various reference frames is outlined below.
+
+\begin{itemize}
+  \item{%
+    $F_{a}$ denotes reference frame $a$ in Etkin.
+    I will use lower-case $f_{a}$ to denote reference frame $a$.
+  }
+  \item{$v_{a}$ describes vector $v$ of a point along axes of reference frame $a$, when the referred point is obvious.}
+  \item{$v_{0}$ indicates the velocity of point $0$.}
+  \item{$v_{0_{a}}$ indicates the velocity of point $0$ along the axes of reference frame $a$.}
+  \item{%
+    SUPERSCRIPT BASICALLY MEANS RELATIVE TO.\@
+    Bilimoria and Schmidt use $|^{\cdot}$ instead of just a superscript, and often when there is no superscript, it is implied that it is actually relative to body axes.
+  }
+  \item{%
+    A superscript indicates motion relative to a certain reference frame.
+    $v^{a}$ is the velocity of a point relative to frame $f_{a}$, when the referred point is obvious.
+  }
+  \item{The notation ${v_{b}}^{a}$ gives the velocity of a point relative to reference frame $f_{a}$ described along the axes of $f_{b}$.}
+  \item{To be clear, when the point of interest is not obvious, or there are multiple points, the notation ${v_{0_{b}}}^{a}$ would describe the velocity of point $0$ relative to reference frame $f_{a}$, described along the axes of $f_{b}$.}
+  \item{%
+    $\omega$ is typically reserved to describe the angular velocity of a reference frame relative to inertial axes $f_{I}$.
+    Making use of the notation above, $\omega^{E}$ represents the angular velocity of reference frame $f_{E}$ relative to $f_{I}$\ (pretty sure this is from Etkin).
+    Bilimoria and Schmidt: $\omega_{1,2}$ is the angular velocity of reference frame 1 relative to reference frame 2.
+    This implies vector is expressed in the coordinates of reference frame 2?
+  }
+  \item{In Bilimoria and Schmidt $V_{I}$ is the inertial velocity of the vehicle}
+  \begin{itemize}
+    \item{$I$ is inertial frame}
+    \item{$EC$ is Earth-centered, Earth-fixed frame}
+    \item{$E$ is Earth-surface frame}
+    \item{$V$ is vehicle carrying frame}
+    \item{$V$ is vehicle-carried frame}
+    \item{$A$ is atmosphere-fixed frame}
+    \item{$W$ is air-trajectory frame (wind axes)}
+    \item{$B$ is body-fixed frame (body axes)}
+    \item{$S$ stability axes (special set of body axes)}
+  \end{itemize}
+  \item{The transformation $R_{ab}$ describes a vector transformation from being expressed in reference frame $b$ to being expressed in reference frame $a$.}
+  \item{Typically capital letter denotes vector quantity}
+\end{itemize}
+
+\section{Equations of Motion}
+
+In this problem, the rigid body equations of motion shown in Equations (\ref{force_eqn}-\ref{location_eqn}) below were expanded and expressed in a state space representation.
+% TODO@dpwiese - Fix: velocity of which frame, relative to what other frame, expressed along the axes of which frame?
+See Steven's and Lewis page 44 for moment equation derivation.
+Poisson orientation equations page 28, and list of different kinematic equations page 46.
+
+\begin{itemize}
+  \item{%
+    Flat earth, this defined the reference frames.
+    A constant velocity in the flat earth does not lead to moments, but on a spherical earth it does.
+  }
+  \item{The aircraft is a rigid body thus has no rotating terms due to rotating turbo machinery}
+\end{itemize}
+
+\begin{empheq}[box=\fboxTwo]{alignat=4}
+  &\mbox{\textbf{Force}} &\quad & &\quad \dot{V}_{B}&=-\omega_{B,I}\times{}V_{B}+{R_{IB}}^{\top}g+F_{B}/m\label{force_eqn} \\
+  &\mbox{\textbf{Moment}} &\quad & &\quad \dot{\omega}_{B}&=J^{-1}(M_{B}-\omega_{B,I}\times{}J\omega_{B})\label{moment_eqn} \\
+  &\mbox{\textbf{Orientation}} &\quad & \mbox{Poisson:} &\quad \dot{R}_{IB}&=R_{IB}\hat{\omega}_{B,I}\label{orientation_eqn} \\
+  & &\quad & \mbox{Euler's:} &\quad \\
+  & &\quad & \mbox{Quaternion:} &\quad \\
+  &\mbox{\textbf{Location}} &\quad & & \quad \dot{\Delta}&=R_{IB}v_{B}\label{location_eqn}
+\end{empheq}
+
+Where the gravity vector in inertial coordinates $g$ is given by
+
+\begin{equation*}
+  g=
+  \left[
+    \begin{array}{ccc}
+      0 & 0 & g_{0}
+    \end{array}
+  \right]^{\top}
+\end{equation*}
+
+Making use of the ``hat'' operator, the cross product operations in equations (\ref{force_eqn}-\ref{moment_eqn}) can be written
+
+\begin{align*}
+  \dot{V}_{B}&=-\hat{\omega}_{B}V_{B}+{R_{IB}}^{\top}g+F_{B}/m \\
+  \dot{\omega}_{B}&=J^{-1}(-\hat{\omega}_{B}J\omega_{B}+\tau_{B}) \\
+  \dot{R}_{IB}&=R_{IB}\hat{\omega}_{B} \\
+  \dot{\Delta}&=R_{IB}v_{B}
+\end{align*}
+
+where the hat operator is defined as follows
+
+\begin{equation*}
+  \omega=
+  \begin{bmatrix}
+    a \\
+    b \\
+    c
+  \end{bmatrix}
+  \hspace{0.4in}
+  \Rightarrow
+  \hspace{0.4in}
+  \hat{\omega}=
+  \begin{bmatrix}
+    0 & -c & b \\
+    c & 0 & -a \\
+    -b & a & 0
+  \end{bmatrix}
+\end{equation*}
+
+The rotation matrix $R_{IB}$ is given by
+
+\begin{equation*}
+  R_{IB}=
+  \begin{bmatrix}
+    \cos{\psi}\cos{\theta} & \cos{\psi}\sin{\phi}\sin{\theta}-\cos{\phi}\sin{\psi} & \sin{\phi}\sin{\psi}+\cos{\phi}\cos{\psi}\sin{\theta} \\
+    \cos{\theta}\sin{\psi} & \cos{\phi}\cos{\psi}+\sin{\phi}\sin{\psi}\sin{\theta} & \cos{\phi}\sin{\psi}\sin{\theta}-\cos{\psi}\sin{\phi} \\
+    -\sin{\theta} & \cos{\theta}\sin{\phi} & \cos{\phi}\cos{\theta}
+  \end{bmatrix}
+\end{equation*}
+
+with its transpose
+
+\begin{equation*}
+  {R_{IB}}^{\top}=
+  \begin{bmatrix}
+    \cos{\psi}\cos{\theta} &  \cos{\theta}\sin{\psi} & -\sin{\theta} \\
+    \cos{\psi}\sin{\phi}\sin{\theta}-\cos{\phi}\sin{\psi} & \cos{\phi}\cos{\psi}+\sin{\phi}\sin{\psi}\sin{\theta} & \cos{\theta}\sin{\phi} \\
+    \sin{\phi}\sin{\psi}+\cos{\phi}\cos{\psi}\sin{\theta} & \cos{\phi}\sin{\psi}\sin{\theta}-\cos{\psi}\sin{\phi} & \cos{\phi}\cos{\theta} \\
+  \end{bmatrix}
+\end{equation*}
+
+The body linear and angular velocity components are given by the following:
+
+\begin{equation*}
+  \omega_{B}=
+  \begin{bmatrix}
+    p \\
+    q \\
+    r
+  \end{bmatrix}
+  \quad
+  V_{B}=
+  \begin{bmatrix}
+    u \\
+    v \\
+    w
+  \end{bmatrix}
+\end{equation*}
+
+\subsubsection{Force Equations}
+
+Writing equation (\ref{force_eqn}) out using the hat operator and the rotation matrix transpose
+
+\begin{equation}
+  \label{force3_eqn}
+  \dot{V}_{B}=
+  \begin{bmatrix}
+    \dot{u} \\
+    \dot{v} \\
+    \dot{w}
+  \end{bmatrix} =
+  \begin{bmatrix}
+    0 & -r & q \\
+    r & 0 & -p \\
+    -q & p & 0
+  \end{bmatrix}
+  \begin{bmatrix}
+    u \\
+    v \\
+    w
+  \end{bmatrix}+
+  \begin{bmatrix}
+    -g_{D}\sin(\theta) \\
+    g_{D}\sin(\phi)\cos(\theta) \\
+    g_{D}\cos(\phi)\cos(\theta)
+  \end{bmatrix}+
+  \frac{F_{B}}{m}
+\end{equation}
+
+where the force vector that represents all non-gravitational forces acting on the body, in body axes is given by:
+
+\begin{equation*}
+  F_{B}=
+  \begin{bmatrix}
+    X \\
+    Y \\
+    Z
+  \end{bmatrix}
+\end{equation*}
+
+The forces included in $F_{B}$ are all forces other than gravitational forces.
+For an aircraft these forces are aerodynamic and propulsive.
+Expanding equation (\ref{force3_eqn}) gives the following represent the force equations of a generalized rigid body.
+These equations describe the the motion of its cg since the origin of the axis system was placed at the cg.
+
+\begin{equation}
+  \label{ssforce_eqn}
+  \begin{split}
+    \dot{u}&=rv-qw-g_{0}\sin(\theta)+X/m \\
+    \dot{v}&=-ru+pw+g_{0}\sin(\phi)\cos(\theta)+Y/m \\
+    \dot{w}&=qu-pv+g_{0}\cos(\phi)\cos(\theta)+Z/m \\
+  \end{split}
+\end{equation}
+
+\subsubsection{Moment equations}
+
+To expand equation (\ref{moment_eqn}), the moment of inertia matrix $J$ is needed, as defined below.
+Defined (McLean pg 21) (Stevens and Lewis pg 43)
+
+\begin{equation*}
+  J=
+  \begin{bmatrix}
+    J_{xx} & -J_{xy} & -J_{xz} \\
+    -J_{xy} & J_{yy} & -J_{yz} \\
+    -J_{xz} & -J_{yz} & J_{zz}
+  \end{bmatrix}
+\end{equation*}
+
+Without any simplification, expansion of the moment equations would become very cumbersome.
+In general, aircraft are symmetric about the $x-z$ plane, mass is uniformly distributed, and the body coordinate system is oriented such that $J_{xy}=J_{yz}=0$.
+This allows the moment of inertia matrix to be simplified to:
+
+\begin{equation*}
+  J=
+  \begin{bmatrix}
+    J_{xx} & 0 & -J_{xz} \\
+    0 & J_{yy} & 0 \\
+    -J_{xz} & 0 & J_{zz}
+  \end{bmatrix}
+\end{equation*}
+
+Sometimes the product of inertia $J_{xz}$ is sufficiently small, allowing this term to be neglected.
+This is the case when the aircraft body axes are aligned with the principle axes\ (McLean 23).
+A further simplification can be made if it is assumed that the aircraft body axes are aligned to be principal inertial axes.
+In this special case the remaining product of inertia $J_{xz}$ is also zero.
+This simplification is not often used owing to the difficulty of precisely determining the principal inertia axes.
+However, the symmetry of the aircraft determines that $J_{xz}$ is generally very much smaller than $J_{xx}$, $J_{yy}$ and $J_{zz}$ and can often be neglected\ (Cook pg 72).
+The inverse of $J$ is given by
+
+\begin{equation*}
+  J^{-1}=
+  \begin{bmatrix}
+    \frac{J_{zz}}{J_{xx}J_{zz}-{J_{xz}}^{2}} & 0 & \frac{J_{xz}}{J_{xx}J_{zz}-{J_{xz}}^{2}} \\
+    0 & \frac{1}{J_{yy}} & 0 \\
+    \frac{J_{xz}}{J_{xx}J_{zz}-{J_{xz}}^{2}} & 0 & \frac{J_{xx}}{J_{xx}J_{zz}-{J_{xz}}^{2}}
+  \end{bmatrix}
+\end{equation*}
+
+where sometimes $\Gamma=J_{xx}J_{zz}-{J_{xz}}^{2}$ is used to simplify this expression (Stevens and Lewis pg 45, 110).
+The input torque in body axes is given by
+
+\begin{equation*}
+  M_{B}=
+  \begin{bmatrix}
+    L \\
+    M \\
+    N
+  \end{bmatrix}
+\end{equation*}
+
+Writing equation (\ref{moment_eqn}) out using the hat operator and simplified moment of inertia matrix gives, where $\omega_{B}=\begin{bmatrix} p & q & r \end{bmatrix}^{\top}$:
+
+\begin{equation*}
+  \begin{split}
+    \begin{bmatrix}
+      \dot{p} \\
+      \dot{q} \\
+      \dot{r}
+    \end{bmatrix}
+    &=J^{-1}
+    \left(
+      -\begin{bmatrix}
+        0 & -r & q \\
+        r & 0 & -p \\
+        -q & p & 0
+      \end{bmatrix}
+      \begin{bmatrix}
+        J_{xx} & 0 & -J_{xz} \\
+        0 & J_{yy} & 0 \\
+        -J_{xz} & 0 & J_{zz}
+      \end{bmatrix}
+      \begin{bmatrix}
+        p \\
+        q \\
+        r
+      \end{bmatrix}+
+      \begin{bmatrix}
+        L \\
+        M \\
+        N \\
+      \end{bmatrix}
+    \right) \\
+    \begin{bmatrix}
+      \dot{p} \\
+      \dot{q} \\
+      \dot{r}
+    \end{bmatrix}
+    &=J^{-1}
+    \left(
+      \begin{bmatrix}
+        0 & r & -q \\
+        -r & 0 & p \\
+         q & -p & 0
+      \end{bmatrix}
+      \begin{bmatrix}
+        J_{xx}p-J_{xz}r \\
+        J_{yy}q \\
+        -J_{xz}p+J_{zz}r
+      \end{bmatrix}+
+      \begin{bmatrix}
+        L \\
+        M \\
+        N \\
+      \end{bmatrix}
+    \right) \\
+    \begin{bmatrix}
+      \dot{p} \\
+      \dot{q} \\
+      \dot{r}
+    \end{bmatrix}
+    &=J^{-1}
+    \left(
+      \begin{bmatrix}
+        qrJ_{yy}+pqJ_{xz}-qrJ_{zz} \\
+        -prJ_{xx}+r^{2}J_{xz}-p^{2}J_{xz}+prJ_{zz} \\
+        pqJ_{xx}-qrJ_{xz}-pqJ_{yy}
+      \end{bmatrix}
+      +
+      \begin{bmatrix}
+        L \\
+        M \\
+        N \\
+      \end{bmatrix}
+    \right) \\
+    \begin{bmatrix}
+      \dot{p} \\
+      \dot{q} \\
+      \dot{r}
+    \end{bmatrix}
+    &=J^{-1}
+    \left(
+      \begin{bmatrix}
+        qr(J_{yy}-J_{zz})+pqJ_{xz} \\
+        (r^{2}-p^{2})J_{xz}+pr(J_{zz}-J_{xx}) \\
+        pq(J_{xx}-J_{yy})-qrJ_{xz}
+      \end{bmatrix}+
+      \begin{bmatrix}
+        L \\
+        M \\
+        N \\
+      \end{bmatrix}
+    \right) \\
+    \begin{bmatrix}
+      \dot{p} \\
+      \dot{q} \\
+      \dot{r}
+    \end{bmatrix}
+    &=J^{-1}
+    \begin{bmatrix}
+      qr(J_{yy}-J_{zz})+pqJ_{xz} \\
+      (r^{2}-p^{2})J_{xz}+pr(J_{zz}-J_{xx}) \\
+      pq(J_{xx}-J_{yy})-qrJ_{xz}
+    \end{bmatrix}
+    +J^{-1}
+    \begin{bmatrix}
+      L \\
+      M \\
+      N \\
+    \end{bmatrix}
+  \end{split}
+\end{equation*}
+
+Evaluating the first term on the right hand side
+
+\begin{equation*}
+  \begin{bmatrix}
+    \frac{J_{zz}}{J_{xx}J_{zz}-{J_{xz}}^{2}} & 0 & \frac{J_{xz}}{J_{xx}J_{zz}-{J_{xz}}^{2}} \\
+    0 & \frac{1}{J_{yy}} & 0 \\
+    \frac{J_{xz}}{J_{xx}J_{zz}-{J_{xz}}^{2}} & 0 & \frac{J_{xx}}{J_{xx}J_{zz}-{J_{xz}}^{2}}
+  \end{bmatrix}
+  \begin{bmatrix}
+    qr(J_{yy}-J_{zz})+pqJ_{xz} \\
+    (r^{2}-p^{2})J_{xz}+pr(J_{zz}-J_{xx}) \\
+    pq(J_{xx}-J_{yy})-qrJ_{xz}
+  \end{bmatrix}=
+\end{equation*}
+
+\begin{equation*}
+  \begin{bmatrix}
+    \frac{J_{zz}[qr(J_{yy}-J_{zz})+pqJ_{xz}]+J_{xz}[pq(J_{xx}-J_{yy})-qrJ_{xz}]}{J_{xx}J_{zz}-{J_{xz}}^{2}} \\
+    \frac{(r^{2}-p^{2})J_{xz}+pr(J_{zz}-J_{xx})}{J_{yy}} \\
+    \frac{J_{xz}[qr(J_{yy}-J_{zz})+pqJ_{xz}]+J_{xx}[pq(J_{xx}-J_{yy})-qrJ_{xz}]}{{J_{xz}}^{2}-J_{xx}J_{zz}}
+  \end{bmatrix}=
+\end{equation*}
+
+\begin{equation*}
+  \begin{bmatrix}
+    \frac{J_{zz}(J_{yy}-J_{zz})qr+pqJ_{xz}J_{zz}+pqJ_{xz}(J_{xx}-J_{yy})-qr{J_{xz}}^{2}}{J_{xx}J_{zz}-{J_{xz}}^{2}} \\
+    \frac{(r^{2}-p^{2})J_{xz}+pr(J_{zz}-J_{xx})}{J_{yy}} \\
+    \frac{J_{xz}(J_{yy}-J_{zz})qr+{J_{xz}}^{2}pq+J_{xx}(J_{xx}-J_{yy})pq-J_{xx}J_{xz}qr}{{J_{xz}}^{2}-J_{xx}J_{zz}}
+  \end{bmatrix}=
+\end{equation*}
+
+\begin{equation*}
+  \begin{bmatrix}
+    \frac{pq[J_{xz}J_{zz}+J_{xz}(J_{xx}-J_{yy})]+qr[J_{zz}(J_{yy}-J_{zz})-{J_{xz}}^{2}]}{J_{xx}J_{zz}-{J_{xz}}^{2}} \\
+    \frac{(r^{2}-p^{2})J_{xz}+pr(J_{zz}-J_{xx})}{J_{yy}} \\
+    \frac{qr[J_{xz}(J_{yy}-J_{zz})-J_{xx}J_{xz}]+pq[{J_{xz}}^{2}+J_{xx}(J_{xx}-J_{yy})]}{{J_{xz}}^{2}-J_{xx}J_{zz}}
+  \end{bmatrix}=
+\end{equation*}
+
+\begin{equation*}
+  \begin{bmatrix}
+    \frac{J_{xz}(J_{xx}-J_{yy}+J_{zz})pq+[J_{zz}(J_{yy}-J_{zz})-{J_{xz}}^{2}]qr}{J_{xx}J_{zz}-{J_{xz}}^{2}} \\
+    \frac{(r^{2}-p^{2})J_{xz}+pr(J_{zz}-J_{xx})}{J_{yy}} \\
+    \frac{[(J_{xx}-J_{yy})J_{xx}+{J_{xz}}^{2}]pq+J_{xz}[-J_{xx}+J_{yy}-J_{zz}]qr}{{J_{xz}}^{2}-J_{xx}J_{zz}}
+  \end{bmatrix}
+\end{equation*}
+
+Evaluating the second term on the right hand side
+
+\begin{equation*}
+  \begin{bmatrix}
+    \frac{J_{zz}}{J_{xx}J_{zz}-{J_{xz}}^{2}} & 0 & \frac{J_{xz}}{J_{xx}J_{zz}-{J_{xz}}^{2}} \\
+    0 & \frac{1}{J_{yy}} & 0 \\
+    \frac{J_{xz}}{J_{xx}J_{zz}-{J_{xz}}^{2}} & 0 & \frac{J_{xx}}{J_{xx}J_{zz}-{J_{xz}}^{2}}
+  \end{bmatrix}
+  \begin{bmatrix}
+    L \\
+    M \\
+    N \\
+  \end{bmatrix}=
+  \begin{bmatrix}
+    \frac{J_{zz}L+J_{xz}N}{J_{xx}J_{zz}-{J_{xz}}^{2}} \\
+    \frac{M}{J_{yy}} \\
+    \frac{J_{xz}L+J_{xx}N}{J_{xx}J_{zz}-{J_{xz}}^{2}}
+  \end{bmatrix}
+\end{equation*}
+
+Putting everything together:
+
+\begin{equation}
+  \label{ssmoment_eqn}
+  \begin{split}
+    \dot{p}&=\frac{J_{xz}(J_{xx}-J_{yy}+J_{zz})pq+[J_{zz}(J_{yy}-J_{zz})-{J_{xz}}^{2}]qr}{J_{xx}J_{zz}-{J_{xz}}^{2}}+
+    \frac{J_{zz}L+J_{xz}N}{J_{xx}J_{zz}-{J_{xz}}^{2}} \\
+    \dot{q}&=\frac{(J_{zz}-J_{xx})pr-J_{xz}(p^{2}-r^{2})}{J_{yy}}+
+    \frac{M}{J_{yy}} \\
+    \dot{r}&=\frac{[(J_{xx}-J_{yy})J_{xx}+{J_{xz}}^{2}]pq-J_{xz}[J_{xx}-J_{yy}+J_{zz}]qr}{{J_{xz}}^{2}-J_{xx}J_{zz}}+
+    \frac{J_{xz}L+J_{xx}N}{J_{xx}J_{zz}-{J_{xz}}^{2}} \\
+  \end{split}
+\end{equation}
+
+\subsubsection{Kinematic Equations}
+
+The orientation, or kinematic equations describe the orientation of the aircraft body axes with respect to the inertial axes.
+Expanding Equation (\ref{orientation_eqn})
+\textit{Converting from the $\dot{R}_{IB}$ and $R_{IB}$ equation to whats below? Also, make clear what subscript means exactly.}
+The relationship between Euler rates and body angular velocities is
+
+\begin{equation*}
+  \label{eulr_ss_eqn_1}
+  \left[
+    \begin{array}{c}
+    \dot{\phi} \\
+    \dot{\theta} \\
+    \dot{\psi}
+    \end{array}
+  \right]
+  =
+  \left[
+    \begin{array}{ccc}
+      1 & \tan(\theta)\sin(\phi) & \tan(\theta)\cos(\phi) \\
+      0 & \cos(\phi) & -\sin(\phi) \\
+      0 & \sin(\phi)/\cos(\theta) & \cos(\phi)/\cos(\theta)
+    \end{array}
+  \right]
+  \left[
+    \begin{array}{c}
+      p \\
+      q \\
+      r
+    \end{array}
+  \right]
+\end{equation*}
+
+where the following is the transformation matrix $T$
+
+\begin{equation*}
+  \label{eulr_ss_eqn_2}
+  T=
+  \left[
+    \begin{array}{ccc}
+      1 & \tan(\theta)\sin(\phi) & \tan(\theta)\cos(\phi) \\
+      0 & \cos(\phi) & -\sin(\phi) \\
+      0 & \sin(\phi)/\cos(\theta) & \cos(\phi)/\cos(\theta)
+    \end{array}
+  \right]
+\end{equation*}
+
+Expanding
+
+\begin{equation}
+  \label{ssorientation_eqn}
+  \begin{split}
+    \dot{\phi}&=p+\tan(\theta)[q\sin(\phi)+r\cos(\phi)] \\
+    \dot{\theta}&=q\cos(\phi)-r\sin(\phi) \\
+    \dot{\psi}&=[q\sin(\phi)+r\cos(\phi)]/\cos(\theta) \\
+  \end{split}
+\end{equation}
+
+\subsubsection{Navigation Equations}
+
+The location, or navigation equations describe the location of the origin of the body fixed coordinate system with respect to the inertial axes.
+Writing out Equation (\ref{location_eqn}) where $\Delta=\begin{bmatrix} x & y & z \end{bmatrix}^{\top}$
+
+\begin{equation*}
+  \begin{bmatrix}
+    \dot{x} \\
+    \dot{y} \\
+    \dot{z} \\
+  \end{bmatrix}=
+  \begin{bmatrix}
+    \cos{\psi}\cos{\theta} & \cos{\psi}\sin{\phi}\sin{\theta}-\cos{\phi}\sin{\psi} & \sin{\phi}\sin{\psi}+\cos{\phi}\cos{\psi}\sin{\theta} \\
+    \cos{\theta}\sin{\psi} & \cos{\phi}\cos{\psi}+\sin{\phi}\sin{\psi}\sin{\theta} & \cos{\phi}\sin{\psi}\sin{\theta}-\cos{\psi}\sin{\phi} \\
+    -\sin{\theta} & \cos{\theta}\sin{\phi} & \cos{\phi}\cos{\theta}
+  \end{bmatrix}
+  \begin{bmatrix}
+    u \\
+    v \\
+    w \\
+  \end{bmatrix}
+\end{equation*}
+
+Expanding
+
+\begin{equation}
+  \label{ssposition_eqn}
+  \begin{split}
+    \dot{x}&=u\cos{\psi}\cos{\theta}+v[\cos{\psi}\sin{\phi}\sin{\theta}-\cos{\phi}\sin{\psi}]+
+    w[\sin{\phi}\sin{\psi}+\cos{\phi}\cos{\psi}\sin{\theta}] \\
+    \dot{y}&=u\cos{\theta}\sin{\psi}+
+    v[\cos{\phi}\cos{\psi}+\sin{\phi}\sin{\psi}\sin{\theta}]+
+    w[\cos{\phi}\sin{\psi}\sin{\theta}-\cos{\psi}\sin{\phi}] \\
+    \dot{z}&=-u\sin{\theta}+v\cos{\theta}\sin{\phi}+w\cos{\phi}\cos{\theta}
+  \end{split}
+\end{equation}
+
+\subsubsection{Equation Summary}
+
+The flat-earth, nonlinear 6-DOF equations which describe the motion of an aircraft in body axes are summarized below, and are consistent with (Stevens and Lewis pg 110).
+The nonlinear equations above started by assuming
+
+\begin{itemize}
+  \item{%
+    Flat earth, this defined the reference frames.
+    A constant velocity in the flat earth does not lead to moments, but on a spherical earth it does.
+  }
+  \item{The aircraft is a rigid body, no rotating terms due to rotating turbo machinery}
+  \item{The products of inertia $J_{xy}=J_{yz}=0$ due to symmetry of the aircraft}
+\end{itemize}
+
+\noindent{FORCE EQUATIONS}
+
+\begin{empheq}[box=\roomyfbox]{equation}
+  \tag{\ref{ssforce_eqn}}
+  \begin{split}
+    \dot{u}&=rv-qw-g_{D}\sin(\theta)+X/m \\
+    \dot{v}&=-ru+pw+g_{D}\sin(\phi)\cos(\theta)+Y/m \\
+    \dot{w}&=qu-pv+g_{D}\cos(\phi)\cos(\theta)+Z/m \\
+  \end{split}
+\end{empheq}
+
+\begin{empheq}[box=\roomyfbox]{equation}
+  \begin{split}
+    \dot{U}&=RV-QW-g\sin(\Theta)+X/m \\
+    \dot{V}&=-RU+PW+g\sin(\Phi)\cos(\Theta)+Y/m \\
+    \dot{W}&=QU-PV+g\cos(\Phi)\cos(\Theta)+Z/m \\
+  \end{split}
+\end{empheq}
+
+\noindent{MOMENT EQUATIONS}
+
+\begin{empheq}[box=\roomyfbox]{equation}
+  \tag{\ref{ssmoment_eqn}}
+  \begin{split}
+    \dot{p}&=\frac{J_{xz}(J_{xx}-J_{yy}+J_{zz})pq+[J_{zz}(J_{yy}-J_{zz})-{J_{xz}}^{2}]qr}{J_{xx}J_{zz}-{J_{xz}}^{2}}+
+    \frac{J_{zz}L+J_{xz}N}{J_{xx}J_{zz}-{J_{xz}}^{2}} \\
+    \dot{q}&=\frac{(J_{zz}-J_{xx})pr-J_{xz}(p^{2}-r^{2})}{J_{yy}}+
+    \frac{M}{J_{yy}} \\
+    \dot{r}&=\frac{[(J_{xx}-J_{yy})J_{xx}+{J_{xz}}^{2}]pq-J_{xz}[J_{xx}-J_{yy}+J_{zz}]qr}{{J_{xz}}^{2}-J_{xx}J_{zz}}+
+    \frac{J_{xz}L+J_{xx}N}{J_{xx}J_{zz}-{J_{xz}}^{2}} \\
+  \end{split}
+\end{empheq}
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \begin{split}
+    \dot{P}&=\frac{J_{xz}(J_{xx}-J_{yy}+J_{zz})PQ+[J_{zz}(J_{yy}-J_{zz})-{J_{xz}}^{2}]QR}{J_{xx}J_{zz}-{J_{xz}}^{2}}+
+    \frac{J_{zz}L+J_{xz}N}{J_{xx}J_{zz}-{J_{xz}}^{2}} \\
+    \dot{Q}&=\frac{(J_{zz}-J_{xx})PR-J_{xz}(P^{2}-R^{2})}{J_{yy}}+
+    \frac{M}{J_{yy}} \\
+    \dot{R}&=\frac{[(J_{xx}-J_{yy})J_{xx}+{J_{xz}}^{2}]PQ-J_{xz}[J_{xx}-J_{yy}+J_{zz}]QR}{{J_{xz}}^{2}-J_{xx}J_{zz}}+
+    \frac{J_{xz}L+J_{xx}N}{J_{xx}J_{zz}-{J_{xz}}^{2}} \\
+  \end{split}
+\end{empheq}
+
+\noindent{KINEMATIC EQUATIONS}
+
+\begin{empheq}[box=\roomyfbox]{equation}
+  \tag{\ref{ssorientation_eqn}}
+  \begin{split}
+    \dot{\phi}&=p+\tan(\theta)[q\sin(\phi)+r\cos(\phi)] \\
+    \dot{\theta}&=q\cos(\phi)-r\sin(\phi) \\
+    \dot{\psi}&=[q\sin(\phi)+r\cos(\phi)]/\cos(\theta) \\
+  \end{split}
+\end{empheq}
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \begin{split}
+    \dot{\Phi}&=P+\tan(\Theta)[Q\sin(\Phi)+R\cos(\Phi)] \\
+    \dot{\Theta}&=Q\cos(\Phi)-R\sin(\Phi) \\
+    \dot{\Psi}&=[Q\sin(\Phi)+R\cos(\Phi)]/\cos(\Theta) \\
+  \end{split}
+\end{empheq}
+
+\noindent{NAVIGATION EQUATIONS}
+
+\begin{empheq}[box=\roomyfbox]{equation}
+  \tag{\ref{ssposition_eqn}}
+  \begin{split}
+    \dot{x}&=u\cos{\psi}\cos{\theta}+v[\cos{\psi}\sin{\phi}\sin{\theta}-\cos{\phi}\sin{\psi}]+
+    w[\sin{\phi}\sin{\psi}+\cos{\phi}\cos{\psi}\sin{\theta}] \\
+    \dot{y}&=u\cos{\theta}\sin{\psi}+
+    v[\cos{\phi}\cos{\psi}+\sin{\phi}\sin{\psi}\sin{\theta}]+
+    w[\cos{\phi}\sin{\psi}\sin{\theta}-\cos{\psi}\sin{\phi}] \\
+    \dot{z}&=-u\sin{\theta}+v\cos{\theta}\sin{\phi}+w\cos{\phi}\cos{\theta}
+  \end{split}
+\end{empheq}
+
+The nonlinear, rigid body equations of motion are now expressed in the state space representation $\dot{X}=f(X,U)$, where the state vector $X$ and input vector $U$ are given by
+
+\begin{equation*}
+  \begin{split}
+    X&=
+    \left[
+      \begin{array}{cccccccccccc}
+        u & v & w & p & q & r &\phi & \theta & \psi & x & y & z
+      \end{array}
+    \right]^{\top} \\
+    U&=
+    \left[
+      \begin{array}{cccccc}
+        X & Y & Z & L & M & N
+      \end{array}
+    \right]^{\top} \\
+  \end{split}
+\end{equation*}
+
+The equations as represented in this form turn out to not be very useful.
+When considering the motion of a spacecraft tumbling in space, forces and moments in the body axes may be able to be directly applied using thrusters and reaction wheels.
+However, Euler angles are not the best way to represent the orientation of a tumbling spacecraft, due to singularities that exist.
+For the motion of an aircraft, the body forces and moments are not simply system inputs, as they are functions of the aircraft's current motion.
+The forces and moments in body axes would have to be calculated based on the current state and control surface deflections to be of any use.
+
+\begin{empheq}[]{alignat*=3}
+  U&=U_{\text{eq}}+u &\qquad P&=P_{\text{eq}}+p &\qquad \Phi&=\Phi_{\text{eq}}+\phi{} \\
+  V&=V_{\text{eq}}+v &\qquad Q&=Q_{\text{eq}}+q &\qquad \Theta&=\Theta_{\text{eq}}+\theta{}\\
+  W&=W_{\text{eq}}+w &\qquad R&=R_{\text{eq}}+R &\qquad \Psi&=\Psi_{\text{eq}}+\psi{}
+\end{empheq}
+
+\subsubsection{Stability Axes}
+
+\begin{equation*}
+  \sin(\alpha) = \frac{w}{V_{\text{eq}}}
+\end{equation*}
+
+approximating
+
+\begin{equation*}
+  \alpha \approx \frac{w}{V_{\text{eq}}}
+\end{equation*}
+
+\section{Linearizing}
+
+Consider the following system
+
+\begin{equation}
+  \label{eqn.xdotfxu}
+  \dot{X}=f({X},U)
+\end{equation}
+
+The equilibrium, or trim state $X_{\text{eq}}$ and input $U_{\text{eq}}$ satisfy
+
+\begin{equation}
+  \label{eqn.eqptdef}
+  \dot{X}_{\text{eq}}=f({X}_{\text{eq}},U_{\text{eq}})=0
+\end{equation}
+
+The equilibrium state and input are found for the nominal steady, level cruise condition, and Equation (\ref{eqn.xdotfxu}) is linearized about this trim condition as follows.
+Defining $x$ and $u$ to be state and input perturbations about equilibrium, the state and input can be expressed as
+
+\begin{equation*}
+  \begin{split}
+    X&=X_{\text{eq}}+x \\
+    U&=U_{\text{eq}}+u
+  \end{split}
+\end{equation*}
+
+Using this representation for $X$ and $U$ we have
+
+\begin{equation*}
+  \begin{split}
+    \dot{X}=\dot{x}&=f(X, U) \\
+    &=f(X_{\text{eq}}+x,U_{\text{eq}}+u)
+  \end{split}
+\end{equation*}
+
+Performing a Taylor series expansion, neglecting second order terms and higher
+
+\begin{equation*}
+  f(X,U)= f(X_{\text{eq}},U_{\text{eq}})+\left.\frac{\partial{}f(X,U)}{\partial{}X}\right|_{\text{eq}}x+\left.\frac{\partial{}f(X,U)}{\partial{}U}\right|_{\text{eq}}u+\epsilon
+\end{equation*}
+
+where the subscript $(\cdot)_{\text{eq}}$ indicates these quantities be evaluated at the equilibrium point.
+With $f(X_{\text{eq}},U_{\text{eq}})=0$, the linearization results in the state-space system given by
+
+\begin{equation}
+  \label{eqn.linss}
+  \dot{x}=Ax+Bu
+\end{equation}
+
+where
+
+\begin{equation}
+  \label{eqn.AandB}
+  A=\left.\frac{\partial{}f(X,U)}{\partial{}X}\right|_{\text{eq}}^{}
+  \hspace{0.5in}
+  B=\left.\frac{\partial{}f(X,U)}{\partial{}U}\right|_{\text{eq}}^{}
+\end{equation}
+
+So now we need to see how to actually evaluate\ \eqref{eqn.AandB}.
+
+\begin{equation*}
+  \left.\frac{\partial{}f(X,U)}{\partial{}X}\right|_{\text{eq}}^{} =\frac{\partial{}f(X,U)}{\partial{}X_{1}}\biggr|_{\text{eq}}+\frac{\partial{}f(X,U)}{\partial{}X_{2}}\biggr|_{\text{eq}}+\frac{\partial{}f(X,U)}{\partial{}X_{3}}\biggr|_{\text{eq}}+\dots
+\end{equation*}
+
+Let's do an example from the $X$-force equation.
+The use of $U$ as either control input vector or velocity can be deduced by context, as can $X$ as either the force vector in the $X$-direction, or to mean the state vector.
+
+\begin{equation*}
+  \dot{U}=RV-QW-g\sin(\Theta)+X/m
+\end{equation*}
+
+So in this example, $f(X,U)=RV-QW-g\sin(\Theta)+X/m$.
+First term.
+
+\begin{equation*}
+  \frac{\partial{}f}{\partial{}(X_{1}=U)}\biggr|_{\text{eq}}=0
+\end{equation*}
+
+\subsection{Stability and Control Derivatives}
+
+The equations in the form $\dot{X}=f(X,U)$ will do little to help solve control problems for aircraft using the current input $U$ (total forces and moments).
+For a spacecraft in outer space, the input vector $U$ is quite reasonable: forces and torques in body axes could be generated using thrusters and/or reaction wheels.
+When the thrusters are switched off, no other forces will act on the spacecraft.
+However, for an aircraft, the ``input'' $U$ is not so much an input, as it is itself a function of the state $X$, as well as other terms (such as $\dot{w}$).
+That is, the forces and moments generated during flight depend on the state of the aircraft; the aircraft's current velocity, in addition to control surface deflections, determines the total body force.
+
+Under steady straight and level flight, the longitudinal and lateral equations can be decoupled.
+
+\subsection{Longitudinal Equations}
+
+Grouping the longitudinal equations below, and dropping the dependency on the lateral variables:
+
+\begin{equation*}
+  \begin{split}
+    \dot{u}&=qw-g_{0}\sin(\theta)+X/m \\
+    \dot{w}&=qu+g_{0}\cos(\phi)\cos(\theta)+Z/m \\
+    \dot{q}&=\frac{M}{J_{yy}} \\
+    \dot{\theta}&=q \\
+  \end{split}
+\end{equation*}
+
+%substituting in relationship for Z force in stability axes
+%
+%\begin{equation*}
+%\begin{split}
+%\dot{u}&=qw-g_{0}\sin(\theta)+X/m \\
+%\dot{w}&=qu+g_{0}\cos(\phi)\cos(\theta)+Z/m \\
+%\dot{q}&=\frac{M}{J_{yy}} \\
+%\dot{\theta}&=q \\
+%\end{split}
+%\end{equation*}
+
+These equations are to be linearized about a trim point $X_{\text{eq}}$.
+The state $X$ and input $U$ are given by: $X=X_{\text{eq}}+\Delta X$ and $U=U_{\text{eq}}+\Delta U$.
+The perturbation state and input $\Delta X$ and $\Delta U$, respectively, are given by:
+
+\begin{equation*}
+  \begin{split}
+    \Delta X&=
+    \left[
+      \begin{array}{cccccccccccc}
+      \Delta u & \Delta v & \Delta w & \Delta p & \Delta q & \Delta r &\Delta \phi & \Delta \theta & \Delta \psi & \Delta x & \Delta y & \Delta z
+      \end{array}
+    \right]^{\top} \\
+    \Delta{}U&=
+    \left[
+      \begin{array}{cccc}
+      \delta_{\text{th}} & \delta_{e} & \delta_{a} & \delta_{r}
+      \end{array}
+    \right]^{\top} \\
+  \end{split}
+\end{equation*}
+
+%Performing a Taylor series expansion of $\dot{X}=f(X,U)$, where $\epsilon$ represents terms of order greater than two:
+%\begin{equation*}
+%\Delta\dot{X}=f(X_{\text{eq}},U_{\text{eq}})+\left.\frac{\partial{}f}{\partial{}X}\right|_{\text{eq}}^{}\Delta X+\left.\frac{\partial{}f}{\partial{}U}\right|_{\text{eq}}^{}\Delta U+\epsilon
+%\end{equation*}
+%with $f(X_{\text{eq}},U_{\text{eq}})=0$, and neglecting higher order terms
+%\begin{equation*}
+%\Delta\dot{X}\approx\left.\frac{\partial{}f}{\partial{}X}\right|_{\text{eq}}^{}\Delta X+\left.\frac{\partial{}f}{\partial{}U}\right|_{\text{eq}}^{}\Delta U
+%\end{equation*}
+
+\subsubsection{Linearizing}
+
+Linearizing for the $x$ force equation:
+
+\begin{equation}
+  \label{eqn.eqn.aircraft.label_eqn_1}
+  m\dot{u}=-mqw-mg_{0}\sin(\theta)+X
+\end{equation}
+
+where, for an aircraft the force $X$ is a function given by $X(u,\dot{u},w,\dot{w},q,\dot{q},\delta_{e},\dot{\delta}_{e},\delta_{\text{th}})$.
+The linearization yields:
+
+\begin{equation*}
+  \label{eqn.eqn.aircraft.label_eqn_2}
+  \begin{split}
+    m\Delta\dot{u}=
+    \frac{\partial{}X}{\partial{}u}\Delta u&+
+    \frac{\partial{}X}{\partial{}\dot{u}}\Delta\dot{u}+
+    \left(\frac{\partial{}X}{\partial{}w}-mq_{\text{eq}}\right)\Delta w+
+    \frac{\partial{}X}{\partial{}\dot{w}}\Delta\dot{w} \\
+    &+
+    \left(\frac{\partial{}X}{\partial{}q}-mw_{\text{eq}}\right)\Delta q+
+    \frac{\partial{}X}{\partial{}\dot{q}}\Delta\dot{q}-
+    g_{D}\cos(\theta_{\text{eq}})\Delta\theta \\
+    &+
+    \frac{\partial{}X}{\partial{}\delta_{e}}\Delta\delta_{e}+
+    \frac{\partial{}X}{\partial{}\dot{\delta}_{e}}\Delta\dot{\delta}_{e}+
+    \frac{\partial{}X}{\partial{}\delta_{\text{th}}}\Delta\delta_{\text{th}}
+  \end{split}
+\end{equation*}
+
+Dividing through by $m$ and using the following definition
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  X_{i}=\frac{1}{m}\frac{\partial{}X}{\partial{}i}
+\end{empheq}
+
+gives
+
+\begin{equation*}
+  \label{aicraft.label_eqn_3}
+  \begin{split}
+    \Delta\dot{u}=
+    X_{u}\Delta u&+
+    X_{\dot{u}}\Delta\dot{u}+
+    \left(X_{w}-q_{\text{eq}}\right)\Delta w+
+    X_{\dot{w}}\Delta\dot{w}+
+    \left(X_{q}-w_{\text{eq}}\right)\Delta q+
+    X_{\dot{q}}\Delta\dot{q}-
+    g_{D}\cos(\theta_{\text{eq}})\Delta\theta \\
+    &+
+    X_{\delta_{e}}\Delta\delta_{e}+
+    X_{\dot{\delta}_{e}}\Delta\dot{\delta}_{e}+
+    X_{\delta_{\text{th}}}\Delta\delta_{\text{th}}
+  \end{split}
+\end{equation*}
+
+By studying aircraft aerodynamic data it is found that many of the stability derivatives under most flight conditions can be neglected.
+These typically are (McLean pg 33, Nelson pg 149):
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+    X_{\dot{u}},\;X_{q}\;X_{\dot{w}}\;X_{\delta_{e}}\;Z_{\dot{u}}\;Z_{\dot{w}}\;M_{\dot{u}}\;Z_{\dot{\delta}_{e}}\;M_{\dot{\delta}_{e}}
+\end{empheq}
+
+giving:
+
+\begin{equation*}
+  \label{eqn.eqn.aircraft.label_eqn_4}
+  \Delta\dot{u}=
+  X_{u}\Delta u+
+  \left(X_{w}-q_{\text{eq}}\right)\Delta w+
+  \left(X_{q}-w_{\text{eq}}\right)\Delta q+
+  X_{\dot{q}}\Delta\dot{q}-
+  g_{D}\cos(\theta_{\text{eq}})\Delta\theta+
+  X_{\delta_{e}}\Delta\delta_{e}+
+  X_{\delta_{\text{th}}}\Delta\delta_{\text{th}}
+\end{equation*}
+
+evaluating this linearization about steady wings level flight:
+
+\begin{equation*}
+  \Delta\dot{u}=
+  X_{u}\Delta u+
+  X_{w}\Delta w+
+  \left(X_{q}-w_{\text{eq}}\right)\Delta q-
+  g_{D}\cos(\theta_{\text{eq}})\Delta\theta+
+  X_{\delta_{e}}\Delta\delta_{e}+
+  X_{\delta_{\text{th}}}\Delta\delta_{\text{th}}
+\end{equation*}
+
+For the $w$ equation
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  Z_{i}=\frac{1}{m}\frac{\partial{}Z}{\partial{}i}
+\end{empheq}
+
+\begin{equation*}
+  \label{eqn.aircraft.label_eqn_5}
+  \Delta\dot{w}=
+  Z_{u}\Delta u+
+  Z_{w}\Delta w+
+  \left(Z_{q}+u_{\text{eq}}\right)\Delta q-
+  g_{D}\sin(\theta_{\text{eq}})\Delta\theta+
+  Z_{\delta_{e}}\Delta\delta_{e}+
+  Z_{\delta_{\text{th}}}\Delta\delta_{\text{th}}
+\end{equation*}
+
+For the $q$ equation
+
+\begin{equation*}
+  \label{eqn.aircraft.label_eqn_6}
+  \Delta\dot{q}=
+  M_{u}\Delta u+
+  M_{\dot{u}}\Delta\dot{u}+
+  M_{w}\Delta w+
+  M_{\dot{w}}\Delta\dot{w}+
+  M_{q}\Delta q+
+  M_{\dot{q}}\Delta\dot{q}+
+  M_{\delta_{e}}\Delta\delta_{e}+
+  M_{\dot{\delta}_{e}}\Delta\dot{\delta}_{e}+
+  M_{\delta_{\text{th}}}\Delta\delta_{\text{th}}
+\end{equation*}
+
+Where the following definition is used
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  M_{i}=\frac{1}{J_{yy}}\frac{\partial{}M}{\partial{}i}
+\end{empheq}
+
+Dropping small terms gives
+
+\begin{equation*}
+  \Delta\dot{q}=
+  M_{u}\Delta u+
+  M_{w}\Delta w+
+  M_{\dot{w}}\Delta\dot{w}+
+  M_{q}\Delta q+
+  M_{\dot{q}}\Delta\dot{q}+
+  M_{\delta_{e}}\Delta\delta_{e}+
+  M_{\delta_{\text{th}}}\Delta\delta_{\text{th}}
+\end{equation*}
+
+writing these equations in the form $E\dot{x}=Ax+Bu$:
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \left[
+    \begin{array}{cccc}
+      1 & 0 & 0 & 0 \\[4pt]
+      0 & 1-Z_{\dot{w}} & 0 & 0 \\[4pt]
+      0 & -M_{\dot{w}} & 1 & 0 \\[4pt]
+      0 & 0 & 0 & 1
+    \end{array}
+  \right]
+  \left[
+    \begin{array}{c}
+      \Delta\dot{u} \\[4pt]
+      \Delta\dot{w} \\[4pt]
+      \Delta\dot{q} \\[4pt]
+      \Delta\dot{\theta}
+    \end{array}
+  \right]
+  =
+  \left[
+    \begin{array}{cccc}
+      X_{u} & X_{w} & X_{q}-w_{\text{eq}} & -g_{0}\cos(\theta_{\text{eq}}) \\[4pt]
+      Z_{u} & Z_{w} & Z_{q}+u_{\text{eq}} & -g_{0}\sin(\theta_{\text{eq}}) \\[4pt]
+      M_{u} &M_{w} & M_{q} & 0 \\[4pt]
+      0 & 0 & 1 & 0
+    \end{array}
+  \right]
+  \left[
+    \begin{array}{c}
+      \Delta u \\[4pt]
+      \Delta w \\[4pt]
+      \Delta q \\[4pt]
+      \Delta \theta
+    \end{array}
+  \right]
+  +
+  \left[
+    \begin{array}{cc}
+      X_{\delta_{\text{th}}} & X_{\delta_{e}} \\[4pt]
+      Z_{\delta_{\text{th}}} & Z_{\delta_{e}} \\[4pt]
+      M_{\delta_{\text{th}}} & M_{\delta_{e}} \\[4pt]
+      0 & 0
+    \end{array}
+  \right]
+  \left[
+    \begin{array}{c}
+      \Delta\delta_{\text{th}} \\[4pt]
+      \Delta\delta_{e}
+    \end{array}
+  \right]
+\end{empheq}
+
+where $E$ is given by
+
+\begin{equation*}
+E =
+\left[
+  \begin{array}{cccc}
+    1 & 0 & 0 & 0 \\[4pt]
+    0 & 1-Z_{\dot{w}} & 0 & 0 \\[4pt]
+    0 & -M_{\dot{w}} & 1 & 0 \\[4pt]
+    0 & 0 & 0 & 1
+  \end{array}
+\right]
+\end{equation*}
+
+with inverse given by
+
+\begin{equation*}
+E^{-1} =
+\left[
+  \begin{array}{cccc}
+    1 & 0 & 0 & 0 \\[4pt]
+    0 & \frac{1}{1-Z_{\dot{w}}} & 0 & 0 \\[4pt]
+    0 & \frac{M_{\dot{w}}}{1-Z_{\dot{w}}} & 1 & 0 \\[4pt]
+    0 & 0 & 0 & 1
+  \end{array}
+\right]
+\end{equation*}
+
+Multiplying stuff out
+
+\begin{equation*}
+  \left[
+    \begin{array}{cccc}
+      1 & 0 & 0 & 0 \\[4pt]
+      0 & \frac{1}{1-Z_{\dot{w}}} & 0 & 0 \\[4pt]
+      0 & \frac{M_{\dot{w}}}{1-Z_{\dot{w}}} & 1 & 0 \\[4pt]
+      0 & 0 & 0 & 1
+    \end{array}
+  \right]
+  \left[
+    \begin{array}{cccc}
+      X_{u} & X_{w} & X_{q}-w_{\text{eq}} & -g_{0}\cos(\theta_{\text{eq}}) \\[4pt]
+      Z_{u} & Z_{w} & Z_{q}+u_{\text{eq}} & -g_{0}\sin(\theta_{\text{eq}}) \\[4pt]
+      M_{u} &M_{w} & M_{q} & 0 \\[4pt]
+      0 & 0 & 1 & 0
+    \end{array}
+  \right]
+  =
+  \left[
+    \begin{array}{cccc}
+      X_{u} & X_{w} & X_{q}-w_{\text{eq}} & -g_{0}\cos(\theta_{\text{eq}}) \\
+      \frac{Z_{u}}{1-Z_{\dot{w}}} & \frac{Z_{w}}{1-Z_{\dot{w}}} & \frac{Z_{q}+u_{\text{eq}}}{1-Z_{\dot{w}}} & -\frac{g_{0}\sin(\theta_{\text{eq}})}{1-Z_{\dot{w}}} \\
+      \frac{Z_{u}M_{\dot{w}}}{1-Z_{\dot{w}}}+M_{u} & \frac{Z_{w}M_{\dot{w}}}{1-Z_{\dot{w}}}+M_{w} & \frac{(Z_{q}+u_{\text{eq}})M_{\dot{w}}}{1-Z_{\dot{w}}}+M_{q} & -\frac{g_{0}\sin(\theta_{\text{eq}})M_{\dot{w}}}{1-Z_{\dot{w}}} \\
+      0 & 0 & 1 & 0
+    \end{array}
+  \right]
+\end{equation*}
+
+IN STABILITY AXES
+
+\begin{equation*}
+  \begin{bmatrix}
+    \dot{\alpha} \\
+    \dot{q}
+  \end{bmatrix}=
+  \begin{bmatrix}
+    \frac{Z_{\alpha}}{V_{0}} & 1+\frac{Z_{q}}{V_{0}} \\
+    M_{\alpha} & M_{q}
+  \end{bmatrix}
+  \begin{bmatrix}
+    \alpha \\
+    q
+  \end{bmatrix}+
+  \begin{bmatrix}
+    \frac{Z_{\delta_{e}}}{V_{0}} \\
+    M_{\delta_{e}}
+  \end{bmatrix}
+  \delta_{e}
+\end{equation*}
+
+Linearizing the altitude equation to get $\dot{h}$ for the body-fixed axis system.
+
+\begin{equation*}
+  \dot{H} = U\sin(\Theta)-W\cos(\Theta)
+\end{equation*}
+
+\begin{equation*}
+  \dot{H} = \dot{h} = f(U, W, \Theta) = U\sin(\Theta)-W\cos(\Theta)
+\end{equation*}
+
+\begin{equation*}
+  \dot{h} = \frac{\partial{}f}{\partial{}(U)}\biggr|_{\text{eq}}u + \frac{\partial{}f}{\partial{}(W)}\biggr|_{\text{eq}}w + \frac{\partial{}f}{\partial{}(\Theta)}\biggr|_{\text{eq}}\theta
+\end{equation*}
+
+\begin{equation*}
+  \dot{h} = \sin(\Theta_{\text{eq}})u - \cos(\Theta_{\text{eq}})w + U_{\text{eq}}\cos(\Theta_{\text{eq}})\theta + W_{\text{eq}}\sin(\Theta_{\text{eq}})\theta
+\end{equation*}
+
+A bit of an abuse of notation, but $U_{\text{eq}} = u_{\text{eq}}$, $W_{\text{eq}} = w_{\text{eq}}$, and $\Theta_{\text{eq}} = \theta_{\text{eq}}$.
+
+\begin{equation*}
+  \dot{h} = \sin(\theta_{\text{eq}})u - \cos(\theta_{\text{eq}})w + u_{\text{eq}}\cos(\theta_{\text{eq}})\theta + w_{\text{eq}}\sin(\theta_{\text{eq}})\theta
+\end{equation*}
+
+Applying small angles $\sin(\theta_{\text{eq}}) = 0$ and $\cos(\theta_{\text{eq}}) = 1$
+
+\begin{equation*}
+  \dot{h} = u_{\text{eq}}\theta - w
+\end{equation*}
+
+\subsection{Lateral-Directional Equations}
+
+Now the lateral equations are grouped, and the dependency on the longitudinal variables under steady wings level flight is dropped:
+
+\begin{equation*}
+  \begin{split}
+    \dot{v}&=-ru+pw+g_{D}\sin(\phi)\cos(\theta)+Y/m \\
+    \dot{p}&=\frac{J_{xz}(-J_{xx}+J_{yy}-J_{zz})pq+[J_{zz}(J_{yy}-J_{zz})-{J_{xz}}^{2}]qr}{J_{xx}J_{zz}-{J_{xz}}^{2}}+
+    \frac{J_{zz}L-J_{xz}N}{J_{xx}J_{zz}-{J_{xz}}^{2}} \\
+    \dot{r}&=\frac{[(J_{xx}-J_{yy})J_{xx}+{J_{xz}}^{2}]pq+J_{xz}[J_{xx}-J_{yy}+J_{zz}]qr}{J_{xx}J_{zz}-{J_{xz}}^{2}}+
+    \frac{-J_{xz}L+J_{xx}N}{J_{xx}J_{zz}-{J_{xz}}^{2}} \\
+    \dot{\phi}&=p \\
+  \end{split}
+\end{equation*}
+
+Following the same procedure as was done for the longitudinal equations, and using the following definitions
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  Y_{i}=\frac{1}{m}\frac{\partial{}Y}{\partial{}i} \quad
+  L_{i}=\frac{1}{J_{xx}}\frac{\partial{}Y}{\partial{}i} \quad
+  N_{i}=\frac{1}{J_{zz}}\frac{\partial{}N}{\partial{}i}
+\end{empheq}
+
+The lateral-directional linearized equations of motion can be written in the form $E\dot{x}=Ax+Bu$
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \left[
+    \begin{array}{cccc}
+      1 & 0 & 0 & 0 \\[4pt]
+      0 & 1 & -\frac{J_{xz}}{J_{xx}} & 0 \\[4pt]
+      0 & -\frac{J_{xz}}{J_{zz}} & 1 & 0 \\[4pt]
+      0 & 0 & 0 & 1
+    \end{array}
+  \right]
+  \left[
+    \begin{array}{c}
+      \dot{v} \\[4pt]
+      \dot{p} \\[4pt]
+      \dot{r} \\[4pt]
+      \dot{\phi}
+    \end{array}
+  \right]
+  =
+  \left[
+    \begin{array}{cccc}
+      Y_{v} & Y_{p} & Y_{r}-u_{\text{eq}} & -g_{0}\cos(\theta_{\text{eq}}) \\[4pt]
+      L_{v} & L_{p} & L_{r} & 0 \\[4pt]
+      N_{v} & N_{p} & N_{r} & 0 \\[4pt]
+      0 & 1 & 0 & 0
+    \end{array}
+  \right]
+  \left[
+    \begin{array}{c}
+      v \\[4pt]
+      p \\[4pt]
+      r \\[4pt]
+      \phi
+    \end{array}
+  \right]
+  +
+  \left[
+    \begin{array}{cc}
+      Y_{\delta_{a}} & Y_{\delta_{r}} \\[4pt]
+      L_{\delta_{a}} & L_{\delta_{r}} \\[4pt]
+      N_{\delta_{a}} & N_{\delta_{r}} \\[4pt]
+      0 & 0
+    \end{array}
+  \right]
+  \left[
+    \begin{array}{c}
+      \delta_{a} \\[4pt]
+      \delta_{r}
+    \end{array}
+  \right]
+\end{empheq}
+
+From Yechout page 291
+
+\begin{equation*}
+  \left[
+    \begin{array}{cccc}
+      1 & 0 & 0 & 0 \\[4pt]
+      0 & 1 & -\frac{J_{xz}}{J_{xx}} & 0 \\[4pt]
+      0 & -\frac{J_{xz}}{J_{zz}} & 1 & 0 \\[4pt]
+      0 & 0 & 0 & 1
+    \end{array}
+  \right]
+  \left[
+    \begin{array}{c}
+      \dot{v} \\[4pt]
+      \dot{p} \\[4pt]
+      \dot{r} \\[4pt]
+      \dot{\phi}
+    \end{array}
+  \right]=
+  \left[
+    \begin{array}{cccc}
+      Y_{v} & Y_{p} & Y_{r}-U_{\text{eq}} & g\cos(\Theta_{\text{eq}}) \\[4pt]
+      L_{v} & L_{p} & L_{r} & 0 \\[4pt]
+      N_{v} & N_{p} & N_{r} & 0 \\[4pt]
+      0 & 1 & 0 & 0
+    \end{array}
+  \right]
+  \left[
+    \begin{array}{c}
+      v \\[4pt]
+      p \\[4pt]
+      r \\[4pt]
+      \phi
+    \end{array}
+  \right]+
+  \left[
+    \begin{array}{cc}
+      Y_{\delta_{a}} & Y_{\delta_{r}} \\[4pt]
+      L_{\delta_{a}} & L_{\delta_{r}} \\[4pt]
+      N_{\delta_{a}} & N_{\delta_{r}} \\[4pt]
+      0 & 0
+    \end{array}
+  \right]
+  \left[
+    \begin{array}{c}
+    \delta_{a} \\[4pt]
+    \delta_{r}
+    \end{array}
+  \right]
+\end{equation*}
+
+\begin{equation*}
+  \left[
+    \begin{array}{cccc}
+      1 & 0 & 0 & 0 \\[4pt]
+      0 & 1 & -\frac{J_{xz}}{J_{xx}} & 0 \\[4pt]
+      0 & -\frac{J_{xz}}{J_{zz}} & 1 & 0 \\[4pt]
+      0 & 0 & 0 & 1
+    \end{array}
+  \right]^{-1}=
+  \left[
+    \begin{array}{cccc}
+      1 & 0 & 0 & 0 \\[4pt]
+      0 & \frac{J_{xx}J_{zz}}{J_{xx}J_{zz}-J_{xz}^{2}} & \frac{J_{xz}J_{zz}}{J_{xz}^{2}-J_{xx}J_{zz}} & 0 \\[4pt]
+      0 & \frac{J_{xz}J_{xx}}{J_{xz}^{2}-J_{xx}J_{zz}} &  \frac{J_{xx}J_{zz}}{J_{xx}J_{zz}-J_{xz}^{2}} & 0 \\[4pt]
+      0 & 0 & 0 & 1
+    \end{array}
+  \right]
+\end{equation*}
+
+See also McLean page 37, where he defines primed stability derivatives, and then makes the linear model as follows, as shown on page 49.
+The primed notation just takes into account coupling.
+
+\begin{equation*}
+  \left[
+    \begin{array}{c}
+      \dot{\beta} \\[4pt]
+      \dot{p} \\[4pt]
+      \dot{r} \\[4pt]
+      \dot{\phi}
+    \end{array}
+  \right]=
+  \left[
+    \begin{array}{cccc}
+      Y_{\beta} & 0 & -1 & \frac{g}{U_{\text{eq}}} \\[4pt]
+      L_{\beta} & L_{p} & L_{r} & 0 \\[4pt]
+      N_{\beta} & N_{p} & N_{r} & 0 \\[4pt]
+      0 & 1 & 0 & 0
+    \end{array}
+  \right]
+  \left[
+    \begin{array}{c}
+      \beta \\[4pt]
+      p \\[4pt]
+      r \\[4pt]
+      \phi
+    \end{array}
+  \right]+
+  \left[
+    \begin{array}{cc}
+      0 & Y_{\delta_{r}} \\[4pt]
+      L_{\delta_{a}} & L_{\delta_{r}} \\[4pt]
+      N_{\delta_{a}} & N_{\delta_{r}} \\[4pt]
+      0 & 0
+    \end{array}
+  \right]
+  \left[
+    \begin{array}{c}
+      \delta_{a} \\[4pt]
+      \delta_{r}
+    \end{array}
+  \right]
+\end{equation*}
+
+SEE STENGEL BOOK PAGE 293 HAS THE FULL LINEAR EQUATIONS WILL ALL THE TERMS IN THEM!\@
+
+\section{Overview of Equations for Spherical, Rotating Earth}
+
+In this section the equations of motion describing the flight of a vehicle in the Earth's atmosphere are described.
+The Earth is assumed to be spherical, and rotating about the $z$-axis of an inertially fixed reference frame.
+The Earth's atmosphere is assumed to move with the relative rotation of the Earth.
+
+\paragraph{Force Equations}
+In (Bilimoria, Schmidt)
+
+\begin{empheq}[box=\roomyfbox]{equation}\label{eqn.aircraft.label_eqn_7}
+  \frac{dV_{A}}{dt}\biggr|_{B}+\omega_{B,I}\times{}V_{A}+
+  \omega_{E,I}\times{}V_{A}+\omega_{E,I}\times(\omega_{E,I}\times\mathscr{R})=
+  g+(F_{A}+F_{T})/m
+\end{empheq}
+
+Where $V_{A}=\begin{bmatrix} u & v & w \end{bmatrix}^{\top}$ and $\omega_{B,I}=\begin{bmatrix} p & q & r \end{bmatrix}^{\top}$.
+The force equations in $F_{B}$ are given by: (Etkin pg 123- 143)
+
+\begin{equation*}
+  \begin{split}
+    X-mg\sin{\theta}&=m[\dot{u}+(q^{E}_{B}+q)w-(r^{E}_{B}+r)v] \\
+    Y+mg\cos{\theta}\sin{\phi}&=m[\dot{v}+(r^{E}_{B}+r)u-(p^{E}_{B}+p)w] \\
+    Z+mg\cos{\theta}\sin{\phi}&=m[\dot{w}+(p^{E}_{B}+p)v-(q^{E}_{B}+q)u] \\
+  \end{split}
+\end{equation*}
+
+\paragraph{Moment Equations}
+
+\begin{empheq}[box=\roomyfbox]{equation}\label{eqn.aircraft.label_eqn_8}
+  J\frac{d\omega_{B,I}}{dt}\biggr|_{B}+\omega_{B,I}\times{}J\omega_{B,I}=M_{A}+M_{T}
+\end{empheq}
+
+The moment equations in $F_{B}$ are given by the following, where as in the force equations, the moments $L$, $M$, and $N$ are computed from look-up tables.
+
+\begin{equation*}
+  \begin{split}
+    L&=I_{x}\dot{p}-I_{yz}(q^{2}-r^{2})-I_{zx}(\dot{r}+pq)-I_{xy}(\dot{q}-rp)-(I_{y}-I_{z})qr \\
+    M&=I_{y}\dot{q}-I_{zx}(r^{2}-p^{2})-I_{xy}(\dot{p}+qr)-I_{yz}(\dot{r}-pq)-(I_{z}-I_{x})rp \\
+    N&=I_{z}\dot{r}-I_{xy}(p^{2}-q^{2})-I_{yz}(\dot{q}+rp)-I_{zx}(\dot{p}-qr)-(I_{x}-I_{y})pq
+  \end{split}
+\end{equation*}
+
+\paragraph{Orientation Equations}
+
+The orientation kinematic equation is given by
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \omega_{B,V}|^{Eu}=T\omega_{B,V}|^{B}
+\end{empheq}
+
+where the following is the transformation matrix $T$ from body axes to Euler axes
+
+\begin{equation*}
+  T=
+  \left[
+    \begin{array}{ccc}
+      1 & \tan(\theta)\sin(\phi) & \tan(\theta)\cos(\phi) \\
+      0 & \cos(\phi) & -\sin(\phi) \\
+      0 & \sin(\phi)/\cos(\theta) & \cos(\phi)/\cos(\theta)
+    \end{array}
+  \right]
+\end{equation*}
+
+Expressing this equation in terms of the scalar components
+
+\begin{equation*}
+  \begin{bmatrix}
+    \dot{\phi} \\
+    \dot{\theta} \\
+    \dot{\psi}
+  \end{bmatrix} =
+  \begin{bmatrix}
+    1 & \sin{\phi}\tan{\theta} & \cos{\phi}\tan{\theta} \\
+    0 & \cos{\phi} & -\sin{\phi} \\
+    0 & \sin{\phi}\sec{\theta} & \cos{\phi}\sec{\theta}
+  \end{bmatrix}
+  \begin{bmatrix}
+    p_{v} \\
+    q_{v} \\
+    r_{v}
+  \end{bmatrix}
+\end{equation*}
+
+where
+
+\begin{equation*}
+  \begin{bmatrix}
+    p_{v} \\
+    q_{v} \\
+    r_{v}
+  \end{bmatrix}=
+  \begin{bmatrix}
+    p \\
+    q \\
+    r
+  \end{bmatrix}-R_{BV}
+  \begin{bmatrix}
+    (\omega_{\text{earth}}+\dot{\tau})\cos{\lambda} \\
+    -\dot{\lambda} \\
+    -(\omega_{\text{earth}}+\dot{\tau})\sin{\lambda}
+  \end{bmatrix}
+\end{equation*}
+
+Etkin uses captial letters to denote angular velocity of the aircraft with respect to the vehicle carrying frame, whereas Bilimoria and Schmidt use subscript v.
+
+\begin{equation*}
+  \begin{bmatrix}
+    p_{v} \\
+    q_{v} \\
+    r_{v}
+  \end{bmatrix}=
+  \begin{bmatrix}
+    P \\
+    Q \\
+    R
+  \end{bmatrix}
+\end{equation*}
+
+The following rotation matrix is used to rotate a vector $A$ expressed in the the vehicle carrying frame $f_{V}$ to be expressed in body frame $f_{B}$.
+That is: $A|^{B}=R_{BV}A|^{V}$.
+This rotation matrix $R_{BV}$ is given by (Bilimoria and Schmidt use the notation $[T]$):
+
+\begin{equation*}
+  R_{BV}=
+  \begin{bmatrix}
+    \cos{\theta}\cos{\psi} & \cos{\theta}\sin{\psi} & -\sin{\theta} \\
+    \sin{\phi}\sin{\theta}\cos{\psi}-\cos{\phi}\sin{\psi} &  \sin{\phi}\sin{\theta}\sin{\psi}+\cos{\phi}\cos{\psi} & \sin{\phi}\cos{\theta}\\
+    \cos{\phi}\sin{\theta}\cos{\psi}+\sin{\phi}\sin{\psi} &  \cos{\phi}\sin{\theta}\sin{\psi}-\sin{\phi}\cos{\psi} & \cos{\phi}\cos{\theta}
+  \end{bmatrix}
+\end{equation*}
+
+The rotation matrix from the body frame $f_{B}$  to the vehicle carrying frame $f_{V}$ is given by:
+
+\begin{equation*}
+  R_{VB}={R_{BV}}^{-1}={R_{BV}}^{\top}
+\end{equation*}
+
+Kinematics:
+
+\begin{equation}
+  V^{E}_{B}=
+  \begin{bmatrix}
+    u \\
+    v \\
+    w
+  \end{bmatrix} +
+  \begin{bmatrix}
+    W_{x} \\
+    W_{y} \\
+    W_{z}
+  \end{bmatrix}
+\end{equation}
+
+Finally, the absolute angular velocity are shown, as well as the angular velocity components due to the Earth's rotation in $F_{B}$:
+
+\begin{equation*}
+  \omega_{B}=
+  \begin{bmatrix}
+    p \\
+    q \\
+    r
+  \end{bmatrix},
+  \hspace{0.5in}
+  \omega^{E}_{B}=
+  \begin{bmatrix}
+    p^{E}_{B} \\
+    q^{E}_{B} \\
+    r^{E}_{B}
+  \end{bmatrix}
+  = L_{BV}
+  \begin{bmatrix}
+    \cos{\lambda} \\
+    0 \\
+    -\sin{\lambda}
+  \end{bmatrix}
+  \omega_{\text{earth}}
+\end{equation*}
+
+\paragraph{Navigation Equations}
+
+The trajectory kinematics are given by rotating the absolute velocity components of $F_{B}$ into $F_{EC}$.
+Bilimoria and Schmidt use $[T]^{\top}$ instead of $L_{VB}$ like Etkin.
+The navigation kinematic equation is given by
+\begin{empheq}[box=\roomyfbox]{equation*}
+  V_{A}|^{V}={R_{BV}}^{\top}V_{A}|^{B}
+\end{empheq}
+
+\begin{equation*}
+  \begin{bmatrix}
+    \dot{\lambda}\mathscr{R} \\
+    \dot{\tau}\mathscr{R}\cos{\lambda} \\
+    -\dot{\mathscr{R}}
+  \end{bmatrix} = L_{VB}
+  \begin{bmatrix}
+    u \\
+    v \\
+    w
+  \end{bmatrix}
+\end{equation*}
+
+\section{Representation of Uncertainties in Aircraft Model}
+
+\subsection{Center of Gravity Shift}
+
+Start with the nonlinear 6-DOF equations of motion for flat earth.
+We could show the effect of the CG shift as well using the equations of motion for a spherical, rotating earth, but essentially its the same thing.
+Looking at the force and moment equations from Stevens and Lewis page 110, and shown as equations 6 and 7 above, these are just Newtons second law.
+In these equations, there is no specification to where the origin of the body-fixed coordinate system is.
+So, when it comes to the moment equations with moment M and moment of inertia terms J, we haven't yet specified about which point this moment is to be taken.
+This moment M is the entire moment on the vehicle? Aerodynamic, thrust, and gravity?
+Need to look what the convention is for moment in body axes.
+Should be CG.\@
+Then, after I figure out how the moment changes when the CG shifts in the body axis frame, need to convert to stability axes and show where the uncertain terms are in stability axis representation.
+See Yechout page 153 for transformation matrix from body axes to stability axes.
+Look at pitch equation
+
+\begin{equation*}
+  \dot{Q}=\frac{M}{J_{yy}}
+\end{equation*}
+
+Consider taking moments about a fixed point on the aircraft given by the aircrafts nominal CG location.
+This moment has terms due to aerodynamics, thrust, and gravity.
+When the CG shifts to a new location, if we take moments about the nominal CG location, the new moment M will change, as well as Jyy.
+The new Jyy can be found using parallel axis theorem.
+The only change in this moment is that due to gravity.
+So we can write this as
+
+\begin{equation*}
+  \dot{Q}=\frac{M_{\text{new}}}{J_{yy,\text{new}}}
+\end{equation*}
+
+where
+
+\begin{equation*}
+  J_{yy,\text{new}}=J_{yy}+m(\Delta x^{2}+\Delta z^{2})
+\end{equation*}
+
+where $\Delta x$ and $\Delta z$ are the CG shift, and
+
+\begin{equation*}
+  M_{\text{new}}=M-mg(\Delta x\cos\theta+\Delta z\sin\theta)
+\end{equation*}
+
+giving
+
+\begin{equation*}
+  \dot{Q}=\frac{M-mg(\Delta x\cos\Theta+\Delta z\sin\Theta)}{J_{yy}+m(\Delta x^{2}+\Delta z^{2})}
+\end{equation*}
+
+Linearizing this equation where $Q=Q_{\text{eq}}+q$ and $\Theta=\Theta_{\text{eq}}+\theta$ and taylor series expansion for sin and cosine
+
+\begin{equation*}
+  \begin{split}
+    \cos\Theta&\approx\cos\Theta_{\text{eq}}-\sin\Theta_{\text{eq}}\theta \\
+    \sin\Theta&\approx\sin\Theta_{\text{eq}}+\cos\Theta_{\text{eq}}\theta
+  \end{split}
+\end{equation*}
+
+\begin{equation*}
+  [J_{yy}+m(\Delta x^{2}+\Delta z^{2})]\dot{q}=M-M_{mg}
+\end{equation*}
+
+where
+
+\begin{equation*}
+  \begin{split}
+    M_{mg}&=mg[\Delta x(\cos\theta_{\text{eq}}-\sin\theta_{\text{eq}}\Delta\theta)+\Delta z(\sin\theta_{\text{eq}}+\cos\theta_{\text{eq}}\Delta\theta)] \\
+    &=mg[\Delta z\cos\theta_{\text{eq}}-\Delta x\sin\theta_{\text{eq}}]\Delta\theta+mg[\Delta x\cos\theta_{\text{eq}}+\Delta z\sin\theta_{\text{eq}}]
+  \end{split}
+\end{equation*}
+
+\begin{equation*}
+  [J_{yy}+m(\Delta x^{2}+\Delta z^{2})]\dot{q}=M-M_{mg}
+\end{equation*}
+
+when we linearize, will do Taylor Series expansion, drop higher order terms.
+Note that the moment M at equilibrium is zero.
+Taylor Series expansion is given by
+
+\begin{equation*}
+  f(X)\approx f(X_{\text{eq}})+\frac{\partial{}f}{\partial{}X_{1}}\biggr|_{\text{eq}}x_{1}+\frac{\partial{}f}{\partial{}X_{2}}\biggr|_{\text{eq}}x_{2}+\dots
+\end{equation*}
+
+So using the Taylor Series expansion to get the new linearized M we have
+
+\begin{equation*}
+  M=M_{\text{eq}}+\frac{\partial{}M}{\partial{}u}u+\frac{\partial{}M}{\partial{}w}w+\frac{\partial{}M}{\partial\dot{w}}\dot{w}+\frac{\partial{}M}{\partial{}q}q+\frac{\partial{}M}{\partial\dot{q}}\dot{q}+\frac{\partial{}M}{\partial\delta_{e}}\delta_{e}
+\end{equation*}
+
+so
+
+\begin{equation*}
+  J_{yy,\text{new}}\dot{q}=\left(\frac{\partial{}M}{\partial{}u}u+\frac{\partial{}M}{\partial{}w}w+\frac{\partial{}M}{\partial\dot{w}}\dot{w}+\frac{\partial{}M}{\partial{}q}q+\frac{\partial{}M}{\partial\dot{q}}\dot{q}+\frac{\partial{}M}{\partial\delta_{e}}\delta_{e}\right)-M_{mg}
+\end{equation*}
+
+Throwing out small terms
+
+\begin{equation*}
+  J_{yy,\text{new}}\dot{q}=\left(\frac{\partial{}M}{\partial{}w}w+\frac{\partial{}M}{\partial\dot{w}}\dot{w}+\frac{\partial{}M}{\partial{}q}q+\frac{\partial{}M}{\partial\delta_{e}}\delta_{e}\right)-M_{mg}
+\end{equation*}
+
+\subsection{Thinking About CG Shift and Doing Moment About New CG Location}
+
+model aircraft as a lift and drag force acting at the center of pressure.
+Consider moments about the CG.\@
+At equilibrium flight condition, the moment about the CG is zero.
+If the CG shifts to a new location and we take moments about that new location, the pitching moment effect of the wing is still the same, but there is additional moment due to the lift acting along a nonzero lever arm.
+Assume that the moment of inertia doesn't change due to CG shift.
+Then the moment about the new CG is the following, where M is moment about the original CG location.
+
+\begin{equation*}
+  \dot{Q}=\frac{M-L\Delta x\cos\alpha-D\Delta x\sin\alpha+D\Delta z\cos\alpha-L\Delta z\sin\alpha}{J_{yy}}
+\end{equation*}
+
+\subsection{CG Shift}
+
+\begin{equation}
+  \begin{bmatrix}
+    \dot{\alpha} \\
+    \dot{q}
+  \end{bmatrix}=
+  \begin{bmatrix}
+    \frac{Z_{\alpha}}{V_{0}} & 1+\frac{Z_{q}}{V_{0}} \\
+    M_{\alpha} & M_{q}
+  \end{bmatrix}
+  \begin{bmatrix}
+    \alpha \\
+    q
+  \end{bmatrix}+
+  \begin{bmatrix}
+    Z_{\delta_{e}} \\
+    M_{\delta_{e}}
+  \end{bmatrix}
+  \delta_{e}
+\end{equation}
+
+We wish to use the method described above to design a pitch-rate tracking adaptive controller, when only the pitch-rate measurement is available.
+
+\begin{equation*}
+  M=M(\alpha,q,\delta_{e})
+\end{equation*}
+
+In the conventional aircraft model, the total moment about aircraft center of gravity, in the longitudinal direction, is due to lift and drag contributions from the wing and horizontal tail.
+Looking at the equation for $\dot{\alpha}$, and with the total lift for $Z$ independent of the CG location, no uncertainty will result in this equation due to CG shift.
+In the $\dot{q}$ equation the moment about the $y$-axis $M$ is dependent on the CG location.
+The moment change due to a longitudinal CG shift $\Delta x$ is
+
+\begin{equation*}
+  \Delta M=\bigr\{(L_{w}+L_{t})\cos\alpha+(D_{w}+D_{t})\sin\alpha\bigr\}\Delta x
+\end{equation*}
+
+The lift and drag terms are linear in $\alpha$, and the tail contributions linear in $\delta_{e}$.
+Taking the partial derivatives of $M$, to determine the stability derivatives, we see perturbation in $M_{\alpha}$ and $M_{\delta_{e}}$.
+We then see with $Z_{\delta_{e}}\approx0$
+
+\begin{equation*}
+  \begin{bmatrix}
+    \frac{Z_{\alpha}}{V_{0}} & 1+\frac{Z_{q}}{V_{0}} \\
+    M_{\alpha} & M_{q}
+  \end{bmatrix}
+  +
+  \begin{bmatrix}
+    Z_{\delta_{e}} \\
+    M_{\delta_{e}}
+  \end{bmatrix}
+  \Lambda
+  \begin{bmatrix}
+    w_{p_{1}} &
+    w_{p_{2}}
+  \end{bmatrix}
+\end{equation*}
+
+\begin{equation*}
+  \begin{bmatrix}
+    \frac{Z_{\alpha}}{V_{0}} & 1+\frac{Z_{q}}{V_{0}} \\
+    M_{\alpha} & M_{q}
+  \end{bmatrix}
+  +
+  \begin{bmatrix}
+    0 & 0 \\
+    M_{\delta_{e}}\Lambda w_{p_{1}} & M_{\delta_{e}}\Lambda w_{p_{2}} \\
+  \end{bmatrix}
+\end{equation*}
+
+\subsection{Stability Derivative Uncertainties}
+
+$C_{M_{\alpha}}$ and $C_{N_{\beta}}$ have already shown this for pitching moment coefficient, can show same thing on lateral-directional equations of motion for yawing moment coefficient and several others as well
+
+\subsection{Control Surface Effectiveness}
+
+$\Lambda$
+
+\subsection{Actuator Saturation}
+
+\subsection{Guidance Control Research}
+
+Consider the following linear model describing the longitudinal flight dynamics of an aircraft, where $\alpha$ is the angle-of-attack, $q$ the pitch rate, $\theta$ is pitch angle, and $h$ is the altitude.
+It is assumed in this problem that $\alpha$ is not measurable, but acceleration sensors aligned with the vehicle body axes are, where $a_{z}$ is the vertical acceleration.
+The follow equations show the dynamics of this system with the available system outputs.
+
+\begin{equation*}
+  \begin{split}
+    \begin{bmatrix}
+      \dot{\alpha} \\
+      \dot{q} \\
+      \dot{\theta} \\
+      \dot{h}
+    \end{bmatrix}
+    &=
+    \begin{bmatrix}
+      \frac{Z_{\alpha}}{V_{\text{eq}}} & 1+\frac{Z_{q}}{V_{\text{eq}}} & 0 & 0\\
+      M_{\alpha}+\frac{M_{\dot{\alpha}}Z_{\alpha}}{V_{\text{eq}}} & M_{q}+M_{\dot{\alpha}} & 0 & 0 \\
+      0 & 1 & 0 & 0 \\
+      -V_{\text{eq}} & 0 & V_{\text{eq}} & 0
+    \end{bmatrix}
+    \begin{bmatrix}
+      \alpha \\
+      q \\
+      \theta \\
+      h
+    \end{bmatrix}+
+    \begin{bmatrix}
+      \frac{Z_{\delta_{e}}}{V_{\text{eq}}} \\
+      M_{\delta_{e}} \\
+      0 \\
+      0
+    \end{bmatrix}
+    \delta_{e} \\
+    \begin{bmatrix}
+      a_{z} \\
+      q \\
+      \theta \\
+      h
+    \end{bmatrix}
+    &=
+    \begin{bmatrix}
+      Z_{\alpha} & 0 & 0 & 0 \\
+      0 & 1 & 0 & 0 \\
+      0 & 0 & 1 & 0 \\
+      0 & 0 & 0 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+      \alpha \\
+      q \\
+      \theta \\
+      h
+    \end{bmatrix}+
+    \begin{bmatrix}
+      Z_{\delta_{e}} \\
+      0 \\
+      0 \\
+      0
+    \end{bmatrix}
+    \delta_{e}
+  \end{split}
+\end{equation*}
+
+%\begin{equation*}
+%C=
+%\begin{bmatrix}
+%0 & 1 & 0 & 0 \\
+%0 & 0 & 1 & 0 \\
+%0 & 0 & 0 & 1
+%\end{bmatrix}
+%\qquad
+%D=
+%\begin{bmatrix}
+%0 \\
+%0 \\
+%0
+%\end{bmatrix}
+%\end{equation*}
+
+The control goal is to design an adaptive controller which will allow the vehicle to accurately track a reference altitude trajectory in the presence of uncertainties.
+
+\begin{equation*}
+  \begin{split}
+    \ddot{h}&=-V_{\text{eq}}(\dot{\theta}-\dot{\alpha}) \\
+    &=V_{\text{eq}}(\dot{\alpha}-q) \\
+    &=Z_{V}V_{T}+Z_{\alpha}\alpha+(V_{\text{eq}}+Z_{q})q-g\sin(\gamma_{\text{eq}})\theta-V_{\text{eq}}X_{\delta_{\text{th}}}\sin(\alpha_{\text{eq}})\delta_{\text{th}}+Z_{\delta_{e}}\delta_{e}-V_{\text{eq}}q \\
+    &=Z_{V}V_{T}+Z_{\alpha}\alpha+Z_{q}q-g\sin(\gamma_{\text{eq}})\theta-V_{\text{eq}}X_{\delta_{\text{th}}}\sin(\alpha_{\text{eq}})\delta_{\text{th}}+Z_{\delta_{e}}\delta_{e}
+  \end{split}
+\end{equation*}
+
+\subsubsection{Analysis of Open-Loop Dynamics}
+
+Transfer function from elevator to acceleration is relative degree zero, non-minimum phase.
+The altitude is essentially the acceleration twice integrated.
+
+\begin{equation*}
+  \frac{a_{z}}{\delta_{e}}=\frac{-18.6(s+4.894)(s-4.354)}{s^{2}+0.9414s+1.816}
+\end{equation*}
+
+% \section{Control Design}
+
+% \subsection{Baseline Controller}
+
+% The nominal reduced system containing the short-period dynamics of the aircraft are given by the following set of equations
+
+% \begin{equation*}
+%   \begin{split}
+%     \begin{bmatrix}
+%       \dot{\alpha} \\
+%       \dot{q}
+%     \end{bmatrix}
+%     &=
+%     \begin{bmatrix}
+%       \frac{Z_{\alpha}}{V_{0}} & 1+\frac{Z_{q}}{V_{0}} \\
+%       M_{\alpha} & M_{q}
+%     \end{bmatrix}
+%     \begin{bmatrix}
+%       \alpha \\
+%       q
+%     \end{bmatrix}+
+%     \begin{bmatrix}
+%       Z_{\delta_{e}} \\
+%       M_{\delta_{e}}
+%     \end{bmatrix}
+%     \delta_{e} \\
+%     a_{z}
+%     &=
+%     \begin{bmatrix}
+%       Z_{\alpha} & 0
+%     \end{bmatrix}
+%     \begin{bmatrix}
+%       \alpha \\
+%       q
+%     \end{bmatrix}+
+%     \begin{bmatrix}
+%       Z_{\delta_{e}}
+%     \end{bmatrix}
+%     \delta_{e}
+%   \end{split}
+% \end{equation*}
+
+% Written more compactly, the system above can be expressed as shown in the following linear nominal MIMO open-loop system
+% \begin{equation}
+%   \label{eqn.openloopsystem}
+%   \begin{split}
+%     \dot{x}_{p}&=A_{p}x_{p}+B_{p}u \\
+%     z&=C_{pz}x_{p}+D_{pz}
+%   \end{split}
+% \end{equation}
+% where $A_{p}\in\mathbb{R}^{n_{p}\times n_{p}}$, $B_{p}\in\mathbb{R}^{n_{p}\times m}$, $C_{pz}\in\mathbb{R}^{n_{e}\times n_{p}}$, $D_{pz}\in\mathbb{R}^{n_{e}\times m}$ are constant \textit{known} matrices.
+% In order to provide command tracking, we introduce integral action, and for this purpose an additional state $x_e$ is defined as
+% \begin{equation}
+%   \label{eqn.xedotsf}
+%   \dot{x}_{e}=z_{\text{cmd}}-z
+% \end{equation}
+% This integral error state is appended to the plant in \eqref{eqn.openloopsystem} leading to the following augmented open-loop dynamics
+% \begin{equation}
+%   \label{eqn.uncsystemfull}
+%   \begin{bmatrix}
+%     \dot{x}_{p} \\
+%     \dot{x}_{e}
+%   \end{bmatrix} =
+%   \begin{bmatrix}
+%     A_{p} & 0 \\
+%     -C_{pz} & 0
+%   \end{bmatrix}
+%   \begin{bmatrix}
+%     x_{p} \\
+%     x_{e}
+%   \end{bmatrix}
+%   +
+%   \begin{bmatrix}
+%     B_{p} \\
+%     -D_{pz}
+%   \end{bmatrix}
+%   u+
+%   \begin{bmatrix}
+%     0 \\
+%     I
+%   \end{bmatrix}
+%   z_{\text{cmd}}
+% \end{equation}
+% The system in \eqref{eqn.uncsystemfull} can be written more compactly as follows
+% \begin{equation}
+%   \dot{x}=Ax+Bu+B_{\text{cmd}}z_{\text{cmd}}
+% \end{equation}
+% where $A\in\mathbb{R}^{n\times n}$, $B\in\mathbb{R}^{n\times m}$, $B_{\text{cmd}}\in\mathbb{R}^{n\times n_{e}}$, and $C\in\mathbb{R}^{p\times n}$ are the known matrices given by
+% \begin{equation*}
+%   A=
+%   \begin{bmatrix}
+%     A_{p} & 0_{n_{p}\times n_{e}} \\
+%     -C_{pz} & 0_{n_{e}\times n_{e}}
+%   \end{bmatrix}
+%   \qquad
+%   B=
+%   \begin{bmatrix}
+%     B_{p} \\
+%     -D_{pz}
+%   \end{bmatrix}
+%   \qquad
+%   B_{\text{cmd}}=
+%   \begin{bmatrix}
+%     0_{n_{p}\times m} \\
+%     I_{n_{e}\times n_{e}}
+%   \end{bmatrix}
+% \end{equation*}
+% For this nominal system we propose the following baseline control law
+% \begin{equation}
+%   \label{eqn.ublsf}
+%   u_{\text{bl}}=K_{x}^{\top}x
+% \end{equation}
+
+% \subsection{Adaptive Controller}
+
+% The nominal system has uncertainties
+% \begin{equation}
+%   \label{eqn.uncsystem}
+%   \dot{x}=Ax+B\Lambda(u+W^{\top}x)+B_{\text{cmd}}z_{\text{cmd}}
+% \end{equation}
+
+
+% For the adaptive controller introduce the following reference model
+% \begin{equation}
+%   \label{eqn.refmodelsf}
+%   \dot{x}_{m}=A_{m}x_{m}+B_{\text{cmd}}z_{\text{cmd}}+L(x_{m}-x) \\
+% \end{equation}
+% where $A_{m}=A+BK_{x}^{\top}$.
+% The tracking error is given by
+% \begin{equation}
+%   \label{eqn.ecerror}
+%   e=x-x_{m}
+% \end{equation}
+% For the CRM adaptive controller, the same adaptive control law is used
+% \begin{equation}
+%   \label{eqn.uadpcrm}
+%   u_{\text{ad}}=\Theta(t)^{\top}x
+% \end{equation}
+% total control law
+% \begin{equation*}
+%   u=(K_{x}+\Theta(t))^{\top}x
+% \end{equation*}
+% with the following update law
+% \begin{equation}
+%   \label{eqn.crmupdatelaw}
+%   \dot{\widetilde{\Theta}}=\text{Proj}_{\Gamma}(\theta,-\Gamma xe^{\top}PB\text{sign}(\Lambda))
+% \end{equation}
+% where $P=P^{\top}>0$ is the positive definite solution to the following Lyapunov equation, where $Q=Q^{\top}>0$.
+% \begin{equation*}
+%   -Q={A_{m}}^{\top}P+PA_{m}
+% \end{equation*}
+% Error dynamics
+% \begin{equation}
+%   \label{eqn.eodotfin}
+%   \dot{e}=\bar{A}_{m}e+B\Lambda{\widetilde{\Theta}}^{\top}x
+% \end{equation}
+% where
+% \begin{equation}
+%   \label{eqn.ambar}
+%   \overline{A}_{m}=A_{m}+L
+% \end{equation}
+% The following candidate Lyapunov function is proposed
+% \begin{equation*}
+%   V(e,\widetilde{\theta})=e^{\top}Pe+\text{tr}\left(\widetilde{\theta}^{\top}\Gamma^{-1}\widetilde{\theta}|\Lambda|\right)
+% \end{equation*}
+% which has time derivative
+% \begin{equation*}
+%   \dot{V}=-e^{\top}Qe
+%   +2\text{tr}\left(\widetilde{\theta}^{\top}\left(\Gamma^{-1}\text{Proj}_{\Gamma}(\theta,-\Gamma y)-y\right)|\Lambda|\right) \\
+% \end{equation*}
+% This implies $\dot{V}(e,\theta)\leq 0$.
+% Thus, the candidate Lyapunov function which was proposed serves as a valid Lyapunov function for this system.
+
+\section{Linear Aircraft Models}
+
+In the previous chapter, simple linear models describing the longitudinal and lateral-directional dynamics of a flight vehical were derived from general equations of motion by linearization, decoupling, and order reduction.
+
+\begin{equation*}
+  \begin{bmatrix}
+    \dot{\alpha} \\
+    \dot{q}
+  \end{bmatrix}=
+  \begin{bmatrix}
+    \frac{Z_{\alpha}}{V_{0}} & 1+\frac{Z_{q}}{V_{0}} \\
+    M_{\alpha} & M_{q}
+  \end{bmatrix}
+  \begin{bmatrix}
+    \alpha \\
+    q
+  \end{bmatrix}+
+  \begin{bmatrix}
+    \frac{Z_{\delta_{e}}}{V_{0}} \\
+    M_{\delta_{e}}
+  \end{bmatrix}
+  \delta_{e}
+\end{equation*}
+
+\begin{equation*}
+  A_{z}=Z_{\alpha}\alpha+Z_{\delta_{e}}\delta_{e}
+\end{equation*}
+
+\begin{equation*}
+  \left[
+    \begin{array}{c}
+      \dot{\beta} \\[4pt]
+      \dot{p} \\[4pt]
+      \dot{r} \\[4pt]
+      \dot{\phi}
+    \end{array}
+  \right]
+  =
+  \left[
+    \begin{array}{cccc}
+      Y_{\beta} & 0 & -1 & \frac{g}{U_{\text{eq}}} \\[4pt]
+      L_{\beta} & L_{p} & L_{r} & 0 \\[4pt]
+      N_{\beta} & N_{p} & N_{r} & 0 \\[4pt]
+      0 & 1 & 0 & 0
+    \end{array}
+  \right]
+  \left[
+    \begin{array}{c}
+      \beta \\[4pt]
+      p \\[4pt]
+      r \\[4pt]
+      \phi
+    \end{array}
+  \right]
+  +
+  \left[
+    \begin{array}{cc}
+      0 & Y_{\delta_{r}} \\[4pt]
+      L_{\delta_{a}} & L_{\delta_{r}} \\[4pt]
+      N_{\delta_{a}} & N_{\delta_{r}} \\[4pt]
+      0 & 0
+    \end{array}
+  \right]
+  \left[
+    \begin{array}{c}
+      \delta_{a} \\[4pt]
+      \delta_{r}
+    \end{array}
+  \right]
+\end{equation*}
+
+\section{Actuator Models}
+
+This note shows the block diagram representation for a second order actuator with rate and limit saturations.
+The second order transfer function describing the deflection of the actuator due to an actuator command is:
+
+\begin{equation*}
+  \frac{\delta}{\delta_{\text{cmd}}}=\frac{{\omega_{n}}^{2}}{s^{2}+2\zeta\omega_{n}s+{\omega_{n}}^{2}}
+\end{equation*}
+
+Cross multiplying:
+
+\begin{equation*}
+  \delta s^{2}+\delta2\zeta\omega_{n}s+\delta{\omega_{n}}^{2}=\delta_{\text{cmd}}{\omega_{n}}^{2}
+\end{equation*}
+
+\begin{equation*}
+  \ddot{\delta}+2\zeta\omega_{n}\dot{\delta}+\delta{\omega_{n}}^{2}=\delta_{\text{cmd}}{\omega_{n}}^{2}
+\end{equation*}
+
+Solving for $\ddot{\delta}$
+
+\begin{equation*}
+  \ddot{\delta}={\omega_{n}}^{2}(\delta_{\text{cmd}}-\delta)-2\zeta\omega_{n}\dot{\delta}
+\end{equation*}
+
+This expression can be used to begin the block diagram representation.
+Once $\ddot{\delta}$ is had, it is integrated to get $\dot{\delta}$ and fed back to complete the block diagram.
+
+\begin{figure}[H]
+  \begin{center}
+    \psfragfig[width=6in]{\figurepath/actuator_v3}{%
+      \psfrag{cmd}[bc][bc][1.0]{$\delta_{\text{cmd}}$}
+      \psfrag{s}[bc][bc][1.0]{$\Sigma$}
+      \psfrag{m}[bc][bc][1.0]{$-$}
+      \psfrag{wn2}[bc][bc][1.0]{${\omega_{n}}^{2}$}
+      \psfrag{dd}[bc][bc][1.0]{$\ddot{\delta}$}
+      \psfrag{i}[bc][bc][1.0]{$\frac{1}{s}$}
+      \psfrag{d}[bc][bc][1.0]{$\dot{\delta}$}
+      \psfrag{2zwn}[bc][bc][1.0]{$2\zeta\omega_{n}$}
+      \psfrag{rate}[tc][tc][1.0]{\shortstack{rate \\ saturation}}
+      \psfrag{del}[bc][bc][1.0]{$\delta$}
+      \psfrag{defl}[tc][tc][1.0]{\shortstack{deflection \\ saturation}}
+      \psfrag{sdel}[bc][bc][1.0]{$\delta$}
+    }
+    \caption{Second order actuator block diagram\label{label_fig}}
+  \end{center}
+\end{figure}

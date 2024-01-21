@@ -1,0 +1,295 @@
+\documentclass[11pt,letterpaper,onecolumn,notitlepage]{book}
+\usepackage[english]{babel}
+% For dev only:
+% \usepackage{showframe}
+\usepackage[left=1in, right=1in, top=1in]{geometry}
+\usepackage{%
+  tikz,
+  multirow,
+  float,
+  amssymb,
+  graphicx,
+  fullpage,
+  indentfirst,
+  textcomp,
+  gensymb,
+  mathrsfs,
+  array,
+  hyperref,
+  color,
+  arydshln,
+  booktabs,
+  empheq,
+  mathtools,
+  marginnote,
+  fancyvrb,
+  listings,
+  mdframed,
+  listliketab,
+  multicol,
+  enumerate,
+  lipsum,
+  multirow,
+  amsthm,
+  thmtools,
+  framed,
+  verbatim,
+  titlesec,
+  caption,
+  sectsty,
+  titlesec,
+  pstricks,
+  setspace,
+  pgf,
+  pgffor,
+  ulem,
+  amsmath,
+  bm,
+  times,
+  pgfplots,
+  ../sty/3dplot, % chktex 26
+  xcolor,
+  anyfontsize
+}
+\usepackage[titles]{tocloft}
+\usepackage[framed,numbered,autolinebreaks,useliterate]{../sty/mcode}
+\usepackage[crop=pdfcrop,process=all,cleanup={.tex,.dvi,.ps,.pdf,.log,.bbl,.out},suffix={}]{pstool}
+
+% Define path where figures are stored relative to this file
+\newcommand{\figurepath}{../fig}
+
+\pgfplotsset{compat=1.12}
+
+\usepgfmodule{shapes}
+\usepgfmodule{plot}
+
+% http://mirror.las.iastate.edu/tex-archive/graphics/pgf/base/doc/pgfmanual.pdf
+\usetikzlibrary{positioning}
+\usetikzlibrary{decorations}
+\usetikzlibrary{plotmarks}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{matrix}
+\usetikzlibrary{calc}
+\usetikzlibrary{plotmarks}
+\usetikzlibrary{shapes}
+\usetikzlibrary{arrows.meta}
+
+% Define theorem and proof styles
+\input{../sty/theorem-styles}
+
+%Need to undeclare the proof environment that amsthm provides but I can't use \renewenvironment
+\let\proof\relax
+\let\endproof\relax
+
+% Use the styles in definitions of theorem, proof, etc.
+\declaretheorem[style=thm-style,numbered=yes,name=Theorem]{thm-dan}
+\declaretheorem[style=lem-style,numbered=yes,name=Lemma]{lem-dan}
+\declaretheorem[style=cor-style,numbered=no,name=Corollary]{cor-dan}
+\declaretheorem[style=prf-style,name=Proof,qed=\qedsymbol]{proof-dan}
+\declaretheorem[style=ass-style,numbered=yes,name=Assumption]{ass-dan}
+\declaretheorem[style=rem-style,numbered=yes,name=Remark]{rem-dan}
+\declaretheorem[style=defn-style,numbered=yes,name=Definition]{defn-dan}
+\declaretheorem[style=rem-style,numbered=yes,name=Proposition]{prop-dan}
+
+%To allow bold symbols in section headings
+\makeatletter
+\g@addto@macro\bfseries{\boldmath}
+\makeatother
+
+\sectionfont{\fontsize{16pt}{16pt}\selectfont\bfseries\sffamily}
+\subsectionfont{\fontsize{13pt}{13pt}\selectfont\sffamily}
+\subsubsectionfont{\fontsize{12pt}{12pt}\selectfont\sffamily}
+\paragraphfont{\fontsize{11pt}{11pt}\selectfont\bfseries}
+
+\makeatletter
+  \renewcommand\section{\@startsection{section}{1}{\z@}%
+  {-3.5ex \@plus-1ex \@minus-0.2ex}%
+  {1.0ex \@plus0.2ex}%
+  {\fontsize{15pt}{15pt}\selectfont\bfseries\sffamily}}
+\makeatother
+
+\makeatletter
+  \renewcommand\subsection{\@startsection{subsection}{1}{\z@}%
+  {-3.5ex \@plus-1ex \@minus-0.2ex}%
+  {0.5ex \@plus0.2ex}%
+  {\fontsize{13pt}{13pt}\selectfont\bfseries\sffamily}}
+\makeatother
+
+\setlength\cftparskip{-3pt}
+\setlength\cftbeforesecskip{1pt}
+\setlength\cftaftertoctitleskip{1pt}
+\cftsetindents{figure}{0em}{1.5em}
+\makeatletter
+  \renewcommand{\@dotsep}{4.5}
+  \renewcommand{\cftdotsep}{4.5}
+  \renewcommand{\cftsecdotsep}{4.5}
+  \renewcommand{\@tocrmarg}{4.55em}
+\makeatother
+\renewcommand\cftsecfont{\normalfont}
+\renewcommand\cftsecpagefont{\normalfont}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftsecdotsep}}
+
+\titlespacing\section{0pt}{2pt plus 0pt minus 2pt}{0pt plus 2pt minus 2pt}
+\titlespacing\subsection{0pt}{2pt plus 0pt minus 2pt}{0pt plus 2pt minus 2pt}
+\titlespacing\subsubsection{0pt}{2pt plus 0pt minus 2pt}{0pt plus 2pt minus 2pt}
+
+\tikzstyle{squareblock} = [draw, fill=white!50, rectangle, minimum height=1cm, minimum width=2cm, inner sep= 2mm]
+\tikzstyle{roundblock} = [draw, circle, fill=white!50, minimum height=1cm, inner sep= 1mm]
+\tikzstyle{whitesum} = [draw, fill=white!40, circle, minimum width=0.6cm, inner sep= 1mm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{tee} = [coordinate]
+\tikzstyle{block} = [draw, rectangle, minimum height=1cm, minimum width=2cm]
+\tikzstyle{sum} = [draw, circle, node distance=1cm]
+\tikzstyle{modelinput} = [coordinate]
+\tikzstyle{modeloutput} = [coordinate]
+\tikzstyle{regionoutput} = [coordinate]
+\tikzstyle{innerWhite} = [semithick, white,line width=1.4pt, shorten >= 4.5pt]
+\tikzstyle{vecArrow} = [
+  thick,
+  decoration={markings,mark=at position 1 with {\arrow[semithick]{open triangle 60}}},
+  double distance=1.4pt,
+  shorten >= 5.5pt,
+  preaction = {decorate},
+  postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}
+]
+\tikzstyle{vecNoArrow} = [
+  thick,
+  double distance=1.4pt,
+  preaction = {decorate},
+  postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}
+]
+
+\makeatletter
+  \pgfdeclareshape{satnode}{%
+    \inheritsavedanchors[from={rectangle}]
+    \inheritbackgroundpath[from={rectangle}]
+    \inheritanchorborder[from={rectangle}]
+    \foreach\x in {center,north east,north west,north,south,south east,south west}{%
+      \inheritanchor[from={rectangle}]{\x}
+    }
+    \foregroundpath{%
+      \pgfpointdiff{\northeast}{\southwest}
+      \pgf@xa=\pgf@x\pgf@ya=\pgf@y\northeast{}
+      \pgfpathmoveto{\pgfpoint{0}{0.45\pgf@ya}}
+      \pgfpathlineto{\pgfpoint{0}{-0.45\pgf@ya}}
+      \pgfpathmoveto{\pgfpoint{0.45\pgf@xa}{0}}
+      \pgfpathlineto{\pgfpoint{-0.45\pgf@xa}{0}}
+      \pgfpathmoveto{\pgfpointadd{\southwest}{\pgfpoint{-0.2\pgf@xa}{-0.3\pgf@ya}}}
+      \pgfpathlineto{\pgfpointadd{\southwest}{\pgfpoint{-0.5\pgf@xa}{-0.3\pgf@ya}}}
+      \pgfpathlineto{\pgfpointadd{\northeast}{\pgfpoint{-0.5\pgf@xa}{-0.3\pgf@ya}}}
+      \pgfpathlineto{\pgfpointadd{\northeast}{\pgfpoint{-0.4\pgf@xa}{-0.3\pgf@ya}}}
+      {%
+        \pgftransformshift{\pgfpointadd{\northeast}{\pgfpoint{-0.4\pgf@xa}{-0.3\pgf@ya}}}
+        \pgftransformscale{0.5}
+        \pgfsetcolor{black}
+        \pgftext[left]{}
+      }
+      \pgfusepath{stroke}
+    }
+  }
+\makeatother
+
+\newcounter{examplecounter}
+\newenvironment{example}[1][]
+{
+\begin{framed}
+\begin{quote}
+\refstepcounter{examplecounter}
+\textbf{Example \arabic{examplecounter} #1}
+}{
+\end{quote}
+\end{framed}
+}
+
+\definecolor{lightGrey}{rgb}{0.95, 0.95, 0.95}
+\definecolor{lightBlue}{rgb}{0.95, 0.95, 1}
+\definecolor{red}{rgb}{1, 0, 0}
+
+\newcommand{\boxFillColor}{lightGrey}
+\newcommand{\boxTitleFillColor}{lightBlue}
+\newcommand{\boxBorderColor}{red}
+
+\newsavebox{\mysaveboxM}
+\newsavebox{\mysaveboxT}
+
+\newcommand*\labelBox[2][Formel]{%
+  \sbox{\mysaveboxM}{#2}
+  \sbox{\mysaveboxT}{\sf\fcolorbox{black}{\boxTitleFillColor}{#1}}
+  \sbox{\mysaveboxM}{%
+  \parbox[b][\ht\mysaveboxM+0.4\ht\mysaveboxT+0.8\dp\mysaveboxT][b]{%
+    \wd\mysaveboxM}{#2}
+  }
+  \sbox{\mysaveboxM}{%
+    \setlength{\fboxsep}{8pt}
+    \fcolorbox{\boxBorderColor}{\boxFillColor}{%
+      \makebox{\usebox{\mysaveboxM}}%
+    }%
+  }%
+  \usebox{\mysaveboxM}%
+  \makebox[0pt][r]{%
+    \makebox[\wd\mysaveboxM][c]{%
+      \raisebox{\ht\mysaveboxM-0.5\ht\mysaveboxT+0.5\dp\mysaveboxT-0.5\fboxrule}{\usebox{\mysaveboxT}}
+    }
+  }
+}
+
+\newcommand*{\roomyfbox}[1]{\setlength{\fboxsep}{8pt}\fbox{\hspace{0em}#1\hspace{0em}}}
+\newcommand{\fboxTwo}{\setlength{\fboxsep}{8pt}\fcolorbox{\boxBorderColor}{\boxFillColor}}
+
+\def\listofsymbols{\input{symbols/fluids_symbols} \clearpage}
+\def\addsymbol#1: #2#3{$#1$ \> \parbox{5in}{#2}\\}
+\def\newnot#1{\label{#1}}
+
+\title{\textbf{Title}}
+\author{Daniel Wiese \\ Department of Mechanical Engineering \\ Massachusetts Institute of Technology}
+\date{\today}
+
+\begin{document}
+  \begin{titlepage}
+    \begin{center}
+      \rule{\linewidth}{0.01in} \\[0.25in]
+      {\huge \bfseries All Notes}\\[0.4cm]
+      \rule{\linewidth}{0.01in} \\[0.25in]
+
+      \textsc{\LARGE Massachusetts Institute of Technology}\\[0.15in]
+      \textsc{\Large Notes}\\[1.0in]
+      \includegraphics[width=1.5in]{\figurepath/mit_seal.pdf}\\[2.0in]
+
+      Daniel \textsc{Wiese}
+      \vfill
+      {\large \today}
+    \end{center}
+  \end{titlepage}
+
+  \tableofcontents
+
+  \addcontentsline{toc}{section}{Contents}
+  \addcontentsline{toc}{section}{List of Figures}
+
+  \newpage
+  \chapter*{List of Symbols\hfill} \addcontentsline{toc}{chapter}{List of Symbols}
+  \listofsymbols{}
+  \pagestyle{plain}
+
+  \part{Fluid Mechanics}
+  \input{chapters/fluids}
+
+  \part{Dynamics and Modeling}
+  \input{chapters/dynamics}
+  \input{chapters/aircraft}
+
+  \part{Linear Systems}
+  \input{chapters/real}
+  \input{chapters/linear}
+
+  \part{Adaptive Control}
+  \input{chapters/adaptive}
+
+  \part{Nonlinear Control}
+  \input{chapters/nonlinear}
+
+  \bibliography{../bib/mit-notes}
+  \bibliographystyle{../sty/aiaa}
+\end{document}

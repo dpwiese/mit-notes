@@ -1,0 +1,581 @@
+\chapter{Nonlinear Control}
+
+\section{Lyapunov Stability}
+
+% TODO@dpwiese - Figure out how to arrange sections.
+% Either have discrete and continuous time in each subsection, or have continuous and discrete time two completely separate sections, with material repeated for each case within the sections.
+
+\subsection{Introduction}
+
+There are several ways in which the stability of equilibria can be defined which are outlined in these notes.
+Only autonomous systems are covered, looking at both continuous and discrete time cases.
+
+Lyapunov Stability Analysis gives two approaches can be taken to analyze a system and see what type stability an equilibrium point satisfies.
+Lyapunov's first, or indirect method can be used to prove whether a system is stable, unstable, or draw no conclusion about stability.
+Lyapunov's second, or direct method can only prove system stability.
+
+\subsection{Stability of Autonomous Systems}
+
+When talking about the stability of autonomous systems, it is always done relative to an equilibrium point.
+Equilibrium points must first be found, and it is the stability of these points which must be studied.
+For linear systems there exists only one equilibrium, so the stability of this equilibrium point can be equivalently described by saying the stability of the system.
+
+\subsection{Equilibrium Points}
+
+Given the following autonomous systems (one continuous the other discrete), the system's equilibrium points must first be found.
+(DDV 13.2)
+\begin{equation}
+  \dot{x}(t)=f(x(t))
+\end{equation}
+\begin{equation}
+  x(t+1)=f(x(t))
+\end{equation}
+The point $x_{\text{eq}}$ is an equilibrium point of the continuous system if  $f(x_{\text{eq}}(t))=0, \forall t\geq0$, and an equilibrium point of the discrete system if $f(x_{\text{eq}}(t))=x_{\text{eq}}, \forall t\geq0$.
+If the system is started in the state $x_{\text{eq}}$ at time $t_{0}$, it will remain there for all time.
+Nonlinear systems can have multiple equilibrium points (or equilibria), but linear systems can only have one.
+
+\subsection{Three Types of Stability}
+
+\begin{enumerate}
+  \item{\textbf{Stability in the sense of Lyapunov (ISL)} A system that is stable ISL is one which the system trajectory can be kept close to an equilibrium point by starting sufficiently close to the equilibrium.
+  \begin{itemize}
+    \item{Given any $\epsilon>0$, $\exists\delta$ such that if $\|x(t_{0})\|<\delta$, then $\|x(t_{0})\|<\epsilon, \forall t>t_{0}$}
+  \end{itemize}
+  This basically says that if the starting point $x(t_{0})$ is inside the circle centered about $\bar{x}$ with radius $\delta$, that the system trajectory can leave this region and into the larger circle with radius $\epsilon$, but it can never leave that region.
+  This is the weakest form of stability, and is also known as \textit{marginally stable}.
+  It is important to make the point that this must hold for \textit{any} $\epsilon$ that can be picked, not just one particular and carefully selected special case.
+  An equilibrium point that is not stable ISL is termed unstable.
+  (DDV 13.2)}
+
+  \item{\textbf{Local asymptotic stability} A system which is stable ISL, and satisfies the \textit{additional} constraint below is called locally asymptotically stable.
+  \begin{itemize}
+    \item{$\exists r$ such that if $\|x(t_{0})\|<r$, then $x(t)\rightarrow\bar{x}$ as $t\rightarrow\infty$}
+  \end{itemize}
+  This statement says that if the starting point $x(t_{0})$ is inside the circle centered about $\bar{x}$ with radius $r$, that the system trajectories will actually converge to $\bar{x}$.
+  It is important to note that there exist systems which satisfy only this additional constraint \textit{without} satisfying the first constraint of being stable ISL.\@
+  Such systems are \textit{not} asymptotically stable.}
+
+  \item{\textbf{Global asymptotic stability} A system which is globally asymptotically stable extends the definition of local asymptotic stability from a circle of radius $r$ to the entire state space.
+  In other words, beginning from \textit{any} initial conditions $x(t_{0})$ then $x(t)\rightarrow\bar{x}$ as $t\rightarrow\infty$.
+  This is discussed in further detail using Lyapunov's second method.}
+\end{enumerate}
+
+\section{Lyapunov Stability Analysis}
+
+Using these three definitions of stability, tools are now needed which will allow a system to be analyzed to determine if an equilibrium is stable, and if so, which type of stability the equilibrium point satisfies.
+
+\subsection{Lyapunov's First (Indirect) Method}
+
+This method involves linearizing the nonlinear system about an equilibrium point $\bar{x}$ in order to develop a local conclusion about the stability of the \textit{nonlinear} system.
+If the linearized system has poles that are all strictly in the left-half complex plane, the equilibrium point is locally asymptotically stable.
+If the linearized system has any poles that are strictly in the right-half complex plane, equilibrium point is unstable.
+If the linearized system as any eigenvalues which are zero, no conclusion can be drawn about the stability of the equilibrium point.
+In this case, essentially the higher order terms that were lost in linearization will determine whether or not the equilibrium is stable or not.
+(DDV 14.3)
+
+\paragraph{Stability of the linearized system}
+The linearized system, with some eigenvalues on the imaginary axis $\lambda_{i}=0$, can be unstable, while the nonlinear system is actually stable.
+This is why no conclusion about the nonlinear system can be drawn when any eigenvalues are zero.
+\textit{Can the opposite be true? i.e.\ the linearized system with any $\lambda_{i}=0$ is stable, but the nonlinear system is unstable? example?} The stability of the linear systems themselves when eigenvalues are on the imaginary axis will be analyzed in more detail later.
+
+\subsection{Lyapunov's Second (Direct) Method}
+
+\paragraph{Continuous Time}
+Lyapunov's second method requires the construction of a scalar, energy like Lyapunov function of the state which satisfies the properties which follow.
+This function $V(x(t))$ is proposed as a ``candidate Lyapunov function'', and if the properties are satisfied, it becomes a Lyapunov function.
+\begin{itemize}
+  \item{$V$ is locally positive definite}
+  \begin{itemize}
+    \item{$V(0)=0$}
+    \item{$V(x(t))>0$, $0<\|x(t)\|<r$ for some $r$}
+  \end{itemize}
+  \item{$\dot{V}(x(t))=\frac{d}{dt}V(x(t))=\frac{d}{dx}V(x(t))\frac{dx}{dt}$ is locally negative semidefinite}
+  \begin{itemize}
+    \item{$\dot{V}(0)=0$}
+    \item{$V(x(t))\leq0$, $0<\|x(t)\|<r$ for some $r$}
+  \end{itemize}
+\end{itemize}
+
+The Lyapunov function which satisfies these three conditions proves the equilibrium point is locally stable ISL.\@
+The condition of stability can be further improved if $\dot{V}(x(t))$ is negative definite, i.e.
+$V(x(t))<0$, $0<\|x(t)\|<r$ for some $r$.
+Satisfying this condition results in asymptotic stability.
+(DDV 13.4)
+
+Lyapunov's second method can be extended to prove global stability if the function $|V(x)|\rightarrow\infty$ as $\|x\|\rightarrow\infty$ (i.e.
+$V(x(t))$ is radially unbounded) \textit{and} $\dot{V}(x(t))$ is negative definite on the entire state space.
+
+ If a Lyapunov function cannot be found, this does not necessarily mean that the system is unstable, but only that a suitable Lyapunov function could not be found.
+Therefore, Lyapunov's direct method cannot be used to prove a system is unstable.
+
+\paragraph{Discrete time}
+$\dot{V}(x(t))\triangleq V(x(t+1))-V(x(t))$
+
+\subsection{The Lyapunov Equation}
+
+\paragraph{Continuous time} To prove stability of the following continuous time, linear, autonomous system, a quadratic Lyapunov function will suffice.
+\begin{equation*}
+  \dot{x}(t)=Ax(t)
+\end{equation*}
+Propose the following quadratic Lyapunov function, where $P$ must be chosen such that it is positive definite (i.e.
+$x^{\mathsf{T}}Px>0\;\forall x\neq0$).
+\begin{equation*}
+  V(x(t))=x^{\mathsf{T}}Px, \quad x\in \mathbb{R}^{n}
+\end{equation*}
+As long as $P$ is positive definite $V(x(t))$ will be a suitable Lyapunov function.
+Taking the time derivative of the Lyapunov function, and substituting $\dot{x}=Ax$ gives:
+\begin{equation*}
+  \begin{split}
+    \dot{V}(x)&=\dot{x}^{\mathsf{T}}Px+x^{\mathsf{T}}P\dot{x} \\
+    &=(Ax)^{\mathsf{T}}Px+x^{\mathsf{T}}PAx \\
+    &=x^{\mathsf{T}}A^{\mathsf{T}}Px+x^{\mathsf{T}}PAx \\
+    &=x^{\mathsf{T}}(A^{\mathsf{T}}P+PA)x \\
+    &=x^{\mathsf{T}}Qx
+  \end{split}
+\end{equation*}
+ The resulting matrix $Q=(A^{\mathsf{T}}P+PA)$ is symmetric as well.
+By picking $P$ such that it is not only symmetric and positive definite, but such that $Q$ is negative definite, the quadratic Lyapunov function will prove the linear system is globally asymptotically stable.
+
+\textit{There are no other restrictions on the selection of $P$, so it desired to select a $P$ which is symmetric?}
+
+\paragraph{Discrete time}
+For the following linear, discrete time, autonomous system, a Lyapunov function is desired.
+\begin{equation*}
+  x(t+1)=Ax(t)
+\end{equation*}
+Propose the following quadratic Lyapunov function
+\begin{equation*}
+  V(x(t))=x^{\mathsf{T}}Px, \quad x\in \mathbb{R}^{n}
+\end{equation*}
+\begin{equation*}
+  \begin{split}
+    \dot{V}(x(t))&\triangleq V(x(t+1))-V(x(t)) \\
+    &=x(t+1)^{\mathsf{T}}Px(t+1)-x(t)^{\mathsf{T}}Px(t) \\
+    &=(Ax(t))^{\mathsf{T}}PAx(t)-x(t)^{\mathsf{T}}Px(t) \\
+    &=x(t)^{\mathsf{T}}A^{\mathsf{T}}PAx(t)-x(t)^{\mathsf{T}}Px(t) \\
+    &=x(t)^{\mathsf{T}}(A^{\mathsf{T}}PA-P)x(t) \\
+    &=x(t)^{\mathsf{T}}Qx(t) \\
+  \end{split}
+\end{equation*}
+The resulting matrix $Q=(A^{\mathsf{T}}PA-P)$ is symmetric as well.
+By picking $P$ such that it is not only symmetric and positive definite, but such that $Q$ is negative definite, the quadratic Lyapunov function will prove the linear system is globally asymptotically stable.
+
+\subsection{Stability of Linear Systems}
+
+As was mentioned previously in discussing Lyapunov's first method, the location of the eigenvalues in the complex plane determines the stability of a linear system.
+If the eigenvalues are in the open LHP the system is considered stable, and if the eigenvalues are in the open RHP the system is unstable.
+When all of the eigenvalues are non-positive, but some eigenvalues are on the imaginary axis, can any conclusions about stability be drawn then? (DDV 13.3)
+
+The following system, while both of its eigenvalues are $\lambda=0,0$, is stable.
+This is because its Jordan blocks are $1\times1$.
+
+\begin{equation*}
+  \left[ \begin{array}{c} \dot{x}_{1} \\ \dot{x}_{2} \end{array} \right]=
+  \left[ \begin{array}{cc} 0 & 0 \\ 0 & 0 \end{array} \right]
+  \left[ \begin{array}{c} x_{1} \\ x_{2} \end{array} \right]
+\end{equation*}
+
+The following system, while both of its eigenvalues are $\lambda=0,0$, is not stable.
+This is because it has one Jordan block of size $2\times2$.
+
+\begin{equation*}
+  \left[ \begin{array}{c} \dot{x}_{1} \\ \dot{x}_{2} \end{array} \right]=
+  \left[ \begin{array}{cc} 0 & 1 \\ 0 & 0 \end{array} \right]
+  \left[ \begin{array}{c} x_{1} \\ x_{2} \end{array} \right]
+\end{equation*}
+
+Both of these examples are explained further in the Jordan normal form section.
+
+\subsection{Solving Lyapunov Problems}
+
+The following section will attempt to explain how to use Lyapunov stability analysis in solving problems.
+\begin{itemize}
+  \item{Is the system unstable?}
+  \begin{itemize}
+    \item{if it is suspected that the system is unstable, Lyapunov's first method can be used to prove instability}
+    \item{if Lyapunov's first method is used, and the system is locally stable, the second method can then be attempted to prove global stability}
+  \end{itemize}
+  \item{Try to find a Lyapunov function $V$ be which will prove stability of the system}
+  \begin{itemize}
+    \item{try to make $\dot{V} =0$ only when $x=x_{0}$ to prove asymptotic stability, otherwise as long as  $\dot{V}$ is never positive the system is still stable}
+  \end{itemize}
+  \item{For linear, autonomous, stable systems}
+  \begin{itemize}
+    \item{use $V=x^{\mathsf{T}}Px$}
+    \item{find P by solving $A^{\mathsf{T}}P+PA=-Q$}
+    \item{where $Q$ and $P$ are both positive-definite}
+    \item{$Q$ is a free design parameter: use a diagonal matrix}
+  \end{itemize}
+  \item{For linear, non-autonomous, unstable systems}
+  \begin{itemize}
+    \item{can use full state feedback $u=-Kx$ to stabilize the linear $A$ matrix}
+    \item{the Lyapunov equation is now solved using the closed-loop $A$ matrix, since $A_{CL}$ is stable: ${A_{CL}}^{\mathsf{T}}P+PA_{CL}=-Q$}
+  \end{itemize}
+\end{itemize}
+
+Sometimes having $\dot{V}$ negative semi-definite, and thus only being able to conclude stability in the sense of Lyapunov and not asymptotic stability is not enough.
+Must use invariance when this is the case.
+
+\subsection{Stuff}
+
+\quote{\cite{kalmanbertram}
+The objective of the so-called ``second method'' of Lyapunov is this: \textit{To answer questions of stability of differential equations, utilizing the given form of the equations but without explicit knowledge of the solutions.}}
+
+\section{Lyapunov Stability}
+
+\subsection{Lyapunov Functions}
+
+\begin{enumerate}
+  \item{First find the equilibrium points of the system}
+\end{enumerate}
+
+\begin{itemize}
+  \item{For first order system choose $V(x)=\frac{1}{2}(x-x_{\text{eq}})^{2}$}
+  \item{Evaluate $\dot{V}$ and if it is negative definite, the equilibrium is asymptotically stable.}
+  \item{Then if $V$ is radially unbounded, that is $V\rightarrow\infty$ as $\|x\|\rightarrow\infty$ then the equilibrium is globally asymptotically stable.
+  \textit{Is this true if there are more than one stable equilibrium point?}}
+  \item{If $\dot{V}$ is only negative semi-definite, then the equilibrium is stable in the sense of Lyapunov.}
+  \begin{itemize}
+    \item{At this point invariant set theorems can be used.}
+  \end{itemize}
+  \item{For second order systems of the form $l(\dot{x})\ddot{x}+b(\dot{x})+c(x)=0$ with $b(\dot{x})$ and $c(x)$ in the first and third quadrants, then we can choose}
+  \begin{equation*}
+    V(x,\dot{x})=\int_{0}^{\dot{x}}l(y)ydy+\int_{0}^{x}c(y)dy
+  \end{equation*}
+  And if $l(\dot{x})=1$ then this reduces
+  \begin{equation*}
+    V(x,\dot{x})=\frac{1}{2}\dot{x}^{2}+\int_{0}^{x}c(y)dy
+  \end{equation*}
+  \item{If we have a second order linear system}
+  \begin{equation*}
+    A_{1}\ddot{x}+A_{2}\dot{x}+A_{3}x=0
+  \end{equation*}
+  use
+  \begin{equation*}
+    V=\frac{1}{2}\dot{x}^{\mathsf{T}}A_{1}\dot{x}+\frac{1}{2}y^{\mathsf{T}}A_{3}y^{\mathsf{T}}
+  \end{equation*}
+  \item{Using this Lyapunov function if/when we evaluate $\dot{V}$ and get negative semi-definite, we can only assert stability in the sense of Lyapunov}
+  \item{To get local asymptotic stability, look at the condition that is required to make $\dot{V}=0$.
+  For example if $\dot{V}=-\dot{x}^{2}$ then we take $\dot{x}=0$.
+  Substitute this value $\dot{x}=0$ into the system equations}
+  \item{Then???}
+  \item{Result is extended to global asymptotic stability if the integral $\int_{0}^{y}c(y)dy$ is radially unbounded}
+\end{itemize}
+
+When analyzing a system with multiple equilibria, in order for a scalar function $V$ to be considered a candidate Lyapunov function, it must be zero only at the equilibrium point, and positive everywhere else.
+Thus a single candidate Lyapunov function that can be used to determine stability about all of the equilibria cannot be proposed.
+Sticking to Lyapunov's second method would thus require a candidate Lyapunov function proposed for each of the equilibria, and then analyzed.
+However, in systems with multiple equilibria, we may wish to use only a single Lyapunov-like function in order to say something about the stability of the equilibria.
+
+In order to do this we appeal to the global invariant set theorem, and necessarily relax the requirement for $V$ to be positive definite.
+Therefore, we can only call the scalar function $V$ a Lyapunov-like function.
+
+We find $\dot{V}$ and evaluate the values of the state $x$ that make $\dot{V}=0$.
+We call this set of points $R$.
+
+Then, using the system dynamics, we find a subset $R$ that are equilibrium points and call this subset $M$.
+
+Globally, we will converge to this set, although we don't know the particulars about which points within this set to which the system trajectories actually converge.
+Additional analysis is required.
+If the Lyapunov-like function is locally about an equilibrium ``a bowl'' this equilibrium point is a stable one.
+If the Lyapunov-like function about an equilibrium point is locally ``a hill'' we can't conclude the local instability of this point? Check this statement.
+But a linear analysis will indicate local instability.
+
+\section{Solving Lyapunov Problems}
+
+The following section will attempt to explain how to use Lyapunov stability analysis in solving problems.
+\begin{itemize}
+  \item{Is the system unstable?}
+  \begin{itemize}
+    \item{if it is suspected that the system is unstable, Lyapunov's first method can be used to prove instability}
+    \item{if Lyapunov's first method is used, and the system is locally stable, the second method can then be attempted to prove global stability}
+  \end{itemize}
+  \item{Try to find a Lyapunov function $V$ be which will prove stability of the system}
+  \begin{itemize}
+    \item{try to make $\dot{V} =0$ only when $x=x_{0}$ to prove asymptotic stability, otherwise as long as  $\dot{V}$ is never positive the system is still stable}
+  \end{itemize}
+  \item{For linear, autonomous, stable systems}
+  \begin{itemize}
+    \item{use $V=x^{T}Px$}
+    \item{find P by solving $A^{T}P+PA=-Q$}
+    \item{where $Q$ and $P$ are both positive-definite}
+    \item{$Q$ is a free design parameter: use a diagonal matrix}
+  \end{itemize}
+  \item{For linear, non-autonomous, unstable systems}
+  \begin{itemize}
+    \item{can use full state feedback $u=-Kx$ to stabilize the linear $A$ matrix}
+    \item{the Lyapunov equation is now solved using the closed-loop $A$ matrix, since $A_{CL}$ is stable: ${A_{CL}}^{T}P+PA_{CL}=-Q$}
+  \end{itemize}
+\end{itemize}
+
+Sometimes having $\dot{V}$ negative semi-definite, and thus only being able to conclude stability in the sense of Lyapunov and not asymptotic stability is not enough.
+Must use invariance when this is the case.
+
+\section{Stuff}
+%\quote{\cite{kalmanbertram}
+%The objective of the so-called ``second method" of Lyapunov is this: \textit{To answer questions of stability of differential equations, utilizing the given form of the equations but without explicit knowledge of the solutions.}}
+
+\section{Sliding Mode Control}
+
+\subsection{Introduction}
+
+Sliding, switching, ``suction'' control.
+
+\subsection{General Idea}
+
+Perfect tracking possible in presence of arbitrary parameter inaccuracies, but requires extremely high control activity.
+Provides good tradeoff between tracking performance and uncertainty.
+We consider systems of the form
+\begin{equation*}
+  x^{(n)}=f(x)+b(x)u
+\end{equation*}
+where $f(x)$ is not completely known, but imprecision on $f(x)$ upper bounded by a function of $x$.
+$b(x)$ not completely known, but known sign and also upper bounded.
+Goal: get the state $x$ to track the desired state $x_{d}$.
+Define the state tracking error $\tilde{x}$ as
+\begin{equation*}
+  \tilde{x}=x-x_{d}
+\end{equation*}
+To make it easier to explain in these notes, we will consider when the system is of second order.
+(with some additional simplifications over the general form)
+\begin{equation*}
+  \ddot{x}=f(x)+b(x)u
+\end{equation*}
+\begin{equation*}
+  \ddot{x}=f+u
+\end{equation*}
+The general form of the composite/switching variable $s$ is
+\begin{equation*}
+  s=\left(\frac{d}{dt}+\lambda\right)^{n-1}\tilde{x}
+\end{equation*}
+which, when equal to zero, drives the state error $\tilde{x}$ to zero.
+For a the second order system this composite variable is
+\begin{equation*}
+  s=\left(\frac{d}{dt}+\lambda\right)^{1}\tilde{x}=\frac{d}{dt}\tilde{x}+\lambda\tilde{x}
+\end{equation*}
+giving
+\begin{equation*}
+  s=\dot{\tilde{x}}+\lambda\tilde{x}
+\end{equation*}
+for a third order
+\begin{equation*}
+  s=\left(\frac{d}{dt}+\lambda\right)^{2}\tilde{x}=\left(\frac{d^{2}}{dt^{2}}+2\lambda\frac{d}{dt}+\lambda^{2}\right)\tilde{x}
+\end{equation*}
+giving
+\begin{equation*}
+  s=\ddot{\tilde{x}}+2\lambda\dot{\tilde{x}}+\lambda^{2}\tilde{x}
+\end{equation*}
+and so on.
+Our goal is to enforce that this new composite variable $s$ tends to zero.
+We do this by creating a candidate Lyapunov function $V$ of this variable, take its time derivative, and choose the control input such that $\dot{V}$ is negative definite.
+That is, choose the following candidate Lyapunov equation
+\begin{equation*}
+  V(s)=\frac{1}{2}s^{2}
+\end{equation*}
+time differentiating
+\begin{equation*}
+  \dot{V}=s\dot{s}
+\end{equation*}
+From the definition of $s$ we can evaluate $\dot{s}$
+\begin{equation*}
+  \dot{s}=\ddot{\tilde{x}}+\lambda\dot{\tilde{x}}
+\end{equation*}
+and substitute it in
+\begin{equation*}
+  \dot{V}=s(\ddot{\tilde{x}}+\lambda\dot{\tilde{x}})
+\end{equation*}
+\begin{equation*}
+  \dot{V}=s(\ddot{x}-\ddot{x}_{d}+\lambda\dot{\tilde{x}})
+\end{equation*}
+to simplify things we can define a new variable $x_{r}$ that satisfies the following
+\begin{equation*}
+  \ddot{x}_{r}=\ddot{x}_{d}-\lambda\dot{\tilde{x}}
+\end{equation*}
+substituting this into $\dot{V}$
+\begin{equation*}
+  \dot{V}=s(\ddot{x}-\ddot{x}_{r})
+\end{equation*}
+and substituting in the system equation
+\begin{equation*}
+  \dot{V}=s(f+u-\ddot{x}_{r})
+\end{equation*}
+At this point we are ready to design the control input $u$.
+However, instead of designing $u$ simply to make $\dot{V}$ negative definite, we wish to impose some degree of ``negativeness''.
+That is, we want to design $u$ to enforce
+\begin{equation*}
+  \dot{V}\leq\eta|s|
+\end{equation*}
+where $\eta>0$ is a positive constant.
+With our choice of $V=\frac{1}{2}s^{2}$ this constraint can be expressed
+\begin{equation*}
+  \frac{1}{2}\frac{d}{dt}s^{2}\leq-\eta|s|
+\end{equation*}
+This gives
+\begin{equation*}
+  s(f+u-\ddot{x}_{r})\leq\eta|s|
+\end{equation*}
+We want to design an \textit{equivalent control} $\hat{u}$ that would completely cancel out $f$ if the parameters of $f$ were completely known.
+That is
+\begin{equation*}
+  \hat{u}=-\hat{f}+\ddot{x}_{r}
+\end{equation*}
+The control law
+\begin{equation*}
+  u=\hat{u}-k\text{sgn}(s)
+\end{equation*}
+\begin{equation*}
+  u=-\hat{f}+\ddot{x}_{r}-k\text{sgn}(s)
+\end{equation*}
+plugging in
+\begin{equation*}
+  s(f-\hat{f}-k\text{sgn}(s))\leq\eta|s|
+\end{equation*}
+\begin{equation*}
+  -s(\hat{f}-f)-sk\text{sgn}(s)\leq\eta|s|
+\end{equation*}
+and then
+\begin{equation*}
+  -\frac{s(\hat{f}-f)}{|s|}-k\leq\eta
+\end{equation*}
+and then
+\begin{equation*}
+  \pm(\hat{f}-f)-k\leq\eta
+\end{equation*}
+And we know a bound on the parameter error
+\begin{equation*}
+  |\hat{f}-f|\leq F
+\end{equation*}
+so we can pick $k$ to satisfy
+\begin{equation*}
+  \pm(\hat{f}-f)-k\leq\eta\leq|\hat{f}-f|+\eta\leq k
+\end{equation*}
+and then
+\begin{equation*}
+  |\hat{f}-f|+\eta\leq F+\eta\leq k
+\end{equation*}
+and pick $k$ such that it is the smallest value that will satisfy this inequality
+\begin{equation*}
+k=F+\eta
+\end{equation*}
+
+\subsection{Summary}
+
+The general form of the system to use switching control.
+\begin{equation*}
+  x^{(n)}=f(x)+b(x)u
+\end{equation*}
+
+So when the system is second order, use these (I don't know for sure what it would be for higher order systems.)
+\begin{align*}
+  \tilde{x}&=x-x_{d} \\
+  s&=\dot{\tilde{x}}+\lambda\tilde{x} \\
+  s&=\dot{x}-\dot{x}_{r} \\
+  \dot{x}_{r}&=\dot{x}_{d}-\lambda\tilde{x}
+\end{align*}
+
+\subsection{Barbalat's Lemma}
+
+\begin{enumerate}
+  \item{$V$ is positive definite}
+  \item{$\dot{V}$ is negative semi-definite}
+  \begin{itemize}
+    \item{With $V$ positive definite and $\dot{V}$ negative semi-definite, $V$ is bounded.
+    That is, at the initial time $t=0$ we have $V(x(t=0),\theta(t=0))$ and from here (since $\dot{V}$ is negative semidefinite) the value of $V$ can only decrease.
+    $V$ is bounded below by zero since it is positive definite.
+    Finally, we say that since $V$ is bounded from above by $V(t=0)$ and bounded from below by 0, that it is bounded.
+    And because $V$ is bounded and positive definite (actually probably some other condition, but it is true for a quadratic function) then the arguments of $V$ are bounded}
+  \end{itemize}
+  \item{$\dot{V}$ is uniformly continuous, which follows from $\ddot{V}$ being bounded}
+  \begin{itemize}
+    \item{We evaluate $\ddot{V}$ and since now we know the arguments of $V$ are bounded, we use this to bound $\ddot{V}$, thus showing uniform continuity of $\dot{V}$}
+  \end{itemize}
+\end{enumerate}
+With these three conditions met Barbalat's Lemma states that $\dot{V}\rightarrow0$ as $t\rightarrow\infty$.
+We then look at $\dot{V}$ and since it is tending to zero, its arguments must go to zero.
+Since $\dot{V}$ at this point is probably a function of the state error only, we say the state error tends to zero, although we can't necessarily say anything about the parameter error (unless the parameters are in $\dot{V}$ also\ldots
+it is easiest to show this with examples).
+
+\subsubsection{Barbalat's Lemma}
+
+Thus far, we have shown that $e\in\mathcal{L}_{\infty}$ is bounded.
+Now the goal is to use Barbalat's Lemma to prove $e\rightarrow0$.
+That is, show the system is asymptotically stable?
+
+\subsubsection{Stuff}
+\begin{itemize}
+  \item{%
+    Continuity does not imply differentiability.\@
+    e.g.\ absolute value
+  }
+\end{itemize}
+
+\paragraph{Example} Slotine example page 122: $\dot{f}(t)\rightarrow0\nRightarrow f$ converges.
+
+This example shows a function $f(t)$ which has a time derivative $\dot{f}(t)$ that goes to zero as $t\rightarrow\infty$, but the function $f(t)$ does not converge as $t\rightarrow\infty$.
+\begin{equation*}
+  f(t)=\sin(\ln(t))
+\end{equation*}
+\begin{equation*}
+  \dot{f}(t)=\cos(\ln(t))\frac{d}{dt}(\ln(t))=\frac{\cos(\ln(t))}{t}
+\end{equation*}
+\begin{equation*}
+  \lim_{t\rightarrow\infty}\dot{f}(t)=\lim_{t\rightarrow\infty}\frac{\cos(\ln(t))}{t}=0
+\end{equation*}
+However, just because $\dot{f}(t)$ approaches zero as $t\rightarrow\infty$ does not mean the function $f(t)$ will converge as $t\rightarrow\infty$, as is the case in this example.
+
+\paragraph{Example} Slotine example page 122: $f$ converges $\nRightarrow \dot{f}(t)\rightarrow0$.
+
+This example shows a function $f(t)$ which converges as $t\rightarrow\infty$, with a time derivative $\dot{f}(t)$ that does not go to zero as $t\rightarrow\infty$.
+\begin{equation*}
+  f(t)=e^{-t}\sin(e^{2t})
+\end{equation*}
+\begin{equation*}
+  \lim_{t\rightarrow\infty}f(t)=\lim_{t\rightarrow\infty}e^{-t}\sin(e^{2t})=0
+\end{equation*}
+\begin{equation*}
+  \dot{f}(t)=-e^{-t}\sin(e^{2t})+2\cos(e^{2t})
+\end{equation*}
+\begin{equation*}
+  \lim_{t\rightarrow\infty}\dot{f}(t)=\lim_{t\rightarrow\infty}-e^{-t}\sin(e^{2t})+2\cos(e^{2t})=\lim_{t\rightarrow\infty}2\cos(e^{2t})
+\end{equation*}
+The function $f(t)$ has a time derivative $\dot{f}(t)$ which does not converge.
+It oscillates back and forth faster and faster.
+
+\section{Describing Functions and Limit Cycles}
+The purpose of a describing function is to represent a nonlinearity as an effective gain which varies based on the input signal.
+Describing functions are based on the assumption that the input to the nonlinearity is sinusoidal.
+The idea is that in response to a sinusoidal excitation, most nonlinearities will produce a periodic signal with frequencies being the harmonics of the input frequency.
+The assumption is made that the output may in be acceptably approximated by the first harmonic alone.
+Describing functions allow limit cycles to be found.
+
+\section{Contraction Analysis}
+plant
+\begin{equation*}
+  \dot{x}=f(x,u,t)
+\end{equation*}
+substitute control law
+\begin{equation*}
+  u(x,t)
+\end{equation*}
+get
+\begin{equation*}
+  \dot{x}=f(x,t)
+\end{equation*}
+consider a virtual displacement
+\begin{equation*}
+  \delta\dot{x}=\frac{\partial{}f(x,t)}{\partial{}x}\delta x=\frac{\partial{}f}{\partial{}x}\delta x
+\end{equation*}
+When a trajectory is virtually displaced, we want the displacement to tend to zero with time.
+That is, we want the trajectory to eventually go back the the trajectory from which it was displaced.
+If all neighboring trajectories converge to each other (contraction behavior) global exponential convergence to a single trajectory can then be concluded.
+We define the distance of this virtual displacement as
+\begin{equation*}
+  \delta x^{\mathsf{T}}\delta x
+\end{equation*}
+For this distance to tend to zero, it is the same as its time derivative always being strictly negative.
+Evaluating the derivative
+\begin{equation*}
+  \frac{d}{dt}(\delta x^{\mathsf{T}}\delta x)=2\delta x^{\mathsf{T}}\delta\dot{x}=2\delta x^{\mathsf{T}}\frac{\partial{}f}{\partial{}x}\delta x
+\end{equation*}
+
+contraction analysis extends a number of desirable properties of linear system analysis to general nonlinear non-autonomous systems.

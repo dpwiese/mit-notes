@@ -1,0 +1,3933 @@
+\chapter{Introduction and Preliminaries}
+
+These notes were made while in MIT's Fluid Mechanics class, 2.25 taught by Professor Gareth McKinley in the Fall semester of 2013.
+
+\section{Gibb's and Index Notation}
+
+There are two ways to denote math used in vector and tensor calculus.
+One is \textit{symbolic} or \textit{Gibb's} notation, the other is \textit{index} or \textit{Cartesian} notation.
+Gibb's notation handles scalars, vectors, and tensors as different types of things, and so we need to be careful when conducting operations between these different things, and keep in mind what operations are allowed, and which aren't.
+Index notation always operates on the scalar entries within the vectors and tensors, so the problem of what operations are legal or not is simplified.
+
+A free index occurs once and only once in each and every term in an equation, where term means product of multiple quantities.
+The free index means the equation can be written three times, where the free index is substituted for 1, 2, and 3.
+The free index can be changed to any letter, as long as it is changed everywhere it appears, and not to a letter which is already being used in an index.
+The dummy or summation index are those which are not a free index.
+That is, the dummy indexes are those which occur more than once in every term.
+Like the the free index, the dummy index can be changed to a different letter, as long as it is changed everywhere, and not to a letter that is already used as an index.
+
+\begin{example}
+  \textbf{Free Index}
+  \begin{equation*}
+    a_{k}=b_{i}c_{ik}+d_{ijk}e_{ij}
+  \end{equation*}
+  In this equation the free index is $k$.
+  So this equation can be written out as
+  \begin{equation*}
+    \begin{split}
+      a_{1}&=b_{i}c_{i1}+d_{ij1}e_{ij} \\
+      a_{2}&=b_{i}c_{i2}+d_{ij2}e_{ij} \\
+      a_{3}&=b_{i}c_{i3}+d_{ij3}e_{ij}
+    \end{split}
+  \end{equation*}
+  The free index can also be changed fro $k$ to $n$ and the equation is the same.
+  \begin{equation*}
+    a_{n}=b_{i}c_{in}+d_{ijn}e_{ij}
+  \end{equation*}
+\end{example}
+
+\section{Review}
+
+A vector $\underline{a}$ and $\underline{b}$ can be written
+\begin{equation*}
+  \begin{split}
+    \underline{a}&=a_{1}\underline{\hat{e}}_{1}+a_{2}\underline{\hat{e}}_{2}+a_{3}\underline{\hat{e}}_{3} \\
+    \underline{b}&=b_{1}\underline{\hat{e}}_{1}+b_{2}\underline{\hat{e}}_{2}+b_{3}\underline{\hat{e}}_{3}
+  \end{split}
+\end{equation*}
+
+\subsection{Dot Product}
+
+Operation between two vectors which produces a scalar.
+The dot product of a unit vector with itself is one.
+The dot product of any perpendicular vectors is zero.
+When evaluating the dot product of two vectors $\underline{a}$ and $\underline{b}$, write out the two vectors in their component form, and then distribute
+
+\begin{equation*}
+  \begin{split}
+    \underline{a}\cdot\underline{b}
+    &=
+    (a_{1}\underline{\hat{e}}_{1}+a_{2}\underline{\hat{e}}_{2}+a_{3}\underline{\hat{e}}_{3})\cdot
+    (b_{1}\underline{\hat{e}}_{1}+b_{2}\underline{\hat{e}}_{2}+b_{3}\underline{\hat{e}}_{3}) \\
+    &=a_{1}b_{1}(\underline{\hat{e}}_{1}\cdot\underline{\hat{e}}_{1})+a_{1}b_{2}(\underline{\hat{e}}_{1}\cdot\underline{\hat{e}}_{2})+\dots \\
+    &=a_{1}b_{1}+a_{2}b_{2}+a_{3}b_{3}
+  \end{split}
+\end{equation*}
+
+\subsection{Cross Product}
+
+Operation between two vectors that produces a vector perpendicular to the first two.
+
+\begin{equation*}
+  \begin{split}
+    \underline{a}\times\underline{b}
+    &=
+    (a_{1}\underline{\hat{e}}_{1}+a_{2}\underline{\hat{e}}_{2}+a_{3}\underline{\hat{e}}_{3})\times
+    (b_{1}\underline{\hat{e}}_{1}+b_{2}\underline{\hat{e}}_{2}+b_{3}\underline{\hat{e}}_{3}) \\
+    &=
+    a_{1}b_{1}(\underline{\hat{e}}_{1}\times\underline{\hat{e}}_{1})+a_{1}b_{2}(\underline{\hat{e}}_{1}\times\underline{\hat{e}}_{2})+\dots \\
+  \end{split}
+\end{equation*}
+
+\section{Index Notation}
+
+\begin{equation*}
+  \begin{split}
+    \underline{a}&=a_{1}\underline{\hat{e}}_{1}+a_{2}\underline{\hat{e}}_{2}+a_{3}\underline{\hat{e}}_{3} \\
+    &=\sum_{i=1}^{3}a_{i}\underline{\hat{e}}_{i}
+  \end{split}
+\end{equation*}
+in index notation the summation is dropped, and the vector $\underline{a}$ is expressed
+\begin{equation*}
+  \underline{a}=a_{i}\underline{\hat{e}}_{i}
+\end{equation*}
+
+\subsection{Dot Product}
+\begin{equation*}
+  \begin{split}
+    \underline{a}\cdot\underline{b}
+    &=\left(\sum_{i=1}^{3}a_{i}\underline{\hat{e}}_{i}\right)\cdot\left(\sum_{j=1}^{3}b_{i}\underline{\hat{e}}_{i}\right) \\
+    &=\sum_{i=1}^{3}\sum_{j=1}^{3}(a_{i}\underline{\hat{e}}_{i})\cdot(b_{j}\underline{\hat{e}}_{j}) \\
+    &=\sum_{i=1}^{3}\sum_{j=1}^{3}a_{i}b_{j}(\underline{\hat{e}}_{i}\cdot\underline{\hat{e}}_{j})
+  \end{split}
+\end{equation*}
+And then we have the quantity in parentheses is zero for $i\neq j$ and one if $i=j$.
+This gets a special quantity called $\delta_{ij}$.
+But since $\delta_{ij}=1$ only when $i=j$ we can simplify the above expression to
+\begin{equation*}
+  \begin{split}
+    \underline{a}\cdot\underline{b}
+    &=a_{i}b_{j}\delta_{ij}
+  \end{split}
+\end{equation*}
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \underline{a}\cdot\underline{b}=a_{i}b_{i}
+\end{empheq}
+
+\subsection{Cross Product}
+\begin{equation*}
+  \begin{split}
+    \underline{a}\times\underline{b}
+    &=\left(\sum_{i=1}^{3}a_{i}\underline{\hat{e}}_{i}\right)\times\left(\sum_{j=1}^{3}b_{j}\underline{\hat{e}}_{j}\right) \\
+    &=\sum_{i=1}^{3}\sum_{j=1}^{3}(a_{i}\underline{\hat{e}}_{i})\times(b_{j}\underline{\hat{e}}_{j}) \\
+    &=\sum_{i=1}^{3}\sum_{j=1}^{3}a_{i}b_{j}(\underline{\hat{e}}_{i}\times\underline{\hat{e}}_{j})
+  \end{split}
+\end{equation*}
+
+\begin{equation*}
+  (\underline{\hat{e}}_{i}\times\underline{\hat{e}}_{j})=\varepsilon_{ijk}\underline{\hat{e}}_{k}
+\end{equation*}
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \underline{a}\times\underline{b}=a_{i}b_{j}\varepsilon_{ijk}\underline{\hat{e}}_{k}
+\end{empheq}
+
+$\varepsilon_{ijk}$ is a scalar, with value $\pm1$ or $0$.
+$\varepsilon_{ijk}$ is determined by the values of the first two indices, and the third one is the result of right hand rule cross product on right handed coordinate system.
+If $i=j$, then $\varepsilon_{ijk}=0$.
+Also notice that
+
+\begin{equation*}
+  \varepsilon_{ijk}=\varepsilon_{jki}=\varepsilon_{kij}
+\end{equation*}
+
+\begin{equation*}
+  \varepsilon_{kji}=\varepsilon_{jik}=\varepsilon_{ikj}
+\end{equation*}
+
+Note that when writing out the combined summations for the operations on the vectors that the order of the summations does not matter.
+Show vector triple products
+
+\begin{equation*}
+  \underline{a}\cdot(\underline{b}\times\underline{c})=
+  (\underline{a}\times\underline{b})\cdot\underline{c}=
+  (\underline{c}\times\underline{a})\cdot\underline{b}
+\end{equation*}
+
+Evaluate the first quantity using index notation
+
+\begin{equation*}
+  \begin{split}
+    \underline{a}\cdot(\underline{b}\times\underline{c})
+    &=\left(\sum_{i=1}^{3}a_{i}\underline{\hat{e}}_{i}\right)\cdot\left\{\left(\sum_{j=1}^{3}b_{j}\underline{\hat{e}}_{j}\right)\times\left(\sum_{k=1}^{3}c_{k}\underline{\hat{e}}_{k}\right)\right\} \\
+    &=\sum_{i=1}^{3}\sum_{j=1}^{3}\sum_{k=1}^{3}a_{i}b_{j}c_{k}\underline{\hat{e}}_{i}\cdot(\underline{\hat{e}}_{j}\times\underline{\hat{e}}_{k}) \\
+    &=\sum_{i=1}^{3}\sum_{j=1}^{3}\sum_{k=1}^{3}a_{i}b_{j}c_{k}\varepsilon_{jkl}\underline{\hat{e}}_{i}\cdot\underline{\hat{e}}_{l} \\
+    &=\sum_{i=1}^{3}\sum_{j=1}^{3}\sum_{k=1}^{3}a_{i}b_{j}c_{k}\varepsilon_{jkl}\delta_{il} \\
+    &=a_{i}b_{j}c_{k}\varepsilon_{ijk}
+  \end{split}
+\end{equation*}
+
+The second quantity
+
+\begin{equation*}
+  \begin{split}
+    (\underline{a}\times\underline{b})\cdot\underline{c}
+    &=\left\{\left(\sum_{i=1}^{3}a_{i}\underline{\hat{e}}_{i}\right)\times\left(\sum_{j=1}^{3}b_{j}\underline{\hat{e}}_{j}\right)\right\}\cdot\left(\sum_{k=1}^{3}c_{k}\underline{\hat{e}}_{k}\right) \\
+    &=\sum_{i=1}^{3}\sum_{j=1}^{3}\sum_{k=1}^{3}a_{i}b_{j}c_{k}(\underline{\hat{e}}_{i}\times\underline{\hat{e}}_{j})\cdot\underline{\hat{e}}_{k} \\
+    &=\sum_{i=1}^{3}\sum_{j=1}^{3}\sum_{k=1}^{3}a_{i}b_{j}c_{k}\varepsilon_{ijl}\underline{\hat{e}}_{l}\cdot\underline{\hat{e}}_{k} \\
+    &=\sum_{i=1}^{3}\sum_{j=1}^{3}\sum_{k=1}^{3}a_{i}b_{j}c_{k}\varepsilon_{ijl}\delta_{lk} \\
+    &=a_{i}b_{j}c_{k}\varepsilon_{ijk} \\
+  \end{split}
+\end{equation*}
+
+The third quantity
+
+\begin{equation*}
+  \begin{split}
+    (\underline{c}\times\underline{a})\cdot\underline{b}
+    &=\left\{\left(\sum_{k=1}^{3}c_{k}\underline{\hat{e}}_{k}\right)\times\left(\sum_{i=1}^{3}a_{i}\underline{\hat{e}}_{i}\right)\right\}\cdot\left(\sum_{j=1}^{3}b_{j}\underline{\hat{e}}_{j}\right) \\
+    &=\sum_{i=1}^{3}\sum_{j=1}^{3}\sum_{k=1}^{3}a_{i}b_{j}c_{k}(\underline{\hat{e}}_{k}\times\underline{\hat{e}}_{i})\cdot\underline{\hat{e}}_{j} \\
+    &=\sum_{i=1}^{3}\sum_{j=1}^{3}\sum_{k=1}^{3}a_{i}b_{j}c_{k}\varepsilon_{kil}\underline{\hat{e}}_{l}\cdot\underline{\hat{e}}_{j} \\
+    &=\sum_{i=1}^{3}\sum_{j=1}^{3}\sum_{k=1}^{3}a_{i}b_{j}c_{k}\varepsilon_{kil}\delta_{lj} \\
+    &=a_{i}b_{j}c_{k}\varepsilon_{ijk} \\
+  \end{split}
+\end{equation*}
+
+\subsection{Del Operator}
+
+In Cartesian coordinate systems, the del operator is
+\begin{equation*}
+  \underline{\nabla}=\frac{\partial}{\partial{}x_{1}}\underline{\hat{e}}_{1}+\frac{\partial}{\partial{}x_{2}}\underline{\hat{e}}_{2}+\frac{\partial}{\partial{}x_{3}}\underline{\hat{e}}_{3}
+\end{equation*}
+In cylindrical coordinate systems the del operator is
+\begin{equation*}
+  \underline{\nabla}=\frac{\partial}{\partial{}r}\hat{\underline{e}}_{r}+\frac{1}{r}\frac{\partial}{\partial\theta}\hat{\underline{e}}_{\theta}+\frac{\partial}{\partial{}z}\hat{\underline{e}}_{z}
+\end{equation*}
+In spherical
+\begin{equation*}
+  \underline{\nabla}=\frac{\partial}{\partial{}r}\hat{\underline{e}}_{r}+\frac{1}{r}\frac{\partial}{\partial\theta}\hat{\underline{e}}_{\theta}+\frac{1}{r\sin\theta}\frac{\partial}{\partial\phi}\hat{\underline{e}}_{\phi}
+\end{equation*}
+
+\begin{empheq}[box={\labelBox[Del Operator]}]{alignat*=3}
+  &\mbox{\textbf{Cartesian:}} &\hspace{0.5in} \underline{\nabla}=\frac{\partial}{\partial{}x}\underline{\hat{e}}_{x}+\frac{\partial}{\partial{}y}\underline{\hat{e}}_{y}+\frac{\partial}{\partial{}z}\underline{\hat{e}}_{z} \\[6pt]
+  &\mbox{\textbf{Cylindrical:}} &\hspace{0.5in} \underline{\nabla}=\frac{\partial}{\partial{}r}\hat{\underline{e}}_{r}+\frac{1}{r}\frac{\partial}{\partial\theta}\hat{\underline{e}}_{\theta}+\frac{\partial}{\partial{}z}\hat{\underline{e}}_{z} \\[6pt]
+  &\mbox{\textbf{Spherical:}} &\hspace{0.5in} \underline{\nabla}=\frac{\partial}{\partial{}r}\hat{\underline{e}}_{r}+\frac{1}{r}\frac{\partial}{\partial\theta}\hat{\underline{e}}_{\theta}+\frac{1}{r\sin\theta}\frac{\partial}{\partial\phi}\hat{\underline{e}}_{\phi}
+\end{empheq}
+
+In index notation
+
+\begin{equation*}
+  \underline{\nabla}=\sum_{i=1}^{3}\frac{\partial}{\partial{}x_{i}}\underline{\hat{e}}_{i}
+\end{equation*}
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \underline{\nabla}=\frac{\partial}{\partial{}x_{i}}\underline{\hat{e}}_{i}
+\end{empheq}
+
+\subsection{Gradient}
+
+The gradient is basically a derivative with respect to position.
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \underline{\nabla}\Phi=\frac{\partial\Phi}{\partial{}x_{i}}\underline{\hat{e}}_{i}
+\end{empheq}
+
+In cylindrical coordinates
+
+\begin{equation*}
+  \underline{\nabla}\Phi=\frac{\partial\Phi}{\partial{}r}\hat{\underline{e}}_{r}+\frac{1}{r}\frac{\partial\Phi}{\partial\theta}\hat{\underline{e}}_{\theta}+\frac{\partial\Phi}{\partial{}z}\hat{\underline{e}}_{z}
+\end{equation*}
+
+\subsection{Divergence}
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \underline{\nabla}\cdot\underline{v}=\frac{\partial{}v_{i}}{\partial{}x_{i}}
+\end{empheq}
+
+In cylindrical coordinates
+
+\begin{equation*}
+  \underline{\nabla}\cdot\underline{v}=\frac{1}{r}\frac{\partial}{\partial{}r}(rv_{r})+\frac{1}{r}\frac{\partial{}v_{\phi}}{\partial\phi}+\frac{\partial{}v_{z}}{\partial{}z}
+\end{equation*}
+
+\subsection{Curl}
+
+Curl is the operation of the del operator acting on a vector with the cross product.
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \underline{\nabla}\times\underline{v}=\frac{\partial{}v_{j}}{\partial{}x_{i}}\varepsilon_{ijk}\underline{\hat{e}}_{k}
+\end{empheq}
+
+The curl of the velocity field is known as the vorticity, $\underline{\omega}$.
+In Gibbs notation, the curl, in cylindrical coordinates is given by
+
+\begin{equation*}
+  \underline{\nabla}\times\underline{v}=
+  \left(\frac{1}{r}\frac{\partial{}v_{z}}{\partial\theta}-\frac{\partial{}v_{\theta}}{\partial{}z}\right)\hat{\underline{e}}_{r}+
+  \left(\frac{\partial{}v_{r}}{\partial{}z}-\frac{\partial{}v_{z}}{\partial{}r}\right)\hat{\underline{e}}_{\theta}+
+  \left(\frac{1}{r}\frac{\partial}{\partial{}r}(v_{\theta}r)-\frac{1}{r}\frac{\partial{}v_{r}}{\partial\theta}\right)\hat{\underline{e}}_{z}
+\end{equation*}
+
+In cartesian coordinates it is
+
+\begin{equation*}
+  \underline{\nabla}\times\underline{v}=
+  \left(\frac{\partial{}v_{z}}{\partial{}y}-\frac{\partial{}v_{y}}{\partial{}z}\right)\hat{\underline{e}}_{x}+
+  \left(\frac{\partial{}v_{x}}{\partial{}z}-\frac{\partial{}v_{z}}{\partial{}x}\right)\hat{\underline{e}}_{y}+
+  \left(\frac{\partial{}v_{y}}{\partial{}x}-\frac{\partial{}v_{x}}{\partial{}y}\right)\hat{\underline{e}}_{z}
+\end{equation*}
+
+\section{Tensors}
+
+Dot product of vector with tensor produces a vector.
+
+\begin{equation*}
+  \uuline{T}=T_{ij}(\underline{\hat{e}}_{i}\underline{\hat{e}}_{j})
+\end{equation*}
+
+\subsection{Symmetric Tensors}
+
+\begin{equation*}
+T_{ij}=T_{ji}
+\end{equation*}
+
+\subsection{Antisymmetric Tensors}
+
+\begin{equation*}
+T_{ij}=-T_{ji}
+\end{equation*}
+
+\subsection{Tensor Products}
+
+note the following \textit{IS THIS TRUE?}
+
+\begin{equation*}
+T_{ij}S_{ji}=T_{ij}S_{ij}
+\end{equation*}
+
+\subsection{Dyadic Product}
+
+Pretty much just outer product.
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \underline{\nabla}\;\underline{v}=
+  \begin{bmatrix}
+    \frac{\partial{}v_{x}}{\partial{}x} & \frac{\partial{}v_{y}}{\partial{}x} & \frac{\partial{}v_{z}}{\partial{}x} \\
+    \frac{\partial{}v_{x}}{\partial{}y} & \frac{\partial{}v_{y}}{\partial{}y} & \frac{\partial{}v_{z}}{\partial{}y} \\
+    \frac{\partial{}v_{x}}{\partial{}z} & \frac{\partial{}v_{y}}{\partial{}z} & \frac{\partial{}v_{z}}{\partial{}z}
+  \end{bmatrix}
+\end{empheq}
+
+\subsection{Unit Vector Derivatives}
+
+\subsubsection{Cartesian Coordinates}
+
+\begin{equation*}
+  \hat{\underline{e}}_{x}=
+  \begin{bmatrix}
+    1 \\
+    0 \\
+    0 \\
+  \end{bmatrix}
+  \hspace{0.5in}
+  \hat{\underline{e}}_{y}=
+  \begin{bmatrix}
+    0 \\
+    1 \\
+    0 \\
+  \end{bmatrix}
+  \hspace{0.5in}
+  \hat{\underline{e}}_{z}=
+  \begin{bmatrix}
+    0 \\
+    0 \\
+    1 \\
+  \end{bmatrix}
+\end{equation*}
+
+From these, we can see that any derivative of a unit vector in a cartesian coordinate system is zero.
+
+\begin{equation*}
+  \frac{\partial\hat{\underline{e}}_{x}}{\partial{}x}=
+  \begin{bmatrix}
+    0 \\
+    0 \\
+    0 \\
+  \end{bmatrix}
+\end{equation*}
+
+\subsubsection{Cylindrical Coordinates}
+
+\begin{equation*}
+  \hat{\underline{e}}_{r}=
+  \begin{bmatrix}
+    \cos\theta \\
+    \sin\theta \\
+    0 \\
+  \end{bmatrix}
+  \hspace{0.5in}
+  \hat{\underline{e}}_{\theta}=
+  \begin{bmatrix}
+    -\sin\theta \\
+    \cos\theta \\
+    0 \\
+  \end{bmatrix}
+  \hspace{0.5in}
+  \hat{\underline{e}}_{z}=
+  \begin{bmatrix}
+    0 \\
+    0 \\
+    1 \\
+  \end{bmatrix}
+\end{equation*}
+
+Taking the derivatives of these unit vectors with respect to the different directions we have
+
+\begin{equation*}
+  \begin{array}{ccc}
+    \frac{\partial}{\partial{}r}\hat{\underline{e}}_{r}=0 & \quad
+    \frac{\partial}{\partial{}r}\hat{\underline{e}}_{\theta}=0 & \quad
+    \frac{\partial}{\partial{}r}\hat{\underline{e}}_{z}=0 \\[24pt]
+    \frac{\partial}{\partial{}\theta}\hat{\underline{e}}_{r}=
+  \begin{bmatrix}
+    -\sin\theta \\
+    \cos\theta \\
+    0 \\
+  \end{bmatrix}=\hat{\underline{e}}_{\theta} & \quad
+  \frac{\partial}{\partial{}\theta}\hat{\underline{e}}_{\theta}=
+  \begin{bmatrix}
+    -\cos\theta \\
+    -\sin\theta \\
+    0 \\
+  \end{bmatrix}=-\hat{\underline{e}}_{r} & \quad
+    \frac{\partial}{\partial{}\theta}\hat{\underline{e}}_{z}=0 \\[24pt]
+    \frac{\partial}{\partial{}z}\hat{\underline{e}}_{r}= 0 & \quad
+    \frac{\partial}{\partial{}z}\hat{\underline{e}}_{\theta}=0 & \quad
+    \frac{\partial}{\partial{}z}\hat{\underline{e}}_{z}=0
+  \end{array}
+\end{equation*}
+
+Components:
+
+\begin{equation*}
+  \underline{\nabla}\;\underline{v}=
+  \begin{bmatrix}
+    rr & r\theta & rz \\
+    \theta r & \theta\theta & \theta z \\
+    zr & z\theta & zz
+  \end{bmatrix}
+\end{equation*}
+
+\chapter{Basic Conservation Laws}
+
+\section{Continuity: Conservation of Mass}
+
+Conservation of mass is also called the \textit{continuity equation} to emphasize that the continuum assumptions are prerequisites\ \cite{book.panton.2013}.
+The continuity equation states that the time rate of change of the mass of a material region is zero.
+The continuity equation can typically be found in integral and derivative form, and can be derived in several different ways.
+The integral form of conservation of mass is
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Compressible mass conservation (integral):}} &\hspace{0.5in} \underbrace{\frac{\partial}{\partial{}t}\int_{V}\rho{}dV}_{\text{Rate of change of mass}}=\underbrace{-\oint_{S}\rho\underline{v}\cdot\underline{n}dS}_{\text{Net inflow of mass}}
+\end{empheq}
+
+\subsection{Deriving the Differential Form of Continuity}
+
+Using Gauss' theorem the right hand side of the integral form of conservation of mass equation can be written
+\begin{equation*}
+  \oint_{S}\rho\underline{v}\cdot\underline{n}dS=\int_{V}\underline{\nabla}\cdot(\rho\underline{v})dV
+\end{equation*}
+using this definition the integral form of mass conservation can be written
+\begin{equation*}
+  \frac{\partial}{\partial{}t}\int_{V}\rho{}dV=-\int_{V}\underline{\nabla}\cdot(\rho\underline{v})dV
+\end{equation*}
+Leibnitz's theorem allows the integral to be moved inside giving
+\begin{equation*}
+  \int_{V}\left(\frac{\partial\rho}{\partial{}t}+\underline{\nabla}\cdot(\rho\underline{v})\right)dV=0
+\end{equation*}
+Then, since the choice of the material region that we chose was arbitrary, the only way this equation can be true is if the integrand is zero, which is the differential form of conservation of mass.
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Compressible mass conservation  (differential):}} \hspace{0.5in}& \frac{\partial\rho}{\partial{}t}+\underline{\nabla}\cdot(\rho\underline{v})=0
+\end{empheq}
+
+\subsection{Conservation of Mass for an Incompressible Fluid}
+
+This section provides a first-principles, control volume derivation of conservation of mass for an incompressible fluid.
+This is an alternative derivation of the differential form of continuity, and is a little bit easier and more intuitive to derive using an infinitesimal control volume, as opposed to starting with the integral form and using Gauss' theorem.
+\begin{figure}[H]
+  \begin{center}
+    \begin{tikzpicture}[>=Stealth]
+      \def\sliceZ{0.8}
+      \def\side{2}
+      \def\linewidth{0.6}
+      \def\arrowlength{1.5}
+      \draw[dashed] (\side,0,0) -- (0,0,0);
+      \draw[dashed] (0,0,\side) -- (0,0,0);
+      \draw[dashed] (0,\side,0) -- (0,0,0);
+      \draw (\side,0,0) -- (\side,\side,0) node[midway,right]{$\delta z$} -- (0,\side,0);
+      \draw (0,0,\side) -- (\side,0,\side) node[midway,below]{$\delta x$} -- (\side,\side,\side) -- (0,\side,\side) -- (0,0,\side);
+      \draw (\side,0,0) -- (\side,0,\side) node[midway,below right]{$\delta y$};
+      \draw (\side,\side,0) -- (\side,\side,\side);
+      \draw (0,\side,0) -- (0,\side,\side);
+      \node at (1,\sliceZ,1){};
+      \draw[line width=\linewidth mm,<-](\side+\arrowlength,\side/2,\side/2) node[right]{$v_{x}(x+\delta x)$} -- (\side,\side/2,\side/2);
+      \draw[line width=\linewidth mm,->](-\arrowlength,\side/2,\side/2) node[left]{$v_{x}(x)$} -- (0,\side/2,\side/2);
+      \draw[line width=\linewidth mm,->](\side/2,\side/2+0.2,\side+3) node[left]{$v_{y}(y)$} -- (\side/2,\side/2+0.2,\side);
+      \draw[line width=\linewidth mm,<-](\side/2,\side/2-0.2,-3) node[right]{$v_{y}(y+\delta y)$} -- (\side/2,\side/2-0.2,0);
+      \draw[line width=\linewidth mm,<-](\side/2,\side+\arrowlength,\side/2) node[right]{$v_{z}(z+\delta z)$} -- (\side/2,\side,\side/2);
+      \draw[line width=\linewidth mm,->](\side/2,-\arrowlength,\side/2) node[right]{$v_{z}(z)$} -- (\side/2,0,\side/2);
+    \end{tikzpicture}
+    \caption{Infinitesimal control volume}
+  \end{center}
+\end{figure}
+
+The box is a fixed volume.
+Continuity represents the rate of accumulation of mass within the box, minus the net flow out of the box.
+Conservation of mass is written as
+
+\begin{equation*}
+  \begin{split}
+    &\frac{\partial\rho}{\partial{}t}\delta x\delta y\delta z+\rho{}v_{x}(x)\delta y\delta z+\rho{}v_{y}(y)\delta x\delta z+\rho{}v_{z}(z)\delta x\delta y \\
+    &=(\rho+\delta\rho_{x})v_{x}(x+\delta x)\delta y\delta z+(\rho+\delta\rho_{y})v_{y}(y+\delta y)\delta x\delta z+(\rho+\delta\rho_{z})v_{z}(z+\delta z)\delta x\delta y
+  \end{split}
+\end{equation*}
+Note now that $\rho$ is a constant and thus all derivatives of $\rho$ are zero, giving
+
+\begin{equation*}
+  \begin{split}
+    &v_{x}(x)\delta y\delta z+v_{y}(y)\delta x\delta z+v_{z}(z)\delta x\delta y \\
+    &=v_{x}(x+\delta x)\delta y\delta z+v_{y}(y+\delta y)\delta x\delta z+v_{z}(z+\delta z)\delta x\delta y
+  \end{split}
+\end{equation*}
+Multiplying each velocity term by unity gives
+
+\begin{equation*}
+  \begin{split}
+    &v_{x}(x)\frac{\delta y\delta z\delta x}{\delta x}+v_{y}(y)\frac{\delta x\delta z\delta y}{\delta y}+v_{z}(z)\frac{\delta x\delta y\delta z}{\delta z} \\
+    &=v_{x}(x+\delta x)\frac{\delta y\delta z\delta x}{\delta x}+v_{y}(y+\delta y)\frac{\delta x\delta z\delta y}{\delta y}+v_{z}(z+\delta z)\frac{\delta x\delta y\delta z}{\delta z}
+  \end{split}
+\end{equation*}
+Dividing both sides by $\delta x\delta y\delta z$ gives
+
+\begin{equation*}
+  \frac{v_{x}(x)}{\delta x}+\frac{v_{y}(y)}{\delta y}+\frac{v_{z}(z)}{\delta z}=\frac{v_{x}(x+\delta x)}{\delta x}+\frac{v_{y}(y+\delta y)}{\delta y}+\frac{v_{z}(z+\delta z)}{\delta z}
+\end{equation*}
+Combining terms
+
+\begin{equation*}
+  \frac{v_{x}(x)-v_{x}(x+\delta x)}{\delta x}+\frac{v_{y}(y)-v_{y}(y+\delta y)}{\delta y}+\frac{v_{z}(z)-v_{z}(z+\delta z)}{\delta z}=0
+\end{equation*}
+Taking the limit as the fluid element gets small
+
+\begin{equation*}
+  \frac{\partial{}v_{x}}{\partial{}x}+\frac{\partial{}v_{y}}{\partial{}y}+\frac{\partial{}v_{z}}{\partial{}z}=0
+\end{equation*}
+In vector form
+
+\begin{equation*}
+  \begin{bmatrix}
+    \frac{\partial}{\partial{}x} &
+    \frac{\partial}{\partial{}y} &
+    \frac{\partial}{\partial{}z}
+  \end{bmatrix}
+  \cdot
+  \begin{bmatrix}
+    v_{x} &
+    v_{y} &
+    v_{z}
+  \end{bmatrix}
+  =0
+\end{equation*}
+And of course this can be written using the del operator as
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Incompressible mass conservation (differential):}} \hspace{0.5in}& \underline{\nabla}\cdot\underline{v}=0
+\end{empheq}
+
+\subsection{Conservation of Mass for a Compressible Fluid}
+
+This section provides a control volume derivation of conservation of mass for a compressible fluid.
+It follows the same derivation as the one above for incompressible fluids, except that the density is not constant and thus has, in general, nonzero derivatives.
+Furthermore, the result above can be obtained from the one below when density is constant.
+
+\begin{figure}[H]
+  \begin{center}
+    \begin{tikzpicture}[>=Stealth]
+      \def\sliceZ{0.8}
+      \def\side{2}
+      \def\linewidth{0.6}
+      \def\arrowlength{1.5}
+      \draw[dashed] (\side,0,0) -- (0,0,0);
+      \draw[dashed] (0,0,\side) -- (0,0,0);
+      \draw[dashed] (0,\side,0) -- (0,0,0);
+      \draw (\side,0,0) -- (\side,\side,0) node[midway,right]{$\delta z$} -- (0,\side,0);
+      \draw (0,0,\side) -- (\side,0,\side) node[midway,below]{$\delta x$} -- (\side,\side,\side) -- (0,\side,\side) -- (0,0,\side);
+      \draw (\side,0,0) -- (\side,0,\side) node[midway,below right]{$\delta y$};
+      \draw (\side,\side,0) -- (\side,\side,\side);
+      \draw (0,\side,0) -- (0,\side,\side);
+      \node at (1,\sliceZ,1){};
+      \draw[line width=\linewidth mm,<-](\side+\arrowlength,\side/2,\side/2) node[right]{$v_{x}(x+\delta x)$} -- (\side,\side/2,\side/2);
+      \draw[line width=\linewidth mm,->](-\arrowlength,\side/2,\side/2) node[left]{$v_{x}(x)$} -- (0,\side/2,\side/2);
+      \draw[line width=\linewidth mm,->](\side/2,\side/2+0.2,\side+3) node[left]{$v_{y}(y)$} -- (\side/2,\side/2+0.2,\side);
+      \draw[line width=\linewidth mm,<-](\side/2,\side/2-0.2,-3) node[right]{$v_{y}(y+\delta y)$} -- (\side/2,\side/2-0.2,0);
+      \draw[line width=\linewidth mm,<-](\side/2,\side+\arrowlength,\side/2) node[right]{$v_{z}(z+\delta z)$} -- (\side/2,\side,\side/2);
+      \draw[line width=\linewidth mm,->](\side/2,-\arrowlength,\side/2) node[right]{$v_{z}(z)$} -- (\side/2,0,\side/2);
+    \end{tikzpicture}
+    \caption{Infinitesimal control volume}
+  \end{center}
+\end{figure}
+
+Conservation of mass
+
+\begin{equation*}
+  \begin{split}
+    &\frac{\partial\rho}{\partial{}t}\delta x\delta y\delta z+\rho{}v_{x}(x)\delta y\delta z+\rho{}v_{y}(y)\delta x\delta z+\rho{}v_{z}(z)\delta x\delta y \\
+    &=(\rho+\delta\rho_{x})v_{x}(x+\delta x)\delta y\delta z+(\rho+\delta\rho_{y})v_{y}(y+\delta y)\delta x\delta z+(\rho+\delta\rho_{z})v_{z}(z+\delta z)\delta x\delta y
+  \end{split}
+\end{equation*}
+Looking at the terms on the right hand side with
+
+\begin{equation*}
+  \delta\rho_{x}=\frac{\partial\rho}{\partial{}x}\delta x
+  \hspace{0.5in}
+  \delta\rho_{y}=\frac{\partial\rho}{\partial{}y}\delta y
+  \hspace{0.5in}
+  \delta\rho_{z}=\frac{\partial\rho}{\partial{}z}\delta z
+\end{equation*}
+and using a first order Taylor series approximation on the following
+
+\begin{equation*}
+  v_{x}(x+\delta x)=v_{x}(x)+\frac{\partial{}v_{x}}{\partial{}x}\delta x
+\end{equation*}
+
+\begin{equation*}
+  v_{y}(y+\delta y)=v_{y}(y)+\frac{\partial{}v_{y}}{\partial{}y}\delta y
+\end{equation*}
+
+\begin{equation*}
+  v_{z}(z+\delta z)=v_{z}(z)+\frac{\partial{}v_{z}}{\partial{}z}\delta z
+\end{equation*}
+we get
+
+\begin{equation*}
+  \begin{split}
+  \rho{}v_{x}(x)\delta y\delta z+\rho{}v_{y}(y)\delta x\delta z+\rho{}v_{z}(z)\delta x\delta y
+  &=\left(\rho+\frac{\partial\rho}{\partial{}x}\delta x\right)\left(v_{x}(x)+\frac{\partial{}v_{x}}{\partial{}x}\delta x\right)\delta y\delta z \\
+  &+\left(\rho+\frac{\partial\rho}{\partial{}y}\delta y\right)\left(v_{y}(y)+\frac{\partial{}v_{y}}{\partial{}y}\delta y\right)\delta x\delta z \\
+  &+\left(\rho+\frac{\partial\rho}{\partial{}z}\delta z\right)\left(v_{z}(z)+\frac{\partial{}v_{z}}{\partial{}z}\delta z\right)\delta x\delta y \\
+  \end{split}
+\end{equation*}
+Multiplying out the left hand side and neglecting second order terms
+
+\begin{equation*}
+  \rho{}v_{x}(x)\delta y\delta z=
+  \left(\rho{}v_{x}(x)+\rho\frac{\partial{}v_{x}}{\partial{}x}\delta x+v_{x}(x)\frac{\partial\rho}{\partial{}x}\delta x\right)\delta y\delta z
+\end{equation*}
+
+\begin{equation*}
+  \rho{}v_{y}(y)\delta x\delta z=
+  \left(\rho{}v_{y}(y)+\rho\frac{\partial{}v_{y}}{\partial{}y}\delta y+v_{y}(y)\frac{\partial\rho}{\partial{}y}\delta y\right)\delta x\delta z
+\end{equation*}
+
+\begin{equation*}
+  \rho{}v_{z}(z)\delta x\delta y=
+  \left(\rho{}v_{z}(z)+\rho\frac{\partial{}v_{z}}{\partial{}z}\delta z+v_{z}(z)\frac{\partial\rho}{\partial{}z}\delta z\right)\delta x\delta y
+\end{equation*}
+simplifying
+
+\begin{equation*}
+  0=\left(\rho\frac{\partial{}v_{x}}{\partial{}x}\delta x+v_{x}(x)\frac{\partial\rho}{\partial{}x}\delta x\right)\delta y\delta z
+\end{equation*}
+
+\begin{equation*}
+  0=\left(\rho\frac{\partial{}v_{y}}{\partial{}y}\delta y+v_{y}(y)\frac{\partial\rho}{\partial{}y}\delta y\right)\delta x\delta z
+\end{equation*}
+
+\begin{equation*}
+  0=\left(\rho\frac{\partial{}v_{z}}{\partial{}z}\delta z+v_{z}(z)\frac{\partial\rho}{\partial{}z}\delta z\right)\delta x\delta y
+\end{equation*}
+Recognizing these quantities as from product rule, and combining the components back onto a single equation
+
+\begin{equation*}
+  0=\frac{\partial(\rho{}v_{x})}{\partial{}x}\delta x+\frac{\partial(\rho{}v_{y})}{\partial{}y}\delta y+\frac{\partial(\rho{}v_{z})}{\partial{}z}\delta z
+\end{equation*}
+\begin{equation*}
+  0=\frac{\partial(\rho{}v_{x})}{\partial{}x}+\frac{\partial(\rho{}v_{y})}{\partial{}y}+\frac{\partial(\rho{}v_{z})}{\partial{}z}
+\end{equation*}
+In vector form
+
+\begin{equation*}
+  \frac{\partial\rho}{\partial{}t}+
+  \begin{bmatrix}
+    \frac{\partial}{\partial{}x} &
+    \frac{\partial}{\partial{}y} &
+    \frac{\partial}{\partial{}z}
+  \end{bmatrix}
+  \cdot
+  \begin{bmatrix}
+    \rho{}v_{x} &
+    \rho{}v_{y} &
+    \rho{}v_{z}
+  \end{bmatrix}
+  =0
+\end{equation*}
+And again this can be written as follows using the del operator.
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Compressible mass conservation (differential):}} \hspace{0.5in}& \frac{\partial\rho}{\partial{}t}+\underline{\nabla}\cdot(\rho\underline{v})=0
+\end{empheq}
+And we can see that if $\rho$ is a constant, this expression reduces to conservation of mass for an incompressible fluid.
+
+\section{Conservation of Momentum}
+
+\subsection{Cauchy Momentum Equation}
+
+This is the most basic form, where the surface and pressure forces are very general.
+Fluid doesn't have to be Newtonian, or compressible, etc.
+
+\subsection{Conservation of Momentum with Euler's Equation}
+
+This section is about conservation of momentum for an incompressible fluid with pressure and gravity, deriving Euler's Equation.
+
+Conservation of momentum when only surface force is pressure and only body force is gravity.
+Consider a differential element of fluid, and consider only pressure and gravity forces acting upon it.
+We also assume the density is constant.
+To derive Euler's equation, by assuming that these are the only forces acting on the fluid, this version of Euler's equation is only valid for inviscid, incompressible flows.
+
+\begin{figure}[H]
+  \begin{center}
+    \begin{tikzpicture}[>=Stealth]
+      \def\sliceZ{0.8}
+      \def\side{2}
+      \def\linewidth{0.6}
+      \def\arrowlength{1.5}
+      \draw[dashed] (\side,0,0) -- (0,0,0);
+      \draw[dashed] (0,0,\side) -- (0,0,0);
+      \draw[dashed] (0,\side,0) -- (0,0,0);
+      \draw (\side,0,0) -- (\side,\side,0) node[midway,right]{$\delta z$} -- (0,\side,0);
+      \draw (0,0,\side) -- (\side,0,\side) node[midway,below]{$\delta x$} -- (\side,\side,\side) -- (0,\side,\side) -- (0,0,\side);
+      \draw (\side,0,0) -- (\side,0,\side) node[midway,below right]{$\delta y$};
+      \draw (\side,\side,0) -- (\side,\side,\side);
+      \draw (0,\side,0) -- (0,\side,\side);
+      \node at (1,\sliceZ,1){};
+      \draw[line width=\linewidth mm,->](\side+\arrowlength,\side/2,\side/2) node[right]{$p(x+\delta x)$} -- (\side,\side/2,\side/2);
+      \draw[line width=\linewidth mm,->](-\arrowlength,\side/2,\side/2) node[left]{$p(x)$} -- (0,\side/2,\side/2);
+      \draw[line width=\linewidth mm,->](\side/2,\side/2+0.2,\side+3) node[left]{$p(y)$} -- (\side/2,\side/2+0.2,\side);
+      \draw[line width=\linewidth mm,->](\side/2,\side/2-0.2,-3) node[right]{$p(y+\delta y)$} -- (\side/2,\side/2-0.2,0);
+      \draw[line width=\linewidth mm,->](\side/2,\side+\arrowlength,\side/2) node[right]{$p(z+\delta z)$} -- (\side/2,\side,\side/2);
+      \draw[line width=\linewidth mm,->](\side/2,-\arrowlength,\side/2) node[right]{$p(z)$} -- (\side/2,0,\side/2);
+      \draw[line width=\linewidth mm,->](\side/2+0.2,\side/2,\side/2) -- (\side/2+0.2,\side/2-\arrowlength-0.2,\side/2) node[right]{$mg$};
+    \end{tikzpicture}
+    \caption{Fluid element with pressure and gravity acting on it}
+  \end{center}
+\end{figure}
+
+Summing the forces in the $x$, $y$, and $z$ directions we have
+
+\begin{equation*}
+  \begin{split}
+    p\delta y\delta z-\left(p+\frac{\partial{}p}{\partial{}x}\right)\delta y\delta z&=\rho\delta x\delta y\delta za_{x} \\
+    p\delta x\delta z-\left(p+\frac{\partial{}p}{\partial{}y}\right)\delta x\delta z&=\rho\delta x\delta y\delta za_{y} \\
+    p\delta x\delta y-\left(p+\frac{\partial{}p}{\partial{}z}\right)\delta x\delta y-\rho{}g_{z}\delta x\delta y\delta z&=\rho\delta x\delta y\delta za_{z} \\
+  \end{split}
+\end{equation*}
+
+simplifying
+
+\begin{equation*}
+  \begin{split}
+    -\frac{\partial{}p}{\partial{}x}&=\rho{}a_{x} \\
+    -\frac{\partial{}p}{\partial{}y}&=\rho{}a_{y} \\
+    -\frac{\partial{}p}{\partial{}z}-\rho{}g_{z}&=\rho{}a_{z}
+  \end{split}
+\end{equation*}
+
+we obtain
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \rho\underline{a}=-\underline{\nabla}p+\rho\underline{g}
+\end{empheq}
+
+Substituting the following
+
+\begin{equation*}
+  \begin{split}
+    \underline{a}&=\frac{D\underline{v}}{Dt} \\
+    &=\frac{\partial\underline{v}}{\partial{}t}+(\underline{v}\cdot\underline{\nabla})\underline{v}
+  \end{split}
+\end{equation*}
+
+into above to obtain
+
+\begin{empheq}[box=\fboxTwo]{alignat=3}
+  &\mbox{\textbf{Euler's Equation:}} \hspace{0.5in} &\rho\left(\frac{\partial\underline{v}}{\partial{}t}+ (\underline{v}\cdot\underline{\nabla})\underline{v}\right)=-\underline{\nabla}p+\rho\underline{g}\label{eqn.fluids.eulers-equation}
+\end{empheq}
+
+The assumptions of Euler's equation are: inviscid flow (neglects stress tensor $\uuline{\tau}$).
+For inviscid flow, if it is irrotational at any instant in time, it remains irrotational for all subsequent time.
+
+\subsection{Conservation of Momentum including Viscous Forces}
+
+The above derivation can be repeated including surface forces (but still assuming density is constant), resulting in the following.
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \rho\left(\frac{\partial\underline{v}}{\partial{}t}+\underline{\nabla}\cdot(\underline{v}\underline{v})\right)=-\underline{\nabla}p+\underline{\nabla}\cdot\tau+\rho\underline{g}
+\end{empheq}
+
+\chapter{Material Derivative}
+
+Local change plus convective change, where $\underline{f}$ can be a vector or scalar quantity.
+The left hand side of the equation is the Lagrangian side: it is following a particular material element through the flow, and the right hand side is the Eulerian side.
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Material Derivative:}} &\hspace{0.5in} \frac{D\underline{f}}{Dt}=\underbrace{\frac{\partial\underline{f}}{\partial{}t}}_{\text{local rate of change}}+\underbrace{\underline{f}\cdot\underline{\nabla}\;\underline{f}}_{\text{convective change}}
+\end{empheq}
+
+\section{Hydrostatics}
+
+Note that in hydrostatic problems the fluid is at rest, and so viscosity can be ignored, we set $\underline{a}=0$ in Euler's equation to obtain the following
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Hydrostatic Equation:}} &\hspace{0.5in} \underline{\nabla}p=\rho\underline{g}
+\end{empheq}
+In a lot of cases, pressure variations occur only in the vertical direction due to gravity.
+In these cases we have
+\begin{equation*}
+  \begin{split}
+    \underline{\nabla}p&=\rho\underline{g} \\
+    \begin{bmatrix}
+      \frac{\partial{}p}{\partial{}x} & \frac{\partial{}p}{\partial{}y}& \frac{\partial{}p}{\partial{}z}
+    \end{bmatrix}&=
+    \rho
+    \begin{bmatrix}
+      g_{x} & g_{y} & g_{z}
+    \end{bmatrix}
+  \end{split}
+\end{equation*}
+If we have a coordinate system where the $z$ axis points upwards and gravity points downwards, the $z$ component of gravity is $g_{z}=-g$ where $g$ is gravitational acceleration constant, e.g.\ $9.81$ m/s$^{2}$ on Earth.
+This gives
+\begin{equation*}
+  \frac{\partial{}p}{\partial{}z}=-\rho{}g
+\end{equation*}
+Separating and integrating back
+\begin{equation*}
+  \begin{split}
+    \int\partial{}p&=-\int\rho{}g\partial{}z \\
+    p_{2}-p_{1}&=-\rho{}g(z_{2}-z_{1})
+  \end{split}
+\end{equation*}
+
+\subsection{Force and Moment}
+To find force and moment about a point on say, a door or floodgate holding back hydrostatic fluid
+
+\begin{equation*}
+  F=\int_{A}p(z)dA
+\end{equation*}
+
+\begin{equation*}
+  \tau=\int_{A}rp(z)dA
+\end{equation*}
+
+where $r$ is the distance from the point about which we are taking moments along the door or floodgate.
+
+\section{Motion of a Fluid Element Along a Streamline}
+
+\subsection{Streamline Coordinates}
+
+The $osnl$ coordinate is orthogonal but not always Cartesian.
+For example for the rigid body problem streamlines are circles and the $osnl$ coordinate system becomes similar to cylindrical ($e_{s}$ is $e_{\theta}$ and $e_{n}$ is $e_{r}$ and $e_{l}$ is $e_{z}$) whereas in other arbitrary flows it may be something else.
+What people call these is a subset of ``curvilinear coordiante systems'' See Wikipedia.
+
+% TODO@dpwiese
+Assume constant density?
+Think about looking at Euler's equation along a streamline in order to simplify it.
+This will allow the velocity components to be simplified, since by definition the velocity vector along a streamline is always tangent to the streamline.
+Recall Euler's equation in\ \eqref{eqn.fluids.eulers-equation}.
+
+Start generally though with with the velocity vector given by the following components
+\begin{equation*}
+  \underline{v}=
+  v_{s}\hat{\underline{e}}_{s}+v_{n}\;\hat{\underline{e}}_{n}+v_{l}\;\hat{\underline{e}}_{l}=
+  \begin{bmatrix}
+    v_{s} \\
+    v_{n} \\
+    v_{l}
+  \end{bmatrix}
+\end{equation*}
+Evaluating Euler's equation starting with the term $\underline{v}\cdot\underline{\nabla}$
+\begin{equation*}
+  \underline{v}\cdot\underline{\nabla}=
+  \begin{bmatrix}
+    v_{s} \\
+    v_{n} \\
+    v_{l}
+  \end{bmatrix}
+  \cdot
+  \begin{bmatrix}
+    \frac{\partial}{\partial{}s} \\
+    \frac{\partial}{\partial{}n} \\
+    \frac{\partial}{\partial{}l}
+  \end{bmatrix}=
+  v_{s}\frac{\partial}{\partial{}s}+
+  v_{n}\frac{\partial}{\partial{}n}+
+  v_{l}\frac{\partial}{\partial{}l}
+\end{equation*}
+Now evaluating $(\underline{v}\cdot\underline{\nabla})\underline{v}$
+\begin{equation*}
+  \begin{split}
+    (\underline{v}\cdot\underline{\nabla})\underline{v}&=
+    \left(v_{s}\frac{\partial}{\partial{}s}+
+    v_{n}\frac{\partial}{\partial{}n}+
+    v_{l}\frac{\partial}{\partial{}l}\right)\underline{v} \\
+    &=v_{s}\frac{\partial}{\partial{}s}\underline{v}+
+    v_{n}\frac{\partial}{\partial{}n}\underline{v}+
+    v_{l}\frac{\partial}{\partial{}l}\underline{v} \\
+    &=v_{s}\frac{\partial}{\partial{}s}(v_{s}\hat{\underline{e}}_{s}+v_{n}\;\hat{\underline{e}}_{n}+v_{l}\;\hat{\underline{e}}_{l}) \\
+    &\qquad+v_{n}\frac{\partial}{\partial{}n}(v_{s}\hat{\underline{e}}_{s}+v_{n}\;\hat{\underline{e}}_{n}+v_{l}\;\hat{\underline{e}}_{l}) \\
+    &\qquad+v_{l}\frac{\partial}{\partial{}l}(v_{s}\hat{\underline{e}}_{s}+v_{n}\;\hat{\underline{e}}_{n}+v_{l}\;\hat{\underline{e}}_{l}) \\
+    &=v_{s}\frac{\partial}{\partial{}s}(v_{s}\hat{\underline{e}}_{s})+v_{n}\frac{\partial}{\partial{}n}(v_{s}\hat{\underline{e}}_{s})+
+    v_{l}\frac{\partial}{\partial{}l}(v_{s}\hat{\underline{e}}_{s}) \\
+    &\qquad+v_{s}\frac{\partial}{\partial{}s}(v_{n}\hat{\underline{e}}_{n})+v_{n}\frac{\partial}{\partial{}n}(v_{n}\hat{\underline{e}}_{n})+
+    v_{l}\frac{\partial}{\partial{}l}(v_{n}\hat{\underline{e}}_{n}) \\
+    &\qquad+v_{s}\frac{\partial}{\partial{}s}(v_{l}\hat{\underline{e}}_{l})+v_{n}\frac{\partial}{\partial{}n}(v_{l}\hat{\underline{e}}_{l})+
+    v_{l}\frac{\partial}{\partial{}l}(v_{l}\hat{\underline{e}}_{l}) \\
+  \end{split}
+\end{equation*}
+
+Now using the following simplification since we are considering flow along a streamline we have $v_{n}=v_{l}=0$.
+Using this, we simplify the above to
+\begin{equation*}
+  \begin{split}
+    (\underline{v}\cdot\underline{\nabla})\underline{v}
+    &=v_{s}\frac{\partial}{\partial{}s}(v_{s}\hat{\underline{e}}_{s}) \\
+    &=v_{s}\left(\frac{\partial}{\partial{}s}(v_{s})\hat{\underline{e}}_{s}+v_{s}\frac{\partial}{\partial{}s}(\hat{\underline{e}}_{s})\right)
+  \end{split}
+\end{equation*}
+Since $\hat{\underline{e}}_{s}$ has unit magnitude, it can change only in direction.
+This change must be perpendicular to $\hat{\underline{e}}_{s}$ itself.
+Therefore $\hat{\underline{e}}_{n}$ is defined by
+\begin{equation*}
+  \hat{\underline{e}}_{n}=-R\frac{\partial\hat{\underline{e}}_{s}}{\partial{}s}
+\end{equation*}
+giving
+\begin{equation*}
+  \frac{\partial\hat{\underline{e}}_{s}}{\partial{}s}=-\frac{1}{R}\hat{\underline{e}}_{n}
+\end{equation*}
+\begin{equation*}
+  (\underline{v}\cdot\underline{\nabla})\underline{v}
+  =v_{s}\frac{\partial{}v_{s}}{\partial{}s}\hat{\underline{e}}_{s}-\frac{v_{s}^{2}}{R}\hat{\underline{e}}_{n}
+\end{equation*}
+
+\subsection{Motion Tangent to the Streamline}
+
+We can see in this expression that there is a component of acceleration tangential to the streamline, as well as the centripetal component of acceleration.
+If we neglect the centripetal acceleration, we have
+\begin{empheq}[box=\roomyfbox]{equation*}
+  (\underline{v}\cdot\underline{\nabla})\underline{v}=v_{s}\frac{\partial{}v_{s}}{\partial{}s}\hat{\underline{e}}_{s}
+\end{empheq}
+The next term we are looking at is $\frac{\partial\underline{v}}{\partial{}t}$ at a fixed point in space, and we are considering steady flow here, so
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \frac{\partial\underline{v}}{\partial{}t}=0
+\end{empheq}
+Looking at the terms on the right hand side we have
+\begin{equation*}
+  \underline{\nabla}p=\frac{\partial{}p}{\partial{}s}\hat{\underline{e}}_{s}+\frac{\partial{}p}{\partial{}n}\hat{\underline{e}}_{n}+\frac{\partial{}p}{\partial{}l}\hat{\underline{e}}_{l}
+\end{equation*}
+And if we consider only pressure variations along the streamline, this expression is simplified to
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \underline{\nabla}p=\frac{\partial{}p}{\partial{}s}\hat{\underline{e}}_{s}
+\end{empheq}
+With $g$ a vector pointing down, and considering only the component of gravity along the streamline $g_{s}$ we have
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \rho\underline{g}=\rho{}g_{s}\hat{\underline{e}}_{s}
+\end{empheq}
+And sothe total simplified Euler equation along a streamline as
+\begin{equation*}
+  \rho{}v_{s}\frac{\partial{}v_{s}}{\partial{}s}\hat{\underline{e}}_{s}=-\frac{\partial{}p}{\partial{}s}\hat{\underline{e}}_{s}+\rho{}g_{s}\hat{\underline{e}}_{s}
+\end{equation*}
+Dropping the unit vector showing its along the streamline
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \rho{}v_{s}\frac{\partial{}v_{s}}{\partial{}s}=-\frac{\partial{}p}{\partial{}s}+\rho{}g_{s}
+\end{empheq}
+
+but we can express $g_{s}$ as
+
+\begin{equation*}
+g_{s}=-g\frac{dz}{ds}
+\end{equation*}
+
+giving
+
+\begin{equation*}
+  \rho{}v_{s}\frac{\partial{}v_{s}}{\partial{}s}=-\frac{\partial{}p}{\partial{}s}-\rho{}g\frac{dz}{ds}
+\end{equation*}
+
+moving stuff over
+
+\begin{equation*}
+  \rho{}v_{s}\frac{\partial{}v_{s}}{\partial{}s}+\frac{\partial{}p}{\partial{}s}+\rho{}g\frac{dz}{ds}=0
+\end{equation*}
+
+\begin{equation*}
+  \rho{}v_{s}\partial{}v_{s}+\partial{}p+\rho{}gdz=0
+\end{equation*}
+
+\subsection{Bernoulli's Equation}
+
+integrating, but only in the $s$-direction
+
+\begin{equation*}
+  \int_{s_{1}}^{s_{2}}\left(\rho{}v_{s}\frac{\partial{}v_{s}}{\partial{}s}+\frac{\partial{}p}{\partial{}s}+\rho{}g\frac{dz}{ds}\right)=0
+\end{equation*}
+
+\begin{equation*}
+  \int_{s_{1}}^{s_{2}}(\rho{}v_{s}\partial{}v_{s}+\partial{}p+\rho{}gdz)=0
+\end{equation*}
+
+\begin{equation*}
+  \frac{1}{2}\rho{}v_{s}^{2}(s)+p(s)+\rho{}gz(s)\biggr|_{s_{1}}^{s_{2}}=0
+\end{equation*}
+
+\begin{equation*}
+  \left(\frac{1}{2}\rho{}v_{s}^{2}(s_{2})+p(s_{2})+\rho{}gz(s_{2})\right)-\left(\frac{1}{2}\rho{}v_{s}^{2}(s_{1})+p(s_{1})+\rho{}gz(s_{1})\right)=0
+\end{equation*}
+
+finally
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Bernoulli's along streamline:}} &\hspace{0.5in} \frac{1}{2}\rho{}v_{s2}^{2}+p_{2}+\rho{}gz_{2}=\frac{1}{2}\rho{}v_{s1}^{2}+p_{1}+\rho{}gz_{1}
+\end{empheq}
+
+Bernoulli's equation is for steady incompressible flow of a fluid in the absence of viscous effects along a streamline.
+
+\subsection{Motion Normal to the Streamline}
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  (\underline{v}\cdot\underline{\nabla})\underline{v}=\frac{v_{s}^{2}}{R}\hat{\underline{e}}_{n}
+\end{empheq}
+The next term we are looking at is $\frac{\partial\underline{v}}{\partial{}t}$ at a fixed point in space, and we are considering steady flow here, so
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \frac{\partial\underline{v}}{\partial{}t}=0
+\end{empheq}
+Looking at the terms on the right hand side we have
+\begin{equation*}
+  \underline{\nabla}p=\frac{\partial{}p}{\partial{}s}\hat{\underline{e}}_{s}+\frac{\partial{}p}{\partial{}n}\hat{\underline{e}}_{n}+\frac{\partial{}p}{\partial{}l}\hat{\underline{e}}_{l}
+\end{equation*}
+And if we consider only pressure variations normal to the streamline, this expression is simplified to
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \underline{\nabla}p=\frac{\partial{}p}{\partial{}n}\hat{\underline{e}}_{n}
+\end{empheq}
+With $g$ a vector pointing down, and considering only the component of gravity along the streamline $g_{s}$ we have
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \rho\underline{g}=\rho{}g_{n}\hat{\underline{e}}_{n}
+\end{empheq}
+And sothe total simplified Euler equation along a streamline as
+
+\begin{equation*}
+  -\rho\frac{v_{s}^{2}}{R}\hat{\underline{e}}_{n}=-\frac{\partial{}p}{\partial{}n}\hat{\underline{e}}_{n}+\rho{}g_{n}\hat{\underline{e}}_{n}
+\end{equation*}
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Bernoulli's equation normal to streamline:}} &\hspace{0.5in} -\rho\frac{v_{s}^{2}}{R}=-\frac{\partial{}p}{\partial{}n}+\rho{}g_{n}
+\end{empheq}
+
+From this expression we can see that the change in pressure with respect to the normal direction is always positive with respect to $R$, so pressure increases in the $n$ direction.
+
+\section{Solid Body Rotation}
+
+Rotating bucket of water.
+The velocity is dependent only on the radial direction $r$.
+This cylindrical coordinate system is inertially fixed.
+Bucket spinning with angular velocity $\Omega$.
+
+\begin{figure}[H]
+  \begin{center}
+    \begin{tikzpicture}[scale=0.6]
+      \fill[top color=gray!50!black,bottom color=gray!10,middle color=gray,shading=axis,opacity=0.10] (-4,5) -- (4,5) arc (360:180:4cm and 1cm) -- (-4,5) -- (4,5) arc (360:180:4cm and -0.5cm);
+      \fill[left color=gray!50!black,right color=gray!50!black,middle color=gray!50,shading=axis,opacity=0.20] (4,0) -- (4,5) arc (360:180:4cm and 1cm) -- (-4,0) arc (180:360:4cm and 0.5cm);
+      \draw (-4,6) -- (-4,0) arc (180:360:4cm and 0.5cm) -- (4,6) ++ (-4,0) circle (4cm and 0.5cm);
+      \draw[densely dashed] (-4,0) arc (180:0:4cm and 0.5cm);
+      \draw[densely dashed] (-4,5) arc (180:0:4cm and 0.5cm);
+      \draw[densely dashed] (-4,5) arc (180:0:4cm and -1cm);
+      \draw (-4,5) -- (-4,5) arc (180:360:4cm and 0.5cm);
+    \end{tikzpicture}
+    \caption{Solid body rotation}
+  \end{center}
+\end{figure}
+
+Thus, the total velocity in cylindrical coordinates is
+
+\begin{equation*}
+  \underline{v}=
+  v_{r}\hat{\underline{e}}_{r}+v_{\theta}\hat{\underline{e}}_{\theta}+v_{z}\hat{\underline{e}}_{z}=
+  \begin{bmatrix}
+    v_{r} \\
+    v_{\theta} \\
+    v_{z}
+  \end{bmatrix}=
+  \begin{bmatrix}
+    0 \\
+    r\Omega \\
+    0
+  \end{bmatrix}
+\end{equation*}
+
+Apply Euler's equation
+
+\begin{equation*}
+  \rho\underline{a}=-\underline{\nabla}p+\rho\underline{g}
+\end{equation*}
+
+\begin{equation*}
+  \underline{a}=\frac{D\underline{v}}{Dt}=\frac{\partial\underline{v}}{\partial{}t}+\underline{v}\cdot\underline{\nabla}\;\underline{v}
+\end{equation*}
+
+\subsection{Cylindrical Coordinates}
+
+The partial derivative with respect to time, also known as the local rate of change, is zero, because at a fixed point in the fluid, the velocity is not changing with time.
+
+\begin{equation*}
+  \frac{\partial\underline{v}}{\partial{}t}=0
+\end{equation*}
+Looking at the next term
+
+\begin{equation*}
+  \underline{\nabla}=\frac{\partial}{\partial{}r}\hat{\underline{e}}_{r}+\frac{1}{r}\frac{\partial}{\partial\theta}\hat{\underline{e}}_{\theta}+\frac{\partial}{\partial{}z}\hat{\underline{e}}_{z}
+\end{equation*}
+Now evaluating $(\underline{v}\cdot\underline{\nabla})\underline{v}$
+
+\begin{equation*}
+  \begin{split}
+    (\underline{v}\cdot\underline{\nabla})\underline{v}&=
+    \left(v_{r}\frac{\partial}{\partial{}r}+
+    \frac{1}{r}v_{\theta}\frac{\partial}{\partial\theta}+
+    v_{z}\frac{\partial}{\partial{}z}\right)\underline{v} \\
+    &=v_{r}\frac{\partial}{\partial{}r}\underline{v}+
+    \frac{1}{r}v_{\theta}\frac{\partial}{\partial\theta}\underline{v}+
+    v_{z}\frac{\partial}{\partial{}z}\underline{v} \\
+    &=v_{r}\frac{\partial}{\partial{}r}(v_{r}\hat{\underline{e}}_{r}+v_{\theta}\;\hat{\underline{e}}_{\theta}+v_{z}\;\hat{\underline{e}}_{z}) \\
+    &\qquad+\frac{1}{r}v_{\theta}\frac{\partial}{\partial\theta}(v_{r}\hat{\underline{e}}_{r}+v_{\theta}\;\hat{\underline{e}}_{\theta}+v_{z}\;\hat{\underline{e}}_{z}) \\
+    &\qquad+v_{z}\frac{\partial}{\partial{}z}(v_{r}\hat{\underline{e}}_{r}+v_{\theta}\;\hat{\underline{e}}_{\theta}+v_{z}\;\hat{\underline{e}}_{z}) \\
+  \end{split}
+\end{equation*}
+Now substitute in that $v_{r}=v_{z}=0$ and get
+
+\begin{equation*}
+  \begin{split}
+    (\underline{v}\cdot\underline{\nabla})\;\underline{v}
+    &=\frac{1}{r}v_{\theta}\frac{\partial}{\partial\theta}(v_{\theta}\hat{\underline{e}}_{\theta}) \\
+    &=\frac{1}{r}v_{\theta}\frac{\partial{}v_{\theta}}{\partial\theta}\hat{\underline{e}}_{\theta}+\frac{1}{r}v_{\theta}^{2}\frac{\partial\hat{\underline{e}}_{\theta}}{\partial\theta} \\
+    &=0+\frac{1}{r}v_{\theta}^{2}\frac{\partial\hat{\underline{e}}_{\theta}}{\partial\theta} \\
+    &=-\frac{v_{\theta}^{2}}{r}\hat{\underline{e}}_{r}
+  \end{split}
+\end{equation*}
+since
+
+\begin{equation*}
+  \frac{\partial\hat{\underline{e}}_{\theta}}{\partial\theta}=-\hat{\underline{e}}_{r}
+\end{equation*}
+And note that we have
+
+\begin{equation*}
+  \underline{a}=\frac{D\underline{v}}{Dt}=-\frac{v_{\theta}^{2}}{r}\hat{\underline{e}}_{r}
+\end{equation*}
+So we can see this as centripetal acceleration.
+The surface force term
+
+\begin{equation*}
+  \underline{\nabla}p=\frac{\partial{}p}{\partial{}r}\hat{\underline{e}}_{r}+\frac{1}{r}\frac{\partial{}p}{\partial\theta}\hat{\underline{e}}_{\theta}+\frac{\partial{}p}{\partial{}z}\hat{\underline{e}}_{z}
+\end{equation*}
+body force term
+
+\begin{equation*}
+  \rho\underline{g}=-\rho{}g_{z}\hat{\underline{e}}_{z}
+\end{equation*}
+Forming the whole equation we have
+
+\begin{equation*}
+  -\rho\frac{v_{\theta}^{2}}{r}\hat{\underline{e}}_{r}=-\frac{\partial{}p}{\partial{}r}\hat{\underline{e}}_{r}-\frac{1}{r}\frac{\partial{}p}{\partial\theta}\hat{\underline{e}}_{\theta}-\frac{\partial{}p}{\partial{}z}\hat{\underline{e}}_{z}-\rho{}g_{z}\hat{\underline{e}}_{z}
+\end{equation*}
+Equating the components we have
+
+\begin{equation*}
+  -\rho\frac{v_{\theta}^{2}}{r}=-\frac{\partial{}p}{\partial{}r}
+  \hspace{0.5in}
+  0=-\frac{1}{r}\frac{\partial{}p}{\partial\theta}
+  \hspace{0.5in}
+  0=-\frac{\partial{}p}{\partial{}z}-\rho{}g_{z}
+\end{equation*}
+This gives
+
+\begin{equation*}
+  \frac{\partial{}p}{\partial{}r}=\rho{}r\Omega^{2}
+  \hspace{0.5in}
+  \frac{\partial{}p}{\partial\theta}=0
+  \hspace{0.5in}
+  \frac{\partial{}p}{\partial{}z}=-\rho{}g_{z}
+\end{equation*}
+separating and integrating these back
+
+\begin{equation*}
+  \int\partial{}p=\int\rho{}r\Omega^{2}\partial{}r
+  \hspace{0.5in}
+  \frac{\partial{}p}{\partial\theta}=0
+  \hspace{0.5in}
+  \int\partial{}p=-\int\rho{}g_{z}\partial{}z
+\end{equation*}
+The second equation shows that the pressure is not a function of $\theta$.
+Integrating back the first and third equations we have the following
+
+\begin{equation*}
+  \begin{split}
+    p&=\frac{1}{2}\rho{}r^{2}\Omega^{2}+f(z)+c \\
+    p&=-\rho{}g_{z}z+g(r)+c
+  \end{split}
+\end{equation*}
+and we have
+
+\begin{equation*}
+  \begin{split}
+    f(z)&=-\rho{}g_{z}z \\
+    g(r)&=\frac{1}{2}\rho{}r^{2}\Omega^{2}
+  \end{split}
+\end{equation*}
+and so the pressure in the rotating cylinder is given by
+
+\begin{equation*}
+  p(r,z)=\frac{1}{2}\rho{}r^{2}\Omega^{2}-\rho{}g_{z}z+c
+\end{equation*}
+And we can find the constant $c$ by setting $r=0$ and looking at the interface height at the center of the cylinder, at the vertex of the parabaloid shape, and call this height $z_{0}$.
+At this point, the pressure is equal to atmospheric pressure.
+
+\begin{equation*}
+  p(r=0,z_{0})=-\rho{}g_{z}z_{0}+c=p_{\text{atm}}
+\end{equation*}
+giving the following value of the constant
+
+\begin{equation*}
+  c=\rho{}g_{z}z_{0}+p_{\text{atm}}
+\end{equation*}
+substituting this into the pressure equation we obtain the following
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Pressure for solid body rotation:}} &\hspace{0.5in} p(r,z)=\frac{1}{2}\rho{}r^{2}\Omega^{2}+\rho{}g_{z}(z_{0}-z)+p_{\text{atm}}
+\end{empheq}
+To determine the shape that the air-water interface makes, we apply the boundary condition at this interface.
+That is
+
+\begin{equation*}
+  p(r,z)\bigr|_{\text{interface}}=p_{\text{atm}}
+\end{equation*}
+And then we have
+
+\begin{equation*}
+  0=\frac{1}{2}\rho{}r_{\text{interface}}^{2}\Omega^{2}-\rho{}g_{z}z_{\text{interface}}+\rho{}g_{z}z_{0}
+\end{equation*}
+
+\begin{equation*}
+  z_{\text{interface}}=\frac{\Omega^{2}}{2g_{z}}r_{\text{interface}}^{2}+z_{0}
+\end{equation*}
+
+\subsubsection{Isobars}
+
+Can also find out the shape of the fluid by solving for isobars by evaluating $dp$ and setting it equal to zero.
+Since $p=p(r,z)$ chain rule gives us the following for $dp$.
+
+\begin{equation*}
+  dp=\left(\frac{\partial{}p}{\partial{}r}\right)dr+\left(\frac{\partial{}p}{\partial{}z}\right)dz
+\end{equation*}
+\begin{equation*}
+  dp=\rho{}r\Omega^{2}dr-\rho{}g_{z}dz=0
+\end{equation*}
+\begin{equation*}
+  g_{z}dz=r\Omega^{2}dr
+\end{equation*}
+Integrating back and solving for the constant of integration when $r=0$ we have
+\begin{equation*}
+  z=\frac{\Omega^{2}}{2g_{z}}r^{2}+h_{0}
+\end{equation*}
+
+\subsubsection{Vorticity}
+
+The vorticity of a fluid element in our bucket is given by the curl of the velocity vector.
+That is,
+
+\begin{equation*}
+  \begin{split}
+    \underline{\omega}&=\underline{\nabla}\times\underline{v} \\
+    &=\left(\hat{\underline{e}}_{r}\frac{\partial}{\partial{}r}+\hat{\underline{e}}_{\theta}\frac{1}{r}\frac{\partial}{\partial{}r}+\hat{\underline{e}}_{z}\frac{\partial}{\partial{}z}\right)\times\left(0\hat{\underline{e}}_{r}+r\Omega\hat{\underline{e}}_{\theta}+0\hat{\underline{e}}_{z}\right) \\
+    &=\hat{\underline{e}}_{r}\times\frac{\partial}{\partial{}r}(r\Omega\hat{\underline{e}}_{\theta})+
+    \hat{\underline{e}}_{\theta}\frac{1}{r}\times\frac{\partial}{\partial\theta}(r\Omega\hat{\underline{e}}_{\theta})+
+    \hat{\underline{e}}_{z}\times\frac{\partial}{\partial{}z}(r\Omega\hat{\underline{e}}_{\theta}) \\
+    &=\hat{\underline{e}}_{r}\times(\Omega\hat{\underline{e}}_{\theta})+\hat{\underline{e}}_{\theta}\frac{1}{r}\times(-r\Omega\hat{\underline{e}}_{r}) \\
+    &=2\Omega\hat{\underline{e}}_{z}
+  \end{split}
+\end{equation*}
+And from this expression we can see that the vorticity everywhere in the fluid is the same.
+
+\subsection{Cartesian Coordinates}
+% TODO@dpwiese
+Velocity is given in cylindrical coordinates, so we convert it to cartesian coordinates, using an inertially fixed coordinate system
+\begin{equation*}
+  \underline{v}=
+  \begin{bmatrix}
+    v_{r} \\
+    v_{\theta} \\
+    v_{z}
+  \end{bmatrix}=
+  \begin{bmatrix}
+    0 \\
+    r\omega \\
+    0
+  \end{bmatrix}
+\end{equation*}
+
+\begin{equation*}
+  \begin{split}
+    x&=r\cos{\theta} \\
+    y&=r\sin{\theta}
+  \end{split}
+\end{equation*}
+
+% \begin{figure}[H]
+%   \begin{center}
+%     \begin{tikzpicture}[
+%       scale=5,
+%       axis/.style={very thick, ->, >=stealth'},
+%       important line/.style={thick},
+%       dashed line/.style={dashed, thin},
+%       pile/.style={thick, ->, >=stealth', shorten <=2pt, shorten
+%       >=2pt},
+%       every node/.style={color=black}
+%       ]
+%       % axis
+%       \draw[axis] (-0.1,0)  -- (1.1,0) node(xline)[right]
+%         {$G\uparrow/T\downarrow$};
+%       \draw[axis] (0,-0.1) -- (0,1.1) node(yline)[above] {$E$};
+%       % Lines
+%       \draw[important line] (.15,.15) coordinate (A) -- (.85,.85)
+%         coordinate (B) node[right, text width=5em] {$Y^O$};
+%       \draw[important line] (.15,.85) coordinate (C) -- (.85,.15)
+%         coordinate (D) node[right, text width=5em] {$\mathit{NX}=x$};
+%       % Intersection of lines
+%       \fill[red] (intersection cs:
+%         first line={(A) -- (B)},
+%         second line={(C) -- (D)}) coordinate (E) circle (.4pt)
+%         node[above,] {$A$};
+%       % The E point is placed more or less randomly
+%       \fill[red]  (E) +(-.075cm,-.2cm) coordinate (out) circle (.4pt)
+%         node[below left] {$B$};
+%       % Line connecting out and ext balances
+%       \draw [pile] (out) -- (intersection of A--B and out--[shift={(0:1pt)}]out)
+%         coordinate (extbal);
+%       \fill[red] (extbal) circle (.4pt) node[above] {$C$};
+%       % line connecting  out and int balances
+%       \draw [pile] (out) -- (intersection of C--D and out--[shift={(0:1pt)}]out)
+%         coordinate (intbal);
+%       \fill[red] (intbal) circle (.4pt) node[above] {$D$};
+%       % line between out og all balanced out :)
+%       \draw[pile] (out) -- (E);
+%     \end{tikzpicture}
+%   \end{center}
+% \end{figure}
+
+\begin{equation*}
+  \begin{split}
+    v_{x}&=-v\sin{\theta} \\
+    v_{y}&=v\cos{\theta}
+  \end{split}
+\end{equation*}
+
+\begin{equation*}
+  \underline{v}=
+  \begin{bmatrix}
+    v_{x} \\
+    v_{y} \\
+    v_{z}
+  \end{bmatrix}=
+  \begin{bmatrix}
+    -\omega y \\
+    \omega x \\
+    0
+  \end{bmatrix}
+\end{equation*}
+
+\begin{equation*}
+  \frac{\partial\underline{v}}{\partial{}t}=0
+\end{equation*}
+Looking at the next term
+\begin{equation*}
+  \begin{split}
+    (\underline{v}\cdot\underline{\nabla})\;\underline{v}
+    &= \\
+  \end{split}
+\end{equation*}
+
+\begin{equation*}
+  \rho{}v_{\theta}\frac{\partial}{\partial\theta}(v_{\theta}\hat{\underline{e}}_{\theta})=-\frac{dp}{dz}\hat{\underline{e}}_{z}-\rho{}g_{z}\hat{\underline{e}}_{z}
+\end{equation*}
+
+\begin{equation*}
+  \underline{\nabla}\;\underline{v}=
+  \begin{bmatrix}
+    \frac{\partial}{\partial{}x} \\ \frac{\partial}{\partial{}y}
+  \end{bmatrix}
+  \begin{bmatrix}
+    v_{x} & v_{y}
+  \end{bmatrix}=
+  \begin{bmatrix}
+    \frac{\partial{}v_{x}}{\partial{}x} & \frac{\partial{}v_{y}}{\partial{}x} \\
+    \frac{\partial{}v_{x}}{\partial{}y} & \frac{\partial{}v_{y}}{\partial{}y} \\
+  \end{bmatrix}
+\end{equation*}
+and now
+\begin{equation*}
+  \underline{v}\cdot\underline{\nabla}\;\underline{v}=
+  \begin{bmatrix}
+    v_{x} \\
+    v_{y}
+  \end{bmatrix}
+  \cdot
+  \begin{bmatrix}
+    \frac{\partial{}v_{x}}{\partial{}x} & \frac{\partial{}v_{y}}{\partial{}x} \\
+    \frac{\partial{}v_{x}}{\partial{}y} & \frac{\partial{}v_{y}}{\partial{}y} \\
+  \end{bmatrix}
+\end{equation*}
+
+\section{Ideal, Irrotational, or Free Vortex}
+
+An ideal, or free vortex is one in which the flow is irrotational.
+
+\subsection{Derivation}
+
+Deriving the shape of an ideal vortex.
+We will use this assumption to first derive the velocity distribution of the ideal vortex, and then show the shape that the free surface makes with the air is a hyperboloid.
+
+\begin{figure}[H]
+  \begin{center}
+    \begin{tikzpicture}[scale=0.6]
+      \fill[left color=gray!50!black,right color=gray!50!black,middle color=gray!50!black,shading=axis,opacity=0.10] (0,0) parabola[bend at end] (-4,5) -- (0,5);
+      \fill[left color=gray!50!black,right color=gray!50!black,middle color=gray!50!black,shading=axis,opacity=0.10] (0,0) parabola[bend at end] (4,5) -- (0,5);
+      \fill[left color=gray!50!black,right color=gray!50!black,middle color=gray!50!black,shading=axis,opacity=0.10] (4,5) arc (360:180:4cm and -0.5cm);
+      \draw (-4,6) -- (-4,0) arc (180:360:4cm and 0.5cm) -- (4,6) ++ (-4,0) circle (4cm and 0.5cm);
+      \draw[densely dashed] (-4,0) arc (180:0:4cm and 0.5cm);
+      \draw[densely dashed] (-4,5) arc (180:0:4cm and 0.5cm);
+      \draw (-4,5) -- (-4,5) arc (180:360:4cm and 0.5cm);
+      \draw (0,0) parabola[bend at end] (-4,5);
+      \draw (0,0) parabola[bend at end] (4,5);
+      \fill[left color=gray!50!black,right color=gray!50!black,middle color=gray!50!black,shading=axis,opacity=0.20] (0,0) parabola[bend at end] (-4,5) -- (-4,0) arc (180:360:4cm and 0.5cm);
+      \fill[left color=gray!50!black,right color=gray!50!black,middle color=gray!50!black,shading=axis,opacity=0.20] (0,0) parabola[bend at end] (4,5) -- (4,0);
+    \end{tikzpicture}
+    \caption{Ideal vortex}
+  \end{center}
+\end{figure}
+
+\subsubsection{Derivation of Velocity Profile}
+
+The irrotational vortex has zero vorticity $\omega$, so all of the components of $\omega=\underline{\nabla}\times\underline{v}$ must be zero.
+From the definition for curl in cylindrical coordinates, these components are the following
+
+\begin{equation*}
+  \begin{split}
+    \frac{1}{r}\frac{\partial{}v_{z}}{\partial\theta}-\frac{\partial{}v_{\theta}}{\partial{}z}&=0 \\
+    \frac{\partial{}v_{r}}{\partial{}z}-\frac{\partial{}v_{z}}{\partial{}r}&=0 \\
+    \frac{1}{r}\frac{\partial}{\partial{}r}(v_{\theta}r)-\frac{1}{r}\frac{\partial{}v_{r}}{\partial\theta}&=0
+  \end{split}
+\end{equation*}
+
+The vortex is azimuthally symmetric, so all the $\theta$ derivatives are zero, that is $\frac{\partial}{\partial\theta}=0$, allowing the equations above to simplify to
+
+\begin{equation*}
+  \begin{split}
+    \frac{\partial{}v_{\theta}}{\partial{}z}&=0 \\
+    \frac{\partial{}v_{r}}{\partial{}z}-\frac{\partial{}v_{z}}{\partial{}r}&=0 \\
+    \frac{\partial}{\partial{}r}(v_{\theta}r)&=0
+  \end{split}
+\end{equation*}
+
+From the fact that the vortex is azimuthally symmetric, no properties are functions of $\theta$.
+Furthermore, from the first equation we can see that $v_{\theta}$ is not a function of $z$.
+That is
+
+\begin{equation*}
+  v_{\theta}=v_{\theta}(r)
+\end{equation*}
+
+From the third equation, applying product rule we have
+
+\begin{equation*}
+  \begin{split}
+    r\frac{\partial{}v_{\theta}}{\partial{}r}+v_{\theta}&=0 \\
+    -\int\frac{\partial{}r}{r}&=\int\frac{\partial{}v_{\theta}}{v_{\theta}} \\
+    -\ln(r)&=\ln(v_{\theta})+c_{1} \\
+    \ln(v_{\theta})&=\ln(c)-\ln(r) \\
+    \ln(v_{\theta})&=\ln\left(\frac{c}{r}\right) \\
+    v_{\theta}&=\frac{c}{r}
+  \end{split}
+\end{equation*}
+
+\subsubsection{Derivation of Pressure Distribution}
+
+Now write down Euler's equation in each direction.
+The partial derivative with respect to time, also known as the local rate of change, is zero, because at a fixed point in the fluid, the velocity is not changing with time.
+
+\begin{equation*}
+  \frac{\partial\underline{v}}{\partial{}t}=0
+\end{equation*}
+Looking at the next term
+
+\begin{equation*}
+  \underline{\nabla}=\frac{\partial}{\partial{}r}\hat{\underline{e}}_{r}+\frac{1}{r}\frac{\partial}{\partial\theta}\hat{\underline{e}}_{\theta}+\frac{\partial}{\partial{}z}\hat{\underline{e}}_{z}
+\end{equation*}
+Now evaluating $(\underline{v}\cdot\underline{\nabla})\underline{v}$
+
+\begin{equation*}
+  \begin{split}
+    (\underline{v}\cdot\underline{\nabla})\underline{v}&=
+    \left(v_{r}\frac{\partial}{\partial{}r}+
+    \frac{1}{r}v_{\theta}\frac{\partial}{\partial\theta}+
+    v_{z}\frac{\partial}{\partial{}z}\right)\underline{v} \\
+    &=v_{r}\frac{\partial}{\partial{}r}\underline{v}+
+    \frac{1}{r}v_{\theta}\frac{\partial}{\partial\theta}\underline{v}+
+    v_{z}\frac{\partial}{\partial{}z}\underline{v} \\
+    &=v_{r}\frac{\partial}{\partial{}r}(v_{r}\hat{\underline{e}}_{r}+v_{\theta}\;\hat{\underline{e}}_{\theta}+v_{z}\;\hat{\underline{e}}_{z})
+    +\frac{1}{r}v_{\theta}\frac{\partial}{\partial\theta}(v_{r}\hat{\underline{e}}_{r}+v_{\theta}\;\hat{\underline{e}}_{\theta}+v_{z}\;\hat{\underline{e}}_{z})
+    +v_{z}\frac{\partial}{\partial{}z}(v_{r}\hat{\underline{e}}_{r}+v_{\theta}\;\hat{\underline{e}}_{\theta}+v_{z}\;\hat{\underline{e}}_{z}) \\
+  \end{split}
+\end{equation*}
+Now substitute in that $v_{r}=v_{z}=0$ and get
+
+\begin{equation*}
+  \begin{split}
+    (\underline{v}\cdot\underline{\nabla})\;\underline{v}
+    &=\frac{1}{r}v_{\theta}\frac{\partial}{\partial\theta}(v_{\theta}\hat{\underline{e}}_{\theta}) \\
+    &=\frac{1}{r}v_{\theta}\frac{\partial{}v_{\theta}}{\partial\theta}\hat{\underline{e}}_{\theta}+\frac{1}{r}v_{\theta}^{2}\frac{\partial\hat{\underline{e}}_{\theta}}{\partial\theta} \\
+    &=0+\frac{1}{r}v_{\theta}^{2}\frac{\partial\hat{\underline{e}}_{\theta}}{\partial\theta} \\
+    &=-\frac{v_{\theta}^{2}}{r}\hat{\underline{e}}_{r}
+  \end{split}
+\end{equation*}
+The surface force term
+
+\begin{equation*}
+  \underline{\nabla}p=\frac{\partial{}p}{\partial{}r}\hat{\underline{e}}_{r}+\frac{1}{r}\frac{\partial{}p}{\partial\theta}\hat{\underline{e}}_{\theta}+\frac{\partial{}p}{\partial{}z}\hat{\underline{e}}_{z}
+\end{equation*}
+body force term
+
+\begin{equation*}
+  \rho\underline{g}=-\rho{}g_{z}\hat{\underline{e}}_{z}
+\end{equation*}
+Forming the whole equation we have
+
+\begin{equation*}
+  -\rho\frac{v_{\theta}^{2}}{r}\hat{\underline{e}}_{r}=-\frac{\partial{}p}{\partial{}r}\hat{\underline{e}}_{r}-\frac{1}{r}\frac{\partial{}p}{\partial\theta}\hat{\underline{e}}_{\theta}-\frac{\partial{}p}{\partial{}z}\hat{\underline{e}}_{z}-\rho{}g_{z}\hat{\underline{e}}_{z}
+\end{equation*}
+Equating the components we have
+
+\begin{equation*}
+  -\rho\frac{v_{\theta}^{2}}{r}=-\frac{\partial{}p}{\partial{}r}
+  \hspace{0.5in}
+  0=-\frac{1}{r}\frac{\partial{}p}{\partial\theta}
+  \hspace{0.5in}
+  0=-\frac{\partial{}p}{\partial{}z}-\rho{}g_{z}
+\end{equation*}
+This gives
+
+\begin{equation*}
+  \frac{\partial{}p}{\partial{}r}=\frac{\rho{}c^{2}}{r^{3}}
+  \hspace{0.5in}
+  \frac{\partial{}p}{\partial\theta}=0
+  \hspace{0.5in}
+  \frac{\partial{}p}{\partial{}z}=-\rho{}g_{z}
+\end{equation*}
+separating and integrating these back
+
+\begin{equation*}
+  \int\partial{}p=\int\frac{\rho{}c^{2}}{r^{3}}\partial{}r
+  \hspace{0.5in}
+  \frac{\partial{}p}{\partial\theta}=0
+  \hspace{0.5in}
+  \int\partial{}p=-\int\rho{}g_{z}\partial{}z
+\end{equation*}
+The second equation shows that the pressure is not a function of $\theta$.
+Integrating back the first and third equations we have the following
+
+\begin{equation*}
+  \begin{split}
+    p&=-\frac{\rho{}c^{2}}{2r^{2}}+f(z)+k \\
+    p&=-\rho{}g_{z}z+g(r)+k
+  \end{split}
+\end{equation*}
+and we have
+
+\begin{equation*}
+  \begin{split}
+    f(z)&=-\rho{}g_{z}z \\
+    g(r)&=-\frac{\rho{}c^{2}}{2r^{2}}
+  \end{split}
+\end{equation*}
+and so the pressure in the rotating cylinder is given by
+
+\begin{equation*}
+  p(r,z)=-\frac{\rho{}c^{2}}{2r^{2}}-\rho{}g_{z}z+k
+\end{equation*}
+
+From this equation for the pressure in the vortex, we can see that when pressure is a constant, i.e.\ on an isobar, that $z\approx-\frac{1}{r^{2}}$.
+We can solve for the constant of integration $c$ by saying when $r=R$, the radius of the tank, $p_{\text{atm}}$ is achieved at a height $h_{0}$.
+Plugging this in
+\begin{equation*}
+  p_{\text{atm}}=-\frac{\rho{}c^{2}}{2R^{2}}-\rho{}g_{z}h_{0}+k
+\end{equation*}
+
+\begin{equation*}
+  k=p_{\text{atm}}+\frac{\rho{}c^{2}}{2R^{2}}+\rho{}g_{z}h_{0}
+\end{equation*}
+The final equation is
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Pressure in ideal vortex:}} &\hspace{0.5in} p(r,z)=\frac{\rho{}c^{2}}{2}\left(\frac{1}{R^{2}}-\frac{1}{r^{2}}\right)+p_{\text{atm}}+\rho{}g_{z}(h_{0}-z)
+\end{empheq}
+To determine the shape that the air-water interface makes, we apply the boundary condition at this interface.
+That is
+
+\begin{equation*}
+  p(r,z)\bigr|_{\text{interface}}=p_{\text{atm}}
+\end{equation*}
+And then we have
+
+\begin{equation*}
+  0=\frac{\rho{}c^{2}}{2}\left(\frac{1}{R^{2}}-\frac{1}{r_{\text{interface}}^{2}}\right)+\rho{}g_{z}(h_{0}-z_{\text{interface}})
+\end{equation*}
+
+\begin{equation*}
+  z_{\text{interface}}=\frac{c^{2}}{2g_{z}}\left(\frac{1}{R^{2}}-\frac{1}{r_{\text{interface}}^{2}}\right)+h_{0}
+\end{equation*}
+
+\subsubsection{Isobars}
+
+Can also find out the shape of the fluid by solving for isobars by evaluating $dp$ and setting it equal to zero.
+Since $p=p(r,z)$ chain rule gives us the following for $dp$.
+
+\begin{equation*}
+  dp=\left(\frac{\partial{}p}{\partial{}r}\right)dr+\left(\frac{\partial{}p}{\partial{}z}\right)dz
+\end{equation*}
+
+\begin{equation*}
+  dp=\frac{\rho{}c_{2}^{2}}{r^{3}}dr-\rho{}g_{z}dz=0
+\end{equation*}
+
+\begin{equation*}
+  dz=\frac{c_{2}^{2}}{g_{z}r^{3}}dr
+\end{equation*}
+
+Integrating back and solving for the constant of integration when $r=0$ we have
+
+\begin{equation*}
+  z_{2}-z_{1}=-\frac{c_{2}^{2}}{2g_{z}}\left(\frac{1}{r_{2}^{2}}-\frac{1}{r_{1}^{2}}\right)
+\end{equation*}
+
+\begin{equation*}
+  z=-\frac{c_{2}^{2}}{2g_{z}}\left(\frac{1}{r^{2}}-\frac{1}{R^{2}}\right)+h_{0}
+\end{equation*}
+
+\begin{equation*}
+  z=\frac{c_{2}^{2}}{2g_{z}}\left(\frac{1}{R^{2}}-\frac{1}{r^{2}}\right)+h_{0}
+\end{equation*}
+
+% TODO@dpwiese
+Pretty sure this $c_{2}$ is just supposed to be $c$.
+
+\subsubsection{Problem 10.11}
+
+Has thin inlet in the outer edge of tank to supply water for vortex.
+From original equation where we solve for $v_{\theta}$
+
+\begin{equation*}
+  c=VR
+\end{equation*}
+
+\begin{equation*}
+  z=\frac{(VR)^{2}}{2g_{z}}\left(\frac{1}{R^{2}}-\frac{1}{r^{2}}\right)+h_{0}
+\end{equation*}
+
+\section{Hydrostatics}
+
+Hydrostatics comes from simplifying Euler's equation by making the acceleration of the fluid element zero, that is $\underline{a}=0$, giving the following equation
+
+\begin{equation*}
+  -\underline{\nabla}p+\rho\underline{g}=0
+\end{equation*}
+
+\chapter{Gauss' and Stokes' Theorem}
+
+\section{Gauss' Theorem}
+
+% TODO@dpwiese - does this equation need an extra `+p_{\text{atm}}` term on RHS?
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Gauss' Theorem:}} \hspace{0.5in} & \int_{V}(\underline{\nabla}\cdot\underline{v})dV=\oint_{S}\underline{v}\cdot\underline{dA}
+\end{empheq}
+
+\section{Stokes' Theorem}
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Stokes' Theorem:}} \hspace{0.5in} & \int_{A}\underbrace{(\underline{\nabla}\times\underline{v})}_{\text{vorticity}}\cdot dA=\underbrace{\oint_{C}\underline{v}\cdot\underline{dl}}_{\text{circulation}}
+\end{empheq}
+
+And $\Gamma$ is called the circulation.
+Stokes' theorem relates the area integral of vorticity to circulation.
+
+\begin{equation*}
+  \Gamma=\oint_{C}\underline{v}\cdot\underline{dl}
+\end{equation*}
+
+\chapter{Control Surfaces, Volumes, and Masses}
+
+\section{More on Conservation Equations: Forms A and B}
+
+\begin{empheq}[box={\labelBox[Mass Conservation]}]{alignat*=3}
+  &\mbox{\textbf{Form A:}} &\hspace{0.5in} \frac{d}{dt}\int_{CV(t)}\rho{}dV+\int_{CS(t)}\rho{}(\overline{v}-\overline{v}_{c})\cdot\overline{n}dA=0 \\[6pt]
+  &\mbox{\textbf{Form B:}} &\hspace{0.5in} \int_{CV(t)}\frac{\partial\rho}{\partial{}t}dV+\int_{CS(t)}\rho{}v_{n}dA=0
+\end{empheq}
+
+\begin{equation*}
+  v_{rn}=(\overline{v}-\overline{v}_{c})\cdot\overline{n}
+\end{equation*}
+
+$\overline{v}$ is the velocity across the control surface.
+
+\begin{empheq}[box={\labelBox[Momentum Conservation]}]{alignat*=3}
+  &\mbox{\textbf{Form A:}} &\hspace{0.5in} \frac{d}{dt}\int_{CV(t)}\rho\overline{v}dV+\int_{CS(t)}\rho\overline{v}(\overline{v}-\overline{v}_{c})\cdot\overline{n}dA=\overline{F}_{CV}(t) \\[6pt]
+  &\mbox{\textbf{Form B:}} &\hspace{0.5in} \int_{CV(t)}\frac{\partial(\rho\overline{v})}{\partial{}t}dV+\int_{CS(t)}\rho\overline{v}v_{n}dA=\overline{F}_{CV}(t)
+\end{empheq}
+
+\chapter{Viscous Flow}
+
+The Newtonian stress tensor $\uuline{\tau}$ contains contributions of normal stress from pressure, as well as shear stresses in the form of the viscous stress tensor $\uuline{\sigma}$.
+Thus, the Newtonian stress tensor can be written as the following, where for an inviscid fluid $\uuline{\sigma}=0$.
+The viscous stress tensor is a tensor used in continuum mechanics to model the part of the stress at a point within some material that can be attributed to the strain rate, the rate at which it is deforming around that point.
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Inviscid}} \hspace{0.5in} & \uuline{\tau}=-p\uuline{I} \\
+  &\mbox{\textbf{Viscous}} \hspace{0.5in} & \uuline{\tau}=-p\uuline{I}+\uuline{\sigma}
+\end{empheq}
+
+\begin{defn-dan}[Newton's viscosity law (Viscosity)]
+  \begin{empheq}[box=\roomyfbox]{equation*}
+    \text{viscosity}=-\frac{\text{shear stress}}{\text{rate of shear deformation or strain}}
+  \end{empheq}
+
+  \begin{equation*}
+    \mu=-\frac{\tau}{\frac{d\gamma}{dt}}
+  \end{equation*}
+\end{defn-dan}
+
+This is what it is to be a Newtonian fluid, one where the shear stress is proportional to the shear strain rate, where the constant of proportionality is called the fluid's viscosity.
+
+\begin{defn-dan}[Reynolds number]
+  The Reynolds number is the ratio between the inertial viscous forces in a fluid.
+  \begin{equation*}
+    \text{Re}=\frac{\rho{}Ul}{\mu}
+  \end{equation*}
+\end{defn-dan}
+
+Airplanes flying at high altitude (rarefied gas) the density is very low, which means the Reynolds number is very small.
+This is the same effect as highly viscous flow.
+Basically $\underline{\nabla}\;\underline{v}$ is the divergence of the velocity field.
+Thinking about this in terms of a square fluid element in some velocity field, $\underline{\nabla}\;\underline{v}$ describes how this fluid element will move with time.
+This movement can cause the fluid element to translate, rotate, and deform.
+We would like to split these three parts up.
+
+\begin{equation*}
+  \begin{split}
+    \underline{\nabla}\;\underline{u}&=\frac{1}{2}\left(\underline{\nabla}\;\underline{u}+(\underline{\nabla}\;\underline{u})^{\top}\right)+\frac{1}{2}\left(\underline{\nabla}\;\underline{u}-(\underline{\nabla}\;\underline{u})^{\top}\right) \\
+    &=\uuline{e}+\uuline{\Omega}
+  \end{split}
+\end{equation*}
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Strain rate tensor:}} &\hspace{0.5in} \uuline{e}=\frac{1}{2}\left(\underline{\nabla}\;\underline{u}+(\underline{\nabla}\;\underline{u})^{\top}\right) \\
+  &\mbox{\textbf{Rotation rate tensor:}} &\hspace{0.5in} \uuline{\Omega}=\frac{1}{2}\left(\underline{\nabla}\;\underline{u}-(\underline{\nabla}\;\underline{u})^{\top}\right)
+\end{empheq}
+
+Can derive from pictures
+
+\begin{equation*}
+  \uuline{\sigma}=2\mu\uuline{e}
+\end{equation*}
+
+For incompressible flows with constant viscosity
+
+\begin{equation*}
+  \underline{\nabla}\cdot\underline{v}=0
+\end{equation*}
+
+The strain rate tensor represents shearing/stretching of the fluid element.
+
+% Define dimensions for rotation of fluid element diagram
+\newdimen\myx{}
+\newdimen\myy{}
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[b]{0.22\linewidth}
+    \begin{center}
+      \begin{tikzpicture}[scale=1.1, media/.style={font={\footnotesize\sffamily}}, interface/.style={postaction={draw,decorate,decoration={border,angle=-45, amplitude=0.3cm,segment length=2mm}}}]
+        \draw[dashed] (0,0) -- (0,2);
+        \draw[dashed] (0,0) -- (2,0);
+        \draw[dashed] (0,2) -- (2,2);
+        \draw[dashed] (2,0) -- (2,2);
+        \draw (1,0.5) -- (1,2.5);
+        \draw (1,0.5) -- (3,0.5);
+        \draw (1,2.5) -- (3,2.5);
+        \draw (3,0.5) -- (3,2.5);
+      \end{tikzpicture}
+      % \caption{Translation}
+    \end{center}
+  \end{minipage}
+  \quad
+  \begin{minipage}[b]{0.22\linewidth}
+    \begin{center}
+      \begin{tikzpicture}[ scale=1.1, media/.style={font={\footnotesize\sffamily}}, interface/.style={postaction={draw,decorate,decoration={border,angle=-45, amplitude=0.3cm,segment length=2mm}}}]
+        \draw[dashed] (0,0) -- (0,2);
+        \draw[dashed] (0,0) -- (2,0);
+        \draw[dashed] (0,2) -- (2,2);
+        \draw[dashed] (2,0) -- (2,2);
+        \coordinate (x) at (1, 1);
+        \pgfextractx{\myx}{\pgfpointanchor{x}{center}}
+        \pgfextracty{\myy}{\pgfpointanchor{x}{center}}
+        \pgftransformshift{\pgfqpoint{\myx}{\myy}}
+        \pgftransformrotate{20}
+        \pgftransformshift{\pgfqpoint{-\myx}{-\myy}}
+        \draw (0,0) -- (0,2);
+        \draw (0,0) -- (2,0);
+        \draw (0,2) -- (2,2);
+        \draw (2,0) -- (2,2);
+      \end{tikzpicture}
+      % \caption{Rotation}
+    \end{center}
+  \end{minipage}
+  \quad
+  \begin{minipage}[b]{0.22\linewidth}
+    \begin{center}
+      \begin{tikzpicture}[ scale=1.1, media/.style={font={\footnotesize\sffamily}}, interface/.style={postaction={draw,decorate,decoration={border,angle=-45, amplitude=0.3cm,segment length=2mm}}}]
+        \draw[dashed] (0,0) -- (0,2);
+        \draw[dashed] (0,0) -- (2,0);
+        \draw[dashed] (0,2) -- (2,2);
+        \draw[dashed] (2,0) -- (2,2);
+        \draw[rotate=-10] (0,0) -- (0,2) node[name=A]{};
+        \draw[rotate=10] (0,0) -- (2,0) node[name=B]{};
+        \draw[rotate=-80] (A.center) --++ (0,2);
+        \draw[rotate=80] (B.center) --++ (2,0);
+      \end{tikzpicture}
+      % \caption{Shearing}
+    \end{center}
+  \end{minipage}
+  \quad
+  \begin{minipage}[b]{0.22\linewidth}
+    \begin{center}
+      \begin{tikzpicture}[ scale=1.1, media/.style={font={\footnotesize\sffamily}}, interface/.style={postaction={draw,decorate,decoration={border,angle=-45, amplitude=0.3cm,segment length=2mm}}}]
+      \draw[dashed] (0,0) -- (0,2);
+      \draw[dashed] (0,0) -- (2,0);
+      \draw[dashed] (0,2) -- (2,2);
+      \draw[dashed] (2,0) -- (2,2);
+      \draw (0.2,0.2) -- (0.2,1.8);
+      \draw (0.2,0.2) -- (1.8,0.2);
+      \draw (1.8,0.2) -- (1.8,1.8);
+      \draw (0.2,1.8) -- (1.8,1.8);
+      \end{tikzpicture}
+      % \caption{Pure compression}
+    \end{center}
+  \end{minipage}
+  \caption{a.\ Translation, b.\ rotation, c.\ shearing, d.\ Pure compression}
+\end{figure}
+
+\section{Derivation of Incompressible Navier-Stokes' Equations}
+
+The Navier Stokes' Equation describes conservation of linear momentum for isothermal flow of an incompressible newtonian fluid.
+
+\begin{figure}[H]
+  \begin{center}
+    \begin{tikzpicture}[>=Stealth]
+      \def\sliceZ{0.8}
+      \def\side{2}
+      \def\linewidth{0.6}
+      \def\arrowlength{1.5}
+      \draw[dashed] (\side,0,0) -- (0,0,0);
+      \draw[dashed] (0,0,\side) -- (0,0,0);
+      \draw[dashed] (0,\side,0) -- (0,0,0);
+      \draw (\side,0,0) -- (\side,\side,0) node[midway,right]{$\delta z$} -- (0,\side,0);
+      \draw (0,0,\side) -- (\side,0,\side) node[midway,below]{$\delta x$} -- (\side,\side,\side) -- (0,\side,\side) -- (0,0,\side);
+      \draw (\side,0,0) -- (\side,0,\side) node[midway,below right]{$\delta y$};
+      \draw (\side,\side,0) -- (\side,\side,\side);
+      \draw (0,\side,0) -- (0,\side,\side);
+      \node at (1,\sliceZ,1){};
+      \draw[line width=\linewidth mm,->](\side+\arrowlength,\side/2,\side/2) node[right]{$p(x+\delta x)$} -- (\side,\side/2,\side/2);
+      \draw[line width=\linewidth mm,->](-\arrowlength,\side/2,\side/2) node[left]{$p(x)$} -- (0,\side/2,\side/2);
+      \draw[line width=\linewidth mm,->](\side/2,\side/2+0.2,\side+3) node[left]{$p(y)$} -- (\side/2,\side/2+0.2,\side);
+      \draw[line width=\linewidth mm,->](\side/2,\side/2-0.2,-3) node[right]{$p(y+\delta y)$} -- (\side/2,\side/2-0.2,0);
+      \draw[line width=\linewidth mm,->](\side/2,\side+\arrowlength,\side/2) node[right]{$p(z+\delta z)$} -- (\side/2,\side,\side/2);
+      \draw[line width=\linewidth mm,->](\side/2,-\arrowlength,\side/2) node[right]{$p(z)$} -- (\side/2,0,\side/2);
+      \draw[line width=\linewidth mm,->](\side/2+0.2,\side/2,\side/2) -- (\side/2+0.2,\side/2-\arrowlength-0.2,\side/2) node[right]{$mg$};
+    \end{tikzpicture}
+    \caption{Fluid element with pressure and gravity acting on it}
+  \end{center}
+\end{figure}
+
+Summing the forces in the $x$, $y$, and $z$ directions we have
+
+\begin{equation*}
+  \begin{split}
+    p\delta y\delta z-\left(p+\frac{\partial{}p}{\partial{}x}\right)\delta y\delta z&=\rho\delta x\delta y\delta za_{x} \\
+    p\delta x\delta z-\left(p+\frac{\partial{}p}{\partial{}y}\right)\delta x\delta z&=\rho\delta x\delta y\delta za_{y} \\
+    p\delta x\delta y-\left(p+\frac{\partial{}p}{\partial{}z}\right)\delta x\delta y-\rho{}g_{z}\delta x\delta y\delta z&=\rho\delta x\delta y\delta za_{z} \\
+  \end{split}
+\end{equation*}
+
+% TODO@dpwiese - finish the below?
+simplifying
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Incompressible Navier-Stokes}} \hspace{0.5in}& \rho\left(\frac{\partial\underline{v}}{\partial{}t}+\underline{v}\cdot\underline{\nabla}\underline{v}\right)=-\underline{\nabla}p+\mu\nabla^{2}\underline{v}+\rho\underline{g} \\
+  & &\hspace{0.5in} \rho\frac{D\underline{v}}{Dt}=-\underline{\nabla}p+\underline{\nabla}\cdot\uuline{\sigma}+\rho\underline{g} \\
+  & &\hspace{0.5in} \rho\frac{D\underline{v}}{Dt}=-\underline{\nabla}p+\mu\nabla^{2}\underline{v}+\rho\underline{g}
+\end{empheq}
+
+Fully developed flow implies that the velocity profile does not change in the fluid flow direction hence the momentum also does not change in the flow direction.
+In such a case, the pressure in the flow direction will balance the shear stress near the wall.
+
+The assumptions of the equation are that the fluid is incompressible and newtonian; the flow is laminar through a pipe of constant circular cross-section that is substantially longer than its diameter; and there is no acceleration of fluid in the pipe.
+For velocities and pipe diameters above a threshold, actual fluid flow is not laminar but turbulent, leading to larger pressure drops than calculated by the Hagen$-$Poiseuille equation.
+
+\section{Exact Solutions to the Navier-Stokes Equations}
+
+Some cases where an exact analytic solution to the Navier-Stokes equations exist are for the steady case Poisseiulle flow (viscous flow through a circular pipe, or between two long parallel plates) and Coutte flow (laminar flow between two parallel plates where one is moving).
+In other time dependent cases we have Stokes' first and second problems.
+
+\subsection{Poiseuille Flow in Circular Pipe}
+
+In this section we derive of Poiseuille flow in a circular pipe from Navier-Stokes equation.
+The laminar flow through a pipe of uniform (circular) cross-section is one of two cases known as Hagen$-$Poiseuille flow.
+In this case, we make the following assumptions:
+
+\begin{empheq}[box={\labelBox[Circular Pipe Poiseuille Flow]}]{alignat*=3}
+  &\mbox{\textbf{Steady:}} &\hspace{0.5in} \frac{\partial}{\partial{}t}=0 \\
+  &\mbox{\textbf{No radial or swirl velocity:}} &\hspace{0.5in} v_{r}=v_{\theta}=0 \\
+  &\mbox{\textbf{Radially symmetric:}} &\hspace{0.5in} \frac{\partial}{\partial\theta}=0 \\
+  &\mbox{\textbf{Fully developed:}} &\hspace{0.5in} \frac{\partial{}v_{z}}{\partial{}z}=0 \\
+  &\mbox{\textbf{Gravity is neglible:}} &\hspace{0.5in} \underline{g}=0
+\end{empheq}
+
+In a large pipe we can have hydrostatic pressure variations, but usually these are very small and can be neglected.
+\textit{Use the Navier-Stokes' equation sheet to obtain the expanded equations in cylindrical coordinates.}
+Simplifying the Navier-Stokes equations using the above assumptions we have
+
+\begin{equation*}
+  \begin{split}
+    0&=-\frac{\partial{}p}{\partial{}r} \\
+    0&=-\frac{\partial{}p}{\partial\theta} \\
+    0&=\mu\left[\frac{1}{r}\frac{\partial}{\partial{}r}\left(r\frac{\partial{}v_{z}}{\partial{}r}\right)\right]-\frac{\partial{}p}{\partial{}z}
+  \end{split}
+\end{equation*}
+
+The first two equations show that the pressure in the tube is only a function of $z$.
+Because of this, the partial derivative in the third equation can be made a full derivative, and then we can integrate this equation back to find the an expression for the velocity along the pipe, $v_{z}$.
+
+\begin{equation*}
+  \begin{split}
+    0&=\mu\left[\frac{1}{r}\frac{\partial}{\partial{}r}\left(r\frac{\partial{}v_{z}}{\partial{}r}\right)\right]-\frac{dp}{dz} \\
+    \frac{dp}{dz}&=\frac{\mu}{r}\frac{\partial}{\partial{}r}\left(r\frac{\partial{}v_{z}}{\partial{}r}\right) \\
+    \int\frac{dp}{dz}r\partial{}r&=\int\mu\partial\left(r\frac{\partial{}v_{z}}{\partial{}r}\right) \\
+    \frac{1}{2}\frac{dp}{dz}r^{2}+c_{3}&=\mu{}r\frac{\partial{}v_{z}}{\partial{}r} \\
+    \frac{1}{2}\frac{dp}{dz}r+\frac{c_{3}}{r}&=\mu\frac{\partial{}v_{z}}{\partial{}r} \\
+    \int\left(\frac{1}{2}\frac{dp}{dz}r+\frac{c_{3}}{r}\right)\partial{}r&=\int\mu\partial{}v_{z} \\
+    \frac{1}{4}\frac{dp}{dz}r^{2}+c_{3}\ln{r}+c_{4}&=\mu{}v_{z} \\
+    v_{z}&=\frac{1}{4\mu}\frac{dp}{dz}r^{2}+c_{1}\ln{r}+c_{2}
+  \end{split}
+\end{equation*}
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  v_{z}=\frac{1}{4\mu}\frac{dp}{dz}r^{2}+c_{1}\ln{r}+c_{2}
+\end{empheq}
+
+\subsubsection{Applying Boundary Conditions}
+
+Here we need to use the boundary conditions to find the constants $c_{1}$ and $c_{2}$.
+
+\subsubsection{Regular Pipe}
+
+\begin{figure}[H]
+  \begin{center}
+    \begin{tikzpicture}[>=Stealth,scale=1.0]
+      \draw[semithick]  (0.5,0) arc (360:0:0.5 and 1.5);
+      \draw[semithick]  (6,1.5) arc (90:-90:0.5 and 1.5);
+      \draw[semithick, dashed,color=black] (6,1.5) arc (90:270:0.5 and 1.5);
+      \draw[semithick] (0,-1.5) -- (6,-1.5);
+      \draw[semithick] (0,1.5) -- (6,1.5);
+      \draw[->](0,0) -- (2,0) node[pos=1.1]{$z$};
+      \draw[->](0,0) -- (0,2) node[pos=1.1]{$r$};
+      \draw[rotate=-90] (1.5,3) parabola[bend at end] (0,5);
+      \draw[rotate=-90] (-1.5,3) parabola[bend at end] (0,5);
+      \draw[dotted] (3,-1.5) -- (3,1.5);
+    \end{tikzpicture}
+    \caption{Parabolic velocity profile for Poiseuille flow through a circular pipe}
+  \end{center}
+\end{figure}
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Finite velocity along center of pipe:}} &\hspace{0.5in} v_{z}(r=0)=\text{finite} \\
+  &\mbox{\textbf{No slip at pipe wall:}} &\hspace{0.5in} v_{z}(R)=0
+\end{empheq}
+
+From the first boundary condition, when $r=0$, $v_{z}$ must be finite.
+Looking at $c_{1}\ln{r}$ when $r=0$ we see that this term goes to infinity when $r$ goes to zero.
+To prevent the velocity from going to infinity $c_{1}$ must be zero.
+Now look at the second boundary condition
+
+\begin{equation*}
+  \begin{split}
+    0&=\frac{1}{4\mu}\frac{dp}{dz}R^{2}+c_{2} \\
+    c_{2}&=-\frac{1}{4\mu}\frac{dp}{dz}R^{2}
+  \end{split}
+\end{equation*}
+
+so we have
+
+\begin{equation*}
+  v_{z}=\frac{1}{4\mu}\frac{dp}{dz}r^{2}-\frac{1}{4\mu}\frac{dp}{dz}R^{2}
+\end{equation*}
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Velocity for Poiseuille flow in regular pipe:}} &\hspace{0.5in} v_{z}&=-\frac{1}{4\mu}\frac{dp}{dz}(R^{2}-r^{2})
+\end{empheq}
+
+Now we can integrate the velocity across the pipe to get the average velocity and flow rate.
+Furthermore, we can see that the velocity decreases away from the center of the pipe, where the velocity is maximum.
+The maximum velocity is
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Maximum velocity for Poiseuille flow in regular pipe:}} &\hspace{0.5in} v_{z,\text{max}}&=-\frac{R^{2}}{4\mu}\frac{dp}{dz}
+\end{empheq}
+
+Integrating to find the average velocity and flow rate, which are related by $Q=v_{z,\text{max}}A$ we have the following, where $dA=2\pi{}rdr$.
+
+\begin{equation*}
+  Q=\int_{A}-\frac{1}{4\mu}\frac{dp}{dz}(R^{2}-r^{2})dA
+\end{equation*}
+
+\begin{equation*}
+  Q=-\frac{\pi}{2\mu}\frac{dp}{dz}\int_{0}^{R}(R^{2}-r^{2})rdr
+\end{equation*}
+
+\begin{equation*}
+  Q=-\frac{\pi}{4\mu}\frac{dp}{dz}\left[\frac{1}{2}R^{2}r^{2}-\frac{1}{4}r^{4}\right]_{0}^{R}
+\end{equation*}
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Volume flow rate for Poiseuille flow in regular pipe:}} &\hspace{0.5in} Q&=-\frac{\pi}{8\mu}\frac{dp}{dz}R^{4}
+\end{empheq}
+
+The average velocity is then given by
+
+\begin{equation*}
+  v_{z,\text{avg}}=\frac{Q}{A}
+\end{equation*}
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Average velocity for Poiseuille flow in regular pipe:}} &\hspace{0.5in} v_{z,\text{avg}}&=-\frac{1}{8\mu}\frac{dp}{dz}R^{2}
+\end{empheq}
+
+Conservation of mass, and the fully developed assumption gave the condition that the velocity distribution along the pipe is constant.
+Once the Navier Stokes' equations are solved, the equation for velocity distribution is expressed in terms of the pressure gradient down the pipe.
+Since we know for any given value of $r$ that the velocity is constant along the $z$ direction, we can see that the pressure gradient is constant.
+This allows us to replace the pressure gradient in all of the above equations with the pressure drop along a length of pipe
+
+\begin{equation*}
+  -\frac{dp}{dz}=\frac{\Delta{}p}{L}
+\end{equation*}
+
+In particular, we can use this expression with the flow rate equation, and solve for the pressure drop as a function of pipe length, flow rate, and diameter, among others.
+From this we can see that to minimize pressure drop we want a pipe with a large diameter.
+
+\begin{empheq}[box={\labelBox[Pipe Poiseuille Flow]}]{alignat*=3}
+  &\mbox{\textbf{Velocity}} \hspace{0.5in}& v_{z}&=\frac{1}{4\mu}\frac{\Delta{}p}{L}(R^{2}-r^{2}) \\
+  &\mbox{\textbf{Maximum velocity}} &\hspace{0.5in} v_{z,\text{max}}&=\frac{R^{2}}{4\mu}\frac{\Delta{}p}{L} \\
+  &\mbox{\textbf{Average velocity}} &\hspace{0.5in} v_{z,\text{avg}}&=\frac{1}{8\mu}\frac{\Delta{}p}{L}R^{2} \\
+  &\mbox{\textbf{Flow rate}} &\hspace{0.5in} Q&=\frac{\pi}{8\mu}\frac{\Delta{}p}{L}R^{4} \\
+  &\mbox{\textbf{Pressure drop}} &\hspace{0.5in} \Delta{}p&=\frac{128\mu{}LQ}{\pi{}D^{4}}
+\end{empheq}
+
+\subsubsection{Annulus Pipe}
+
+This problem is from 6.04 of Shapiro and Sonin problems.
+
+\begin{figure}[H]
+  \begin{center}
+    \begin{tikzpicture}[>=Stealth,scale=1.0]
+      \draw[semithick]  (0.5,0) arc (360:0:0.5 and 1.5);
+      \draw[semithick]  (4,1.5) arc (90:-90:0.5 and 1.5);
+      \draw[semithick, dashed,color=black] (4,1.5) arc (90:270:0.5 and 1.5);
+      \draw[semithick] (0,-1.5) -- (4,-1.5);
+      \draw[semithick] (0,1.5) -- (4,1.5);
+      \draw[semithick]  (0.3,0) arc (360:0:0.3 and 0.9);
+      \draw[semithick]  (4,0.9) arc (90:-90:0.3 and 0.9);
+      \draw[semithick, dashed,color=black] (4,0.9) arc (90:270:0.3 and 0.9);
+      \draw[semithick, dashed] (0,-0.9) -- (4,-0.9);
+      \draw[semithick, dashed] (0,0.9) -- (4,0.9);
+      \draw[->](0,0) -- (2,0) node[pos=1.1]{$z$};
+      \draw[->](0,0) -- (0,2) node[pos=1.1]{$r$};
+      \draw (0,0) arc (100:280:0.1 and 0.2);
+    \end{tikzpicture}
+  \end{center}
+\end{figure}
+
+\begin{empheq}[]{alignat*=3}
+  &\mbox{\textbf{No slip at pipe wall:}} &\hspace{0.5in} v_{z}(R_{1})=0 \\
+  &\mbox{\textbf{No slip at pipe wall:}} &\hspace{0.5in} v_{z}(R_{2})=0
+\end{empheq}
+
+\begin{equation*}
+  \begin{split}
+    0&=\frac{1}{4\mu}\frac{dp}{dz}R_{1}^{2}+c_{1}\ln{R_{1}}+c_{2} \\
+    0&=\frac{1}{4\mu}\frac{dp}{dz}R_{2}^{2}+c_{1}\ln{R_{2}}+c_{2}
+  \end{split}
+\end{equation*}
+
+Let $A=\frac{1}{4\mu}\frac{dp}{dz}$
+
+\begin{equation*}
+  \begin{split}
+    0&=AR_{1}^{2}+c_{1}\ln{R_{1}}+c_{2} \\
+    0&=AR_{2}^{2}+c_{1}\ln{R_{2}}+c_{2}
+  \end{split}
+\end{equation*}
+
+\begin{equation*}
+  \begin{split}
+    AR_{1}^{2}+c_{1}\ln{R_{1}}&=AR_{2}^{2}+c_{1}\ln{R_{2}} \\
+    A(R_{1}^{2}-R_{2}^{2})&=c_{1}(\ln{R_{2}}-\ln{R_{1}}) \\
+    c_{1}&=\frac{A(R_{1}^{2}-R_{2}^{2})}{\ln\left(\frac{R_{2}}{R_{1}}\right)} \\
+    c_{1}&=\frac{\frac{1}{4\mu}\frac{dp}{dz}(R_{1}^{2}-R_{2}^{2})}{\ln\left(\frac{R_{2}}{R_{1}}\right)}
+  \end{split}
+\end{equation*}
+
+\begin{equation*}
+  \begin{split}
+    c_{2}&=-\frac{1}{4\mu}\frac{dp}{dz}R_{2}^{2}-c_{1}\ln{R_{2}} \\
+    c_{2}&=-\frac{1}{4\mu}\frac{dp}{dz}R_{2}^{2}-\frac{\frac{1}{4\mu}\frac{dp}{dz}(R_{1}^{2}-R_{2}^{2})}{\ln\left(\frac{R_{2}}{R_{1}}\right)}\ln{R_{2}} \\
+    c_{2}&=-\frac{1}{4\mu}\frac{dp}{dz}\left(R_{2}^{2}+\frac{(R_{1}^{2}-R_{2}^{2})\ln{R_{2}}}{\ln\left(\frac{R_{2}}{R_{1}}\right)}\right)
+  \end{split}
+\end{equation*}
+
+\begin{equation*}
+  v_{z}=\frac{1}{4\mu}\frac{dp}{dz}r^{2}+c_{1}\ln{r}+c_{2}
+\end{equation*}
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  v_{z}=\frac{1}{4\mu}\frac{dp}{dz}r^{2}+\left[\frac{\frac{1}{4\mu}\frac{dp}{dz}(R_{1}^{2}-R_{2}^{2})}{\ln\left(\frac{R_{2}}{R_{1}}\right)}\right]\ln{r}+\left[-\frac{1}{4\mu}\frac{dp}{dz}\left(R_{2}^{2}+\frac{(R_{1}^{2}-R_{2}^{2})\ln{R_{2}}}{\ln\left(\frac{R_{2}}{R_{1}}\right)}\right)\right]
+\end{empheq}
+
+\subsection{Derivation of Plane Poiseuille Flow from Navier-Stokes}
+
+Consider the following parallel plates
+
+\begin{figure}[H]
+  \begin{center}
+    \begin{tikzpicture}[>=Stealth,scale=1.2, media/.style={font={\footnotesize\sffamily}}, interface/.style={postaction={draw,decorate,decoration={border,angle=-45, amplitude=0.3cm,segment length=2mm}}}]
+      \draw[->](0,0) -- (6,0) node[pos=1.1]{$x$};
+      \draw[->](0,0) -- (0,2.5) node[pos=1.1]{$y$};
+      \draw[->](2,0.5) -- (3.5,0.5);
+      \draw[->](2,1) -- (4,1);
+      \draw[->](2,1.5) -- (3.5,1.5);
+      \draw[gray,line width=.5pt,interface](0,0)--(5,0);
+      \draw[gray,line width=.5pt,interface](5,2)--(0,2);
+      \draw[semithick] (0,2) -- (5,2);
+      \draw[semithick] (0,0) -- (5,0);
+      \draw (-0.3,2) node {$h$};
+      \draw[rotate=-90] (0,2) parabola[bend at end] (-1,4);
+      \draw[rotate=-90] (-2,2) parabola[bend at end] (-1,4);
+      \draw[dotted] (2,0) -- (2,2);
+    \end{tikzpicture}
+    \caption{Parabolic velocity profile for plane Poisseiulle flow}
+  \end{center}
+\end{figure}
+
+\begin{empheq}[]{alignat*=3}
+  &\mbox{\textbf{Steady:}} &\hspace{0.5in} \frac{\partial}{\partial{}t}=0 \\
+  &\mbox{\textbf{No vertical velocity:}} &\hspace{0.5in} v_{y}=0 \\
+  &\mbox{\textbf{2-D flow:}} &\hspace{0.5in} \frac{\partial}{\partial{}z}=0 \\
+  & &\hspace{0.5in} v_{z}=0 \\
+  &\mbox{\textbf{Fully developed:}} &\hspace{0.5in} \frac{\partial{}v_{x}}{\partial{}x}=0
+\end{empheq}
+
+\begin{equation*}
+  \begin{split}
+    0&=\mu\frac{\partial^{2}v_{x}}{\partial{}y^{2}}-\frac{\partial{}p}{\partial{}x} \\
+    0&=-\frac{\partial{}p}{\partial{}y}+\rho{}g_{y} \\
+    0&=-\frac{\partial{}p}{\partial{}z}+\rho{}g_{z} \\
+  \end{split}
+\end{equation*}
+
+Basically need to solve
+
+\begin{equation*}
+  0=\mu\frac{\partial^{2}v_{x}}{\partial{}y^{2}}-\frac{\partial{}p}{\partial{}x}
+\end{equation*}
+
+\begin{equation*}
+  \frac{\partial{}p}{\partial{}x}\partial{}y =\mu\partial\frac{\partial{}v_{x}}{\partial{}y}
+\end{equation*}
+
+\begin{equation*}
+  \left[\frac{\partial{}p}{\partial{}x}y\right]+C_{1} =\mu\frac{\partial{}v_{x}}{\partial{}y}
+\end{equation*}
+
+\begin{equation*}
+  \left[\frac{\partial{}p}{\partial{}x}y+C_{1}\right]\partial{}y =\mu\partial{}v_{x}
+\end{equation*}
+
+\begin{equation*}
+  \frac{1}{2}\frac{\partial{}p}{\partial{}x}y^{2}+C_{1}y+C_{2}=\mu{}v_{x}
+\end{equation*}
+
+And using the boundary conditions, we have that $v_{x}(0)=0$ and $v_{x}(h)=0$ so
+
+\begin{equation*}
+  C_{2}=0
+\end{equation*}
+
+\begin{equation*}
+  C_{1}=-\frac{1}{2}\frac{\partial{}p}{\partial{}x}h
+\end{equation*}
+
+\begin{empheq}[box=\roomyfbox]{alignat*=3}
+  &\mbox{\textbf{Velocity for plane Poisseiulle flow:}} &\hspace{0.5in} v_{x}(y)=-\frac{h^{2}}{2\mu}\frac{\partial{}p}{\partial{}x}\frac{y}{h}\left(1-\frac{y}{h}\right)
+\end{empheq}
+
+\subsubsection{Finding volume flow rate}
+
+\subsection{Plane Coutte Flow}
+
+\begin{figure}[H]
+  \begin{center}
+    \begin{tikzpicture}[>=Stealth,scale=1.2, media/.style={font={\footnotesize\sffamily}}, interface/.style={postaction={draw,decorate,decoration={border,angle=-45, amplitude=0.3cm,segment length=2mm}}}]
+      \draw[->](0,0) -- (5,0) node[pos=1.1]{$x$};
+      \draw[->](0,0) -- (0,2.5) node[pos=1.1]{$y$};
+      \draw (1,0) -- (1,2);
+      \draw (1,0) -- (3,2);
+      \draw[->](1,1) -- (2,1);
+      \draw[->](1,0.5) -- (1.5,0.5);
+      \draw[->](1,1.5) -- (2.5,1.5);
+      \draw[semithick, ->](1.25,2.5) -- (2.75,2.5) node[pos=1.2]{$U$};
+      \draw (-0.3,2) -- (-0.3,2) node[pos=1.1]{$h$};
+      \draw[gray,line width=.5pt,interface](0,0)--(4,0);
+      \draw[gray,line width=.5pt,interface](4,2)--(0,2);
+      \draw[semithick] (0,2) -- (4,2);
+      \draw[semithick] (0,0) -- (4,0);
+      \draw (-0.3,2) node {$h$};
+    \end{tikzpicture}
+    \caption{Linear velocity profile for plane Couette flow}
+  \end{center}
+\end{figure}
+
+Couette flow is flow driven by moving one plate relative to another.
+
+\begin{empheq}[]{alignat*=3}
+  &\mbox{\textbf{Steady:}} &\hspace{0.5in} \frac{\partial}{\partial{}t}=0 \\
+  &\mbox{\textbf{Laminar:}} &\hspace{0.5in} v_{y}=v_{z}=0 \\
+  &\mbox{\textbf{Symmetric:}} &\hspace{0.5in} \frac{\partial}{\partial{}z}=0 \\
+  &\mbox{\textbf{Fully developed:}} &\hspace{0.5in} \frac{\partial{}v_{x}}{\partial{}x}=0
+\end{empheq}
+
+\textit{Use the Navier-Stokes' equation sheet to obtain the expanded equations in cartesian coordinates.}
+Simplifying the Navier-Stokes equations using the above assumptions we have
+
+\begin{equation*}
+  \begin{split}
+    0&=\mu\frac{\partial^{2}v_{x}}{\partial{}y^{2}}-\frac{\partial{}p}{\partial{}x} \\
+    0&=-\frac{\partial{}p}{\partial{}y}+\rho{}g_{y} \\
+    0&=-\frac{\partial{}p}{\partial{}z}+\rho{}g_{z} \\
+  \end{split}
+\end{equation*}
+
+Assume the plates are really long, so
+
+\begin{equation*}
+  \frac{\partial{}p}{\partial{}x}=0
+\end{equation*}
+
+so pretty much need to solve the following, where $v_{x}$ on depends on the $y$ position, so the partial derivative can be made a full derivative
+
+\begin{equation*}
+  0=\frac{d^{2}v_{x}}{dy^{2}}
+\end{equation*}
+
+\begin{equation*}
+  \int0dy=\int d\frac{dv_{x}}{dy}
+\end{equation*}
+
+\begin{equation*}
+  C_{1}=\frac{dv_{x}}{dy}
+\end{equation*}
+
+\begin{equation*}
+  \int C_{1}dy=\int dv_{x}
+\end{equation*}
+
+\begin{equation*}
+  C_{1}y+C_{2}=v_{x}
+\end{equation*}
+
+Using boundary conditions $v_{x}(y=h)=U$ and $v_{x}(y=0)=0$ we get $C_{2}=0$ and $C_{1}=\frac{U}{h}$.
+So the final solution is
+
+\begin{empheq}[box=\roomyfbox]{alignat*=3}
+  &\mbox{\textbf{Velocity for plane Couette flow:}} &\hspace{0.5in} v_{x}(y)=\frac{U}{h}y
+\end{empheq}
+
+\subsection{Rotational Couette Flow}
+
+\begin{empheq}[]{alignat*=3}
+  &\mbox{\textbf{Steady:}} &\hspace{0.5in} \frac{\partial}{\partial{}t}=0 \\
+  &\mbox{\textbf{Laminar:}} &\hspace{0.5in} v_{r}=v_{z}=0 \\
+  &\mbox{\textbf{Azimuthally symmetric:}} &\hspace{0.5in} \frac{\partial}{\partial\theta}=0 \\
+  &\mbox{\textbf{Fully developed:}} &\hspace{0.5in} \frac{\partial{}v_{x}}{\partial{}x}=0
+\end{empheq}
+
+\begin{figure}[H]
+  \begin{center}
+    \begin{tikzpicture}[>=Stealth,scale=1.0, media/.style={font={\footnotesize\sffamily}}, interface/.style={postaction={draw,decorate,decoration={border,angle=-45, amplitude=0.3cm,segment length=2mm}}}]
+      \draw[->](0,0) -- (2.5,0) node[pos=1.1]{$x$};
+      \draw[->](0,0) -- (0,2.5) node[pos=1.1]{$y$};
+      \draw[gray,line width=.5pt,interface] (0,0) circle(2cm);
+      \draw [color=black] (0,0) circle(2cm);
+      \draw[gray,line width=.5pt,interface/.style={postaction={draw,decorate,decoration={border,angle=45, amplitude=0.3cm,segment length=2.5mm}}}, interface] (0,0) circle(1cm);
+      \draw [color=black] (0,0) circle(1cm);
+    \end{tikzpicture}
+  \end{center}
+\end{figure}
+
+\subsection{Rayleigh Problem: Stoke's First Problem}
+
+Abrupt movement of a flat plate in fluid at rest.
+Assuming parallel flow with no instabilities.
+
+\begin{figure}[H]
+  \begin{center}
+    \begin{tikzpicture}[>=Stealth,scale=1.2, media/.style={font={\footnotesize\sffamily}}, interface/.style={postaction={draw,decorate,decoration={border,angle=-45, amplitude=0.3cm,segment length=2mm}}}]
+      \draw[->](0,0) -- (5,0) node[pos=1.1]{$x$};
+      \draw[->](0,0) -- (0,2.5) node[pos=1.1]{$y$};
+      \draw[semithick, ->](1.25,-0.5) -- (2.75,-0.5) node[pos=1.2]{$U$};
+      \draw[gray,line width=.5pt,interface](0,0)--(4.5,0);
+      \draw[semithick] (0,0) -- (4.5,0);
+      \draw[dotted] (1,0) -- (1,3);
+      \draw (1,3) parabola[bend at end] (2,0);
+    \end{tikzpicture}
+  \end{center}
+\end{figure}
+
+\begin{empheq}[]{alignat*=3}
+  &\mbox{\textbf{Steady:}} &\hspace{0.5in} \frac{\partial}{\partial{}t}=0 \\
+  &\mbox{\textbf{Laminar or parallel flow:}} &\hspace{0.5in} v_{y}=v_{z}=0 \\
+  &\mbox{\textbf{2-D flow:}} &\hspace{0.5in} \frac{\partial}{\partial{}z}=0 \\
+  &\mbox{\textbf{Infinite plate:}} &\hspace{0.5in} \frac{\partial{}v_{x}}{\partial{}x}=0
+\end{empheq}
+
+Reducing the Navier-Stokes' equations as presented in component form on the handout by applying the simplifying assumptions listed above gives
+
+\begin{equation*}
+  \begin{split}
+    \rho\frac{\partial{}v_{x}}{\partial{}t}&=\mu\frac{\partial^{2}v_{x}}{\partial{}y^{2}} \\
+    0&=-\frac{\partial{}p}{\partial{}y}+\rho{}g_{y} \\
+    0&=-\frac{\partial{}p}{\partial{}z}
+  \end{split}
+\end{equation*}
+
+These equations can be rearranged to give
+
+\begin{equation*}
+  \begin{split}
+    \frac{\partial{}v_{x}}{\partial{}t}&=\frac{\mu}{\rho}\frac{\partial^{2}v_{x}}{\partial{}y^{2}} \\
+    0&=-\frac{\partial{}p}{\partial{}y}+\rho{}g_{y} \\
+    0&=0
+  \end{split}
+\end{equation*}
+
+The quantity $\frac{\mu}{\rho}=\nu$ is the dynamic viscosity, and we can simplify the first equation with this.
+The second equation is just hydrostatic pressure in the $y$-direction.
+So we want to solve the first equation.
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \frac{\partial{}v_{x}}{\partial{}t}=\nu\frac{\partial^{2}v_{x}}{\partial{}y^{2}}
+\end{empheq}
+
+This is also known as the ``Heat Equation''.
+So basically we have a PDE, but we want to make it an ODE somehow, so I guess we try to non-dimensionalize?
+
+\subsubsection{Solution of Stokes' First Problem: Method 1}
+
+\begin{equation*}
+  f(\nu,y,t,\frac{v_{x}}{U})=0
+\end{equation*}
+
+\begin{equation*}
+  \begin{split}
+    \nu:&\;\frac{L^{2}}{T} \\
+    y:&\;L \\
+    t:&\;T \\
+    \frac{v_{x}}{U}:&\;1
+  \end{split}
+\end{equation*}
+
+and we have
+
+\begin{equation*}
+  \begin{split}
+    n&=4 \\
+    k&=2 \\
+    j&=n-k=2
+  \end{split}
+\end{equation*}
+
+Pick $y$ and $t$ to be the primary variables
+
+\begin{equation*}
+  \Pi_{1}=\nu{}y^{a}t^{b}
+\end{equation*}
+
+\begin{equation*}
+  \left(\frac{L^{2}}{T}\right)L^{a}T^{b}=1
+\end{equation*}
+
+$a=-2$, $b=1$
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \Pi_{1}=\frac{\nu{}t}{y^{2}}
+\end{empheq}
+
+However, we can make new Pi groups from any of the ``original'' Pi groups by operating on them by a function.
+So, in this case it is convention (and simplifies the solution of the problem) if we pick the first Pi group instead to be
+
+\begin{equation*}
+  \Pi_{1}^{*}=\frac{y}{\sqrt{\nu{}t}}
+\end{equation*}
+
+However, while this simplifies the solution, we will show first the case using our original Pi group.
+The second Pi group is
+
+\begin{equation*}
+  \Pi_{2}=\frac{v_{x}}{U}y^{c}t^{d}
+\end{equation*}
+
+\begin{equation*}
+  1L^{c}T^{d}=1
+\end{equation*}
+
+$c=0$, $d=0$
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \Pi_{2}=\frac{v_{x}}{U}
+\end{empheq}
+
+and so we have
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \frac{v_{x}}{U}=\phi\left(\frac{\nu{}t}{y^{2}}\right)
+\end{empheq}
+
+or
+
+\begin{equation*}
+  v_{x}=U\phi\left(\frac{\nu{}t}{y^{2}}\right)
+\end{equation*}
+
+letting
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \eta=\frac{\nu{}t}{y^{2}}
+\end{empheq}
+
+we have
+
+\begin{equation*}
+  v_{x}=U\phi(\eta)
+\end{equation*}
+
+Now we want to use this non-dimensionalized expression to help us solve the PDE, and reduce it to an ODE.\@
+
+\begin{equation*}
+  \frac{\partial{}v_{x}}{\partial{}t}=\nu\frac{\partial^{2}v_{x}}{\partial{}y^{2}}
+\end{equation*}
+
+So we need to evaluate using the function $\phi$ the following
+
+\begin{equation*}
+  \frac{\partial{}v_{x}}{\partial{}t}=U\frac{\partial\phi}{\partial\eta}\frac{\partial\eta}{\partial{}t}
+\end{equation*}
+
+\begin{equation*}
+  \frac{\partial{}v_{x}}{\partial{}y}=U\frac{\partial\phi}{\partial\eta}\frac{\partial\eta}{\partial{}y}
+\end{equation*}
+
+\begin{equation*}
+  \frac{\partial^{2}v_{x}}{\partial{}y^{2}}=U\left[\frac{\partial}{\partial{}y}\left(\frac{\partial\phi}{\partial\eta}\right)\frac{\partial\eta}{\partial{}y}+\frac{\partial\phi}{\partial\eta}\frac{\partial}{\partial{}y}\left(\frac{\partial\eta}{\partial{}y}\right)\right]
+\end{equation*}
+
+\begin{equation*}
+  \frac{\partial^{2}v_{x}}{\partial{}y^{2}}=U\left[\frac{\partial^{2}\phi}{\partial\eta^{2}}\left(\frac{\partial\eta}{\partial{}y}\right)^{2}+\frac{\partial\phi}{\partial\eta}\frac{\partial^{2}\eta}{\partial{}y^{2}}\right]
+\end{equation*}
+
+And now we need to evaluate
+
+\begin{equation*}
+  \frac{\partial\eta}{\partial{}t}=\frac{\nu}{y^{2}}
+\end{equation*}
+
+\begin{equation*}
+  \frac{\partial\eta}{\partial{}y}=-2\frac{\nu{}t}{y^{3}}
+\end{equation*}
+
+\begin{equation*}
+  \frac{\partial^{2}\eta}{\partial{}y^{2}}=6\frac{\nu{}t}{y^{4}}
+\end{equation*}
+
+\begin{equation*}
+  \left(\frac{\partial\eta}{\partial{}y}\right)^{2}=4\frac{\nu^{2}t^{2}}{y^{6}}
+\end{equation*}
+
+This gives
+
+\begin{equation*}
+  U\frac{\partial\phi}{\partial\eta}\frac{\partial\eta}{\partial{}t}=\nu{}U\left[\frac{\partial^{2}\phi}{\partial\eta^{2}}\left(\frac{\partial\eta}{\partial{}y}\right)^{2}+\frac{\partial\phi}{\partial\eta}\frac{\partial^{2}\eta}{\partial{}y^{2}}\right]
+\end{equation*}
+
+canceling out the $U$ and substituting in the known derivatives we get
+
+\begin{equation*}
+  \frac{\partial\phi}{\partial\eta}\frac{\nu}{y^{2}}=\nu{}\left[\frac{\partial^{2}\phi}{\partial\eta^{2}}\left(4\frac{\nu^{2}t^{2}}{y^{6}}\right)+\frac{\partial\phi}{\partial\eta}6\frac{\nu{}t}{y^{4}}\right]
+\end{equation*}
+
+\begin{equation*}
+  \frac{\partial\phi}{\partial\eta}\left(\frac{\nu}{y^{2}}-6\nu\frac{\nu{}t}{y^{4}}\right)=\nu\frac{\partial^{2}\phi}{\partial\eta^{2}}\left(4\frac{\nu^{2}t^{2}}{y^{6}}\right)
+\end{equation*}
+
+\begin{equation*}
+  \frac{\partial\phi}{\partial\eta}\left(\frac{y^{2}-6\nu{}t}{y^{2}}\right)=\frac{\partial^{2}\phi}{\partial\eta^{2}}\left(4\frac{\nu^{2}t^{2}}{y^{4}}\right)
+\end{equation*}
+
+\begin{equation*}
+  \frac{\partial\phi}{\partial\eta}\left(1-6\eta\right)=\frac{\partial^{2}\phi}{\partial\eta^{2}}\left(4\eta^{2}\right)
+\end{equation*}
+
+\begin{equation*}
+  \frac{\partial^{2}\phi}{\partial\eta^{2}}=\left(\frac{1-6\eta}{4\eta^{2}}\right)\frac{\partial\phi}{\partial\eta}
+\end{equation*}
+
+Now we separate and integrate twice
+
+\begin{equation*}
+  \frac{\frac{\partial^{2}\phi}{\partial\eta^{2}}}{\frac{\partial\phi}{\partial\eta}}=\frac{1-6\eta}{4\eta^{2}}
+\end{equation*}
+
+\begin{equation*}
+  \frac{\frac{\partial}{\partial\eta}\frac{\partial\phi}{\partial\eta}}{\frac{\partial\phi}{\partial\eta}}=\frac{1-6\eta}{4\eta^{2}}
+\end{equation*}
+
+\begin{equation*}
+  \int\frac{1}{\frac{\partial\phi}{\partial\eta}}\partial\left(\frac{\partial\phi}{\partial\eta}\right)=\int\frac{1-6\eta}{4\eta^{2}}\partial\eta
+\end{equation*}
+
+\begin{equation*}
+  \int\frac{1}{\frac{\partial\phi}{\partial\eta}}\partial\left(\frac{\partial\phi}{\partial\eta}\right)=\frac{1}{4}\int\frac{1}{\eta^{2}}\partial\eta-\frac{6}{4}\int\frac{1}{\eta}\partial\eta
+\end{equation*}
+
+\begin{equation*}
+  \ln\left(\frac{\partial\phi}{\partial\eta}\right)=-\frac{1}{4\eta}-\frac{6}{4}\ln(\eta)+f_{1}(\text{not }\eta)
+\end{equation*}
+
+\begin{equation*}
+  \frac{\partial\phi}{\partial\eta}=\text{exp}\left(-\frac{1}{4\eta}-\frac{6}{4}\ln(\eta)+C_{1}\right)
+\end{equation*}
+
+\begin{equation*}
+  \int\partial\phi=\int\text{exp}\left(-\frac{1}{4\eta}-\frac{6}{4}\ln(\eta)+C_{1}\right)\partial\eta
+\end{equation*}
+
+\begin{equation*}
+  \phi=C_{2}\int_{0}^{\eta}\text{exp}\left(-\frac{1}{4\eta}-\frac{6}{4}\ln(\eta)\right)\partial\eta+C_{3}
+\end{equation*}
+
+Evaluate this integral to get
+
+\begin{equation*}
+  \phi=C_{2}\left[-2\sqrt{\pi}\text{erf}\left(\frac{1}{2\sqrt{\eta}}\right)\right]_{0}^{\eta}+C_{3}
+\end{equation*}
+
+\begin{equation*}
+  \phi=2\sqrt{\pi}C_{2}\left[1-\text{erf}\left(\frac{1}{2\sqrt{\eta}}\right)\right]+C_{3}
+\end{equation*}
+
+ Now apply boundary conditions to determine $C_{2}$ and $C_{3}$.
+ Looking at $\eta$ in terms of $y$ we have
+
+\begin{equation*}
+  y\rightarrow\infty\Rightarrow\eta\rightarrow0\;and\;\frac{v_{x}(y\rightarrow\infty)}{U}=0\Rightarrow\phi(\eta=0)=0
+\end{equation*}
+
+\begin{equation*}
+  y=0\Rightarrow\eta=\infty\;and\;\frac{v_{x}(y=0)}{U}=1\Rightarrow\phi(\eta=\infty)=1
+\end{equation*}
+
+Continuing to apply these boundary conditions, with the following
+
+\begin{equation*}
+  \text{erf}(0)=0
+\end{equation*}
+
+\begin{equation*}
+  \text{erf}(\infty)=1
+\end{equation*}
+
+First boundary condition $\eta=0$
+
+\begin{equation*}
+  0=2\sqrt{\pi}C_{2}\left[1-\text{erf}(\infty)\right]+C_{3}
+\end{equation*}
+
+\begin{equation*}
+  C_{3}=0
+\end{equation*}
+
+Next boundary condition $\eta\rightarrow\infty$
+
+\begin{equation*}
+  1=2\sqrt{\pi}C_{2}\left[1-\text{erf}(0)\right]+C_{3}
+\end{equation*}
+
+\begin{equation*}
+  1=2\sqrt{\pi}C_{2}
+\end{equation*}
+
+\begin{equation*}
+  C_{2}=\frac{1}{2\sqrt{\pi}}
+\end{equation*}
+
+\begin{equation*}
+  \phi(\eta)=\left[-\text{erf}\left(\frac{1}{2\sqrt{\eta}}\right)\right]_{0}^{\eta}
+\end{equation*}
+
+\begin{equation*}
+  \phi(\eta)=\left[-\text{erf}\left(\frac{1}{2\sqrt{\eta}}\right)+\text{erf}(\infty)\right]
+\end{equation*}
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \phi(\eta)=\left[1-\text{erf}\left(\frac{1}{2\sqrt{\eta}}\right)\right]
+\end{empheq}
+
+Now relate this function with the non-dimensional variables, or Pi groups, back to the physical variables
+
+\begin{equation*}
+  \frac{v_{x}(y,t)}{U}=\left[1-\text{erf}\left(\frac{1}{2\sqrt{\frac{\nu{}t}{y^{2}}}}\right)\right]
+\end{equation*}
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Velocity for Stokes' first problem:}} &\hspace{0.5in} \frac{v_{x}(y,t)}{U}=\left[1-\text{erf}\left(\frac{y}{2\sqrt{\nu{}t}}\right)\right]
+\end{empheq}
+
+Now, if at the beginning we had picked a different non dimensional variable, or Pi group, $\eta$ the result would have been the same, but the solution would have been easier, in particular in the evaluation of the integral that resulted in the error function.
+Some extra stuff.
+Look at the dimensional analysis sheet and see that the time scale for the diffusion of viscous effects into the fluid are like
+\begin{equation*}
+  t_{c}\sim\frac{L^{2}}{\nu}
+\end{equation*}
+and we need to pick a characteristic length scale, which is usually the boundary layer thickness $\delta$.
+This gives
+\begin{equation*}
+  t_{c}\sim\frac{\delta^{2}}{\nu}
+\end{equation*}
+Solving for $\delta$ we have
+\begin{equation*}
+  \delta\sim\sqrt{\nu{}t}
+\end{equation*}
+And we can approximate the shear stress as a linear velocity profile over the boundary layer
+\begin{equation*}
+  \tau_{w}\sim\frac{\mu{}U}{\delta}\sim\frac{\mu{}U}{\sqrt{\nu{}t}}
+\end{equation*}
+
+\subsubsection{Solution of Stokes' First Problem: Method 2}
+
+Using different $\eta$
+
+\subsection{Stokes' Second Problem}
+
+Stokes apparently had many problems.
+In this problem, at first I thought we could just reuse most of the solution from Stokes' first problem, but change the boundary condition and somehow take into account the oscillating boundary condition because the constants of integration that we found last time are not actually constants, but functions of not eta.
+Should clear up the notation on how to express arbitrary constants that are ``not a function'' of some variable.
+This didn't work though, and I think it is something like we fundamentally ignored the variable omega (plate oscillation frequency) when we non-dimensionalized, so our solution won't work.
+This basically means the whole non-dimensionalizing part to turn the governing PDE into an ODE needs to be redone.
+
+\begin{figure}[H]
+  \begin{center}
+    \begin{tikzpicture}[>=Stealth,scale=1.2, media/.style={font={\footnotesize\sffamily}}, interface/.style={postaction={draw,decorate,decoration={border,angle=-45, amplitude=0.3cm,segment length=2mm}}}]
+      \draw[->](0,0) -- (5,0) node[pos=1.1]{$x$};
+      \draw[->](0,0) -- (0,2.5) node[pos=1.1]{$y$};
+      \draw[semithick, <->](1.25,-0.5) -- (2.75,-0.5) node[pos=1.4]{$U\cos{\omega t}$};
+      \draw[gray,line width=.5pt,interface](0,0)--(4.5,0);
+      \draw[semithick] (0,0) -- (4.5,0);
+      \draw[dotted] (1,0) -- (1,3);
+      \draw (1,3) parabola[bend at end] (2,0);
+    \end{tikzpicture}
+  \end{center}
+\end{figure}
+
+\begin{example}
+  \textbf{Viscometer}
+  A motor with a  cylinder attached is submerged in a viscous fluid.
+  The motor is set to rotate at a known rpm, and a device is used to measure the torque required to rotate the cylinder.
+  From this, we can figure out the viscosity of the fluid.
+\end{example}
+
+\section{Nondimensionalizing the Navier-Stokes' Equation}
+
+By nondimensionalizing the Navier-Stokes' Equations, we can understand better what contributions like viscosity are ``large'' or ``small''.
+To express in dimensionless variables, we have to scale all the variables in the problem using characteristic scales for the problem of interest.
+
+\begin{equation*}
+  \underline{x}^{*}=\frac{\underline{x}}{l}
+  \hspace{0.4in}
+  \underline{v}^{*}=\frac{\underline{v}}{V}
+  \hspace{0.4in}
+  p^{*}=\frac{p}{\rho{}V^{2}}
+  \hspace{0.4in}
+  t^{*}=\frac{t}{\left(\frac{l}{V}\right)}=\frac{Vt}{l}
+\end{equation*}
+solving
+
+\begin{equation*}
+  \underline{x}=\underline{x}^{*}l
+  \hspace{0.4in}
+  \underline{v}=\underline{v}^{*}V
+  \hspace{0.4in}
+  p=p^{*}\rho{}V^{2}
+  \hspace{0.4in}
+  t=\frac{lt^{*}}{V}
+\end{equation*}
+Where the time is called the convective time scale.
+And the del operator $\underline{\nabla}$ takes a different form when nondimensionalized as well.
+
+\begin{equation*}
+  \begin{split}
+    \underline{\nabla}&=
+    \begin{bmatrix}
+    \frac{\partial}{\partial{}x} &
+    \frac{\partial}{\partial{}y} &
+    \frac{\partial}{\partial{}z}
+    \end{bmatrix} \\
+    &=
+    \begin{bmatrix}
+    \frac{\partial}{\partial(x^{*}l)} &
+    \frac{\partial}{\partial(y^{*}l)} &
+    \frac{\partial}{\partial(z^{*}l)}
+    \end{bmatrix} \\
+    &=
+    \frac{1}{l}
+    \begin{bmatrix}
+    \frac{\partial}{\partial{}x^{*}} &
+    \frac{\partial}{\partial{}y^{*}} &
+    \frac{\partial}{\partial{}z^{*}}
+    \end{bmatrix} \\
+    &=\frac{1}{l}\underline{\nabla}^{*}
+  \end{split}
+\end{equation*}
+The Navier-Stokes' Equation is
+
+\begin{equation*}
+  \rho\left(\frac{\partial\underline{v}}{\partial{}t}+\underline{v}\cdot\underline{\nabla}\underline{v}\right)=-\underline{\nabla}p+\mu\nabla^{2}\underline{v}+\rho\underline{g}
+\end{equation*}
+
+\begin{equation*}
+  \rho\left(\frac{\partial(\underline{v}^{*}V)}{\partial(\frac{lt^{*}}{V})}+(\underline{v}^{*}V)\cdot\frac{1}{l}\underline{\nabla}^{*}(\underline{v}^{*}V)\right)=-\frac{1}{l}\underline{\nabla}^{*}(p^{*}\rho{}V^{2})+\frac{\mu}{l^{2}}\nabla^{*2}(\underline{v}^{*}V)+\rho\underline{g}
+\end{equation*}
+
+\begin{equation*}
+  \rho\left(\frac{V^{2}}{l}\frac{\partial\underline{v}^{*}}{\partial{}t^{*}}+\frac{V^{2}}{l}\underline{v}^{*}\cdot\underline{\nabla}^{*}\underline{v}^{*}\right)=-\frac{\rho{}V^{2}}{l}\underline{\nabla}^{*}p^{*}+\frac{\mu{}V}{l^{2}}\nabla^{*2}\underline{v}^{*}+\rho\underline{g}
+\end{equation*}
+Divide through by $\rho\frac{V^{2}}{l}$ and get
+
+\begin{equation*}
+  \frac{\partial\underline{v}^{*}}{\partial{}t^{*}}+\underline{v}^{*}\cdot\underline{\nabla}^{*}\underline{v}^{*}=-\underline{\nabla}^{*}p^{*}+\underbrace{\left(\frac{\mu}{\rho{}Vl}\right)}_{\frac{1}{\text{Re}}}\nabla^{*2}\underline{v}^{*}+\underbrace{\left(\frac{gl}{V^{2}}\right)}_{\frac{1}{\text{Fr}^{2}}}\underline{\hat{e}}_{z}
+\end{equation*}
+
+The Froude number plays an analogous role to the Mach number in a compressible flow.
+From this non-dimensionalized version of Navier-Stokes' Equation, we can see if $\text{Re}=\frac{\rho{}Vl}{\mu}$ is very large, the viscous terms in the equation of motion become very small and negligible compared to the inertial terms in the equation.
+The \textit{flow} is inviscid, not the \textit{fluid}.
+
+\begin{equation*}
+  \frac{\partial\underline{v}^{*}}{\partial{}t^{*}}+\underline{v}^{*}\cdot\underline{\nabla}^{*}\underline{v}^{*}=-\underline{\nabla}^{*}p^{*}+\frac{1}{\text{Re}}\nabla^{*2}\underline{v}^{*}+\frac{gl}{V^{2}}\underline{\hat{e}}_{z}
+\end{equation*}
+
+\begin{equation*}
+  \frac{D\underline{v}^{*}}{Dt^{*}}=-\underline{\nabla}^{*}p^{*}+\frac{1}{\text{Re}}\nabla^{*2}\underline{v}^{*}+\frac{gl}{V^{2}}\underline{\hat{e}}_{z}
+\end{equation*}
+
+\begin{equation*}
+  \frac{D\underline{v}^{*}}{Dt^{*}}=-\underline{\nabla}^{*}p^{*}+\frac{1}{\text{Re}}\nabla^{*2}\underline{v}^{*}+\frac{1}{\text{Fr}^{2}}\underline{\hat{e}}_{z}
+\end{equation*}
+
+% TODO@dpwiese - See lecture notes from Tuesday 10-22 to finish this.
+To solve such problems, use the following procedure.
+Nondimensionalize the problem we are interested in: the skinny gap considered for lubrication theory problems.
+Do this just like all the other dimensional analysis problems before.
+Take those non dimensional quantities or Pi groups and make new ones just so they look like one we are familiar with.
+Write a few inequalities based on the prescribed geometry.
+That is: $h<<L$ and $\frac{dh}{dx}<<1$ which says gap is small and doesn't expand too quickly.
+Solve for the dimensional variables in terms of the nondomensional ones.
+Plug these dimensional variables into NSE and obtain a non dimensionalized version of the equation.
+From this equation and using our assumptions of flow geometry, we can simplify terms within the non dimensional NSE.\@
+
+\begin{itemize}
+  \item{why in lubrication theory can we show that inertia effects are small?}
+  \item{How do we say that two non dimensional derivatives are of the same order of magnitude? To allow us to compare terms like mckinley did in notes comparing 5/6\ldots}
+  \item{integration of multivariable functions required for the solution to Stokes' first problem $f(not z)$}
+  \item{Stokes flow from original nondimensionalization (see sphere moving in fluid example below) and in general how to ignore inertial effects? $\rho=0$?}
+\end{itemize}
+
+\chapter{Dimensional Analysis}
+
+To solve a dimensional analysis problem, use the following steps.
+
+\begin{enumerate}
+  \item{Pick the fundamental variables which describe the problem, and note the number $n$ of these fundamental variables}
+  \begin{itemize}
+    \item{In picking the fundamental variables, we typically want to pick one quantity which describe the fluid, the flow, and the geometry.}
+  \end{itemize}
+  \item{Write the fundamental dimensions for each fundamental variable, and note the number $k$ of independent fundamental dimensions.}
+  \item{%
+    Subtracting $j=n-k$ we need $j$ Pi groups.
+    We need to pick $k$ primary variables to use in making these Pi groups.
+  }
+  \item{Make the $j$ Pi groups}
+  \item{Identify as many of the Pi groups as known dimensionless quantities, such as Reynolds number, Weber number, etc.}
+\end{enumerate}
+
+% TODO@dpwiese - clearpage to suppress underfilled hbox warning
+\clearpage
+\begin{example}
+  \textbf{Sphere falling in a viscous fluid}
+  \begin{center}
+    \begin{tikzpicture}[scale=2.0]
+      \draw (-1,0) arc (180:360:1cm and 0.5cm);
+      \draw[dashed] (-1,0) arc (180:0:1cm and 0.5cm);
+      \draw (0,1) arc (90:270:0.5cm and 1cm);
+      \draw[dashed] (0,1) arc (90:-90:0.5cm and 1cm);
+      \draw (0,0) circle (1cm);
+      \shade[ball color=blue!10!white,opacity=0.20] (0,0) circle (1cm);
+    \end{tikzpicture}
+  \end{center}
+  Fundamental variables $F_{D}$, $U$, $\rho$, $\mu$, $D$
+  $n=5$.
+  Fundamental dimensions are
+  \begin{equation*}
+    \begin{split}
+      F_{D}:&\;\frac{ML}{T^{2}} \\
+      U:&\;\frac{L}{T} \\
+      \rho:&\;\frac{M}{L^{3}} \\
+      \mu:&\;\frac{M}{LT} \\
+      D:&\;L
+    \end{split}
+  \end{equation*}
+  From this we see that the number of independent dimensions is $k=3$.
+  So $n-k=2$ and we need $2$ Pi groups.
+  Choose $\rho$, $U$, and $D$ as the primary variables.
+  \begin{equation*}
+    \Pi_{1}=F_{D}\rho^{a}U^{b}D^{c}
+    \hspace{0.5in}
+    \Pi_{2}=\mu\rho^{d}U^{e}D^{f}
+  \end{equation*}
+  \begin{equation*}
+    \begin{split}
+      &\left(\frac{ML}{T^{2}}\right)\left(\frac{M}{L^{3}}\right)^{a}\left(\frac{L}{T}\right)^{b}\left(L\right)^{c}=M^{0}L^{0}T^{0} \\
+      &\left(\frac{M}{LT}\right)\left(\frac{M}{L^{3}}\right)^{d}\left(\frac{L}{T}\right)^{e}\left(L\right)^{f}=M^{0}L^{0}T^{0}
+    \end{split}
+  \end{equation*}
+  \begin{equation*}
+    T^{-2}T^{-b}=T^{0}
+    \hspace{0.5in}
+    T^{-1}T^{-f}=T^{0}
+  \end{equation*}
+  \begin{equation*}
+    MM^{a}=M^{0}
+    \hspace{0.5in}
+    MM^{d}=M^{0}
+  \end{equation*}
+  \begin{equation*}
+    LL^{-3a}L^{b}L^{c}=L^{0}
+    \hspace{0.5in}
+    L^{-1}L^{-3d}L^{e}L^{f}=L^{0}
+  \end{equation*}
+  \begin{equation*}
+    b=-2
+    \hspace{0.5in}
+    f=-1
+  \end{equation*}
+  \begin{equation*}
+    a=-1
+    \hspace{0.5in}
+    d=-1
+  \end{equation*}
+  \begin{equation*}
+    LL^{3}L^{-2}L^{c}=L^{0}
+    \hspace{0.5in}
+    L^{-1}L^{3}L^{e}L^{-1}=L^{0}
+  \end{equation*}
+  \begin{equation*}
+    c=-2
+    \hspace{0.5in}
+    e=-1
+  \end{equation*}
+  \begin{equation*}
+    \Pi_{1}=F_{D}\rho^{-1}U^{-2}D^{-2}
+    \hspace{0.5in}
+    \Pi_{2}=\mu\rho^{-1}U^{-1}D^{-1}
+  \end{equation*}
+  \begin{equation*}
+    \Pi_{1}=\frac{F_{D}}{\rho{}D^{2}U^{2}}
+    \hspace{0.5in}
+    \Pi_{2}=\frac{\mu}{\rho{}DU}=\frac{1}{\text{Re}}
+  \end{equation*}
+  $\Pi_{1}$ is essentially the drag coefficient.
+  Since we know the Pi groups can always be off by a constant factor, the drag coefficient usually looks like
+  \begin{equation*}
+    C_{D}=\frac{F_{d}}{\frac{1}{2}\rho{}U^{2}A}
+  \end{equation*}
+  where $A$ is the projected area.
+  And we can see that
+  \begin{equation*}
+    \Pi_{1}=\phi\left(\Pi_{2}\right)
+  \end{equation*}
+  \begin{equation*}
+    C_{D}=\phi\left(\frac{1}{\text{Re}}\right)
+  \end{equation*}
+  And when the Reynolds number is very large, inertia dominates and viscous forces are negligible.
+  In this case, we can redo the dimensional analysis, but this time without $\mu$.
+  This gives $n=4$, but with $k=3$ still, and so there is only one Pi group.
+  In this case we know that that one Pi group, which is shown below, must be a constant.
+  \begin{empheq}[]{alignat*=3}
+    &\mbox{\textbf{High Re:}} &\hspace{0.5in} \frac{F_{D}}{\rho{}U^{2}D^{2}}=\text{constant}
+  \end{empheq}
+  What about when Reynolds number is very very small?
+  Essentially this means inertia is negligible, so that means $\rho$ is small?
+  \begin{empheq}[]{alignat*=3}
+    &\mbox{\textbf{Low Re:}} &\hspace{0.5in} \frac{F_{D}}{xyz}=\text{constant}
+  \end{empheq}
+  Basically the drag coefficient is given as a dimensionless drag force.
+  So take the drag force and divide it by something that has units of force.
+  To get a force we do pressure times area, so depending on whether viscous or inertial pressure dominates, pick the correct one, multiply it by an area, and we have a force.
+  \begin{empheq}[]{alignat*=3}
+    &\mbox{\textbf{High Re:}} &\hspace{0.5in} C_{D}=\text{const}\frac{F_{D}}{\rho{}U^{2}D^{2}}
+  \end{empheq}
+  \begin{empheq}[]{alignat*=3}
+    &\mbox{\textbf{Low Re:}} &\hspace{0.5in} C_{D}=\text{const}\frac{F_{D}}{\frac{\mu{}U}{R}R^{2}}
+  \end{empheq}
+  so the drag forces in each of these cases are
+  \begin{empheq}[]{alignat*=3}
+    &\mbox{\textbf{High Re:}} &\hspace{0.5in} F_{D}=\text{const}\rho{}U^{2}D^{2}
+  \end{empheq}
+  \begin{empheq}[]{alignat*=3}
+    &\mbox{\textbf{Low Re:}} &\hspace{0.5in} F_{D}=\text{const}\mu{}UR
+  \end{empheq}
+\end{example}
+
+The drag on a sphere\ldots when viscosity negligible:
+
+\begin{equation*}
+  F_{D}=K_{2}\rho{}v^{2}R^{2}
+\end{equation*}
+
+when inertia is negligible
+
+\begin{equation*}
+  F_{D}=K_{3}\mu{}vR
+\end{equation*}
+
+\textbf{Stokes Creeping Flow}
+
+Can get the following equations by simplifying and solving Navier-Stokes' equations.
+
+\begin{equation*}
+  v_{r}=-V\cos(\theta)\left(1-\frac{3R}{2r}+\frac{R^{3}}{2r^{3}}\right)
+\end{equation*}
+
+\begin{equation*}
+  v_{\theta}=V\sin(\theta)\left(1-\frac{3R}{4r}+\frac{R^{3}}{4r^{3}}\right)
+\end{equation*}
+
+\begin{equation*}
+  p=p_{\infty}-\frac{3}{2}\left(\frac{\mu{}v}{R}\right)\frac{R^{2}}{r^{2}}\cos(\theta)
+\end{equation*}
+
+To find the drag force on a sphere, need the pressure gradient and the shear stress at the surface, $\tau_{r\theta}$ and integrate all the terms over the surface of a sphere
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Stokes drag on a sphere}} \hspace{0.5in}& \underline{F}_{D,x}=\int_{A}\underline{e}_{x}\cdot\uuline{\tau}dA=6\pi\mu{}RV=3\pi\mu{}VD
+\end{empheq}
+
+and so $C_{D}$ of the sphere simplifies to
+
+\begin{equation*}
+  C_{D}=\frac{24}{\text{Re}}
+\end{equation*}
+
+\begin{example}
+  How long for a falling sphere to get to steady state velocity?
+\end{example}
+
+\chapter{Lubrication Theory}
+
+The key requirement for lubrication theory is that the ratio $h/l<<1$ is small, where $h$ is gap between surfaces and $L$ is the length.
+More than one readily identifiable characteristic length scale.
+If there is a clear separation of scales $h<<l$ then we can use lubrication analysis to simplify the Navier-Stokes' equation.
+(Slender body analysis).
+
+\section{Cartesian Coordinates}
+
+\begin{equation*}
+  \underline{x}^{*}=\frac{\underline{x}}{l}
+  \hspace{0.4in}
+  \underline{y}^{*}=\frac{\underline{y}}{h}
+  \hspace{0.4in}
+  \underline{v}_{x}^{*}=\frac{\underline{v}_{x}}{U}
+  \hspace{0.4in}
+  \underline{v}_{y}^{*}=\frac{\underline{v}_{y}}{V_{c}}
+  \hspace{0.4in}
+  t^{*}=\frac{t}{t_{c}}
+\end{equation*}
+
+\begin{equation*}
+  p^{*}=\frac{p}{p_{c}}
+  \hspace{0.4in}
+  p^{*}=\frac{p}{\rho{}V^{2}}
+  \hspace{0.4in}
+  t^{*}=\frac{t}{\left(\frac{l}{V}\right)}=\frac{Vt}{l}
+\end{equation*}
+
+where $V_{c}$ is a characteristic velocity.
+Solving for the dimensional quantities in terms of the dimensionless ones, we have
+
+\begin{equation*}
+  \underline{x}=\underline{x}^{*}l
+  \hspace{0.4in}
+  \underline{y}=\underline{y}^{*}h
+  \hspace{0.4in}
+  \underline{v}_{x}=\underline{v}_{x}^{*}U
+  \hspace{0.4in}
+  \underline{v}_{y}=\underline{v}_{y}^{*}V_{c}
+  \hspace{0.4in}
+  t=t^{*}t_{c}
+  \hspace{0.4in}
+  p=p^{*}p_{c}
+\end{equation*}
+
+\subsection{Non-dimensionalization of Conservation of Mass}
+
+Starting with conservation of mass for 2-D in cartesian coordinates
+\begin{equation*}
+  \frac{\partial{}v_{x}}{\partial{}x}+\frac{\partial{}v_{y}}{\partial{}y}=0
+\end{equation*}
+we substitute these into conservation of mass and get
+\begin{equation*}
+  \frac{\partial(v_{x}^{*}U)}{\partial(x^{*}l)}+\frac{\partial(v_{y}^{*}V_{c})}{\partial(y^{*}h)}=0
+\end{equation*}
+Pulling out the characteristic terms we have
+\begin{equation*}
+  \frac{U}{l}\frac{\partial{}v_{x}^{*}}{\partial{}x^{*}}+\frac{V_{c}}{h}\frac{\partial{}v_{y}^{*}}{\partial{}y^{*}}=0
+\end{equation*}
+and so from this both of the dimensionless groups are are order one dimensionless quantities, and so we see that the characteristic velocity must scale as
+\begin{empheq}[box=\roomyfbox]{equation*}
+  V_{c}\sim\frac{Uh}{l}
+\end{empheq}
+
+\subsection{Simplification of Navier-Stokes for Lubrication Theory}
+
+\subsubsection{$x$-direction}
+
+The $x$-component of the Navier-Stokes equation in cartesian coordinates is the following
+
+\begin{equation*}
+  \rho\left(\frac{\partial{}v_{x}}{\partial{}t}+v_{x}\frac{\partial{}v_{x}}{x}+v_{y}\frac{\partial{}v_{x}}{\partial{}y}+v_{z}\frac{\partial{}v_{x}}{\partial{}z}\right)=\mu\left[\frac{\partial^{2}v_{x}}{\partial{}x^{2}}+\frac{\partial^{2}v_{x}}{\partial{}y^{2}}+\frac{\partial^{2}v_{x}}{\partial{}z^{2}}\right]-\frac{\partial{}p}{\partial{}x}+\rho{}g_{x}
+\end{equation*}
+Simplifying these equations for 2-D flow, we get
+
+\begin{equation*}
+  \rho\left(\frac{\partial{}v_{x}}{\partial{}t}+v_{x}\frac{\partial{}v_{x}}{x}+v_{y}\frac{\partial{}v_{x}}{\partial{}y}\right)=\mu\left[\frac{\partial^{2}v_{x}}{\partial{}x^{2}}+\frac{\partial^{2}v_{x}}{\partial{}y^{2}}\right]-\frac{\partial{}p}{\partial{}x}+\rho{}g_{x}
+\end{equation*}
+Substituting in the dimensional variables in terms of the non dimensional variables and characteristic values, we get
+
+\begin{equation*}
+  \rho\left(\frac{\partial(v_{x}^{*}U)}{\partial(t^{*}t_{c})}+v_{x}^{*}U\frac{\partial(v_{x}^{*}U)}{\partial(x^{*}l)}+v_{y}^{*}V\frac{\partial(v_{x}^{*}U)}{\partial(y^{*}h)}\right)=\mu\left[\frac{\partial^{2}(v_{x}^{*}U)}{\partial(x^{*}l)^{2}}+\frac{\partial^{2}(v_{x}^{*}U)}{\partial{}(y^{*}h)^{2}}\right]-\frac{\partial(p^{*}p_{c})}{\partial(x^{*}l)}+\rho{}g_{x}
+\end{equation*}
+Pull out characteristic values to leave differential equation in dimensionless form
+
+\begin{equation*}
+  \rho\biggr(\frac{U}{t_{c}}\frac{\partial{}v_{x}^{*}}{\partial{}t^{*} }+\frac{U^{2}}{l}v_{x}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}x^{*}}+\frac{VU}{h}v_{y}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}y^{*}}\biggr)=\mu\biggr[\frac{U}{l^{2}}\frac{\partial^{2}v_{x}^{*}}{\partial{}x^{*2}}+\frac{U}{h^{2}}\frac{\partial^{2}v_{x}^{*}}{\partial{}y^{*2}}\biggr]-\frac{p_{c}}{l}\frac{\partial{}p^{*}}{\partial{}x^{*}}+\rho{}g_{x}
+\end{equation*}
+Plug in the scaling for $V$ which came from continuity and dividing by $\mu$
+
+\begin{equation*}
+  \frac{\rho}{\mu}\biggr(\frac{U}{t_{c}}\frac{\partial{}v_{x}^{*}}{\partial{}t^{*} }+\frac{U^{2}}{l}v_{x}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}x^{*}}+\frac{U^{2}}{l}v_{y}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}y^{*}}\biggr)=\biggr[\frac{U}{l^{2}}\frac{\partial^{2}v_{x}^{*}}{\partial{}x^{*2}}+\frac{U}{h^{2}}\frac{\partial^{2}v_{x}^{*}}{\partial{}y^{*2}}\biggr]-\frac{p_{c}}{\mu{}l}\frac{\partial{}p^{*}}{\partial{}x^{*}}+\frac{\rho}{\mu}g_{x}
+\end{equation*}
+Multiply both sides by $\frac{h^{2}}{U}$
+
+\begin{equation*}
+  \frac{\rho{}h^{2}}{\mu{}t_{c}}\frac{\partial{}v_{x}^{*}}{\partial{}t^{*} }+\frac{\rho{}Uh^{2}}{\mu{}l}v_{x}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}x^{*}}+\frac{\rho{}Uh^{2}}{\mu{}l}v_{y}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}y^{*}}=\frac{h^{2}}{l^{2}}\frac{\partial^{2}v_{x}^{*}}{\partial{}x^{*2}}+\frac{\partial^{2}v_{x}^{*}}{\partial{}y^{*2}}-\frac{h^{2}p_{c}}{\mu{}Ul}\frac{\partial{}p^{*}}{\partial{}x^{*}}+\frac{h^{2}\rho}{\mu{}U} g_{x}
+\end{equation*}
+Notice now that to keep the left side of the same order, we must pick the characteristic time as
+
+\begin{equation*}
+  t_{c}=\frac{l}{U}
+\end{equation*}
+Substituting this in to get
+
+\begin{equation*}
+  \frac{\rho{}Uh^{2}}{\mu{}l}\frac{\partial{}v_{x}^{*}}{\partial{}t^{*} }+\frac{\rho{}Uh^{2}}{\mu{}l}v_{x}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}x^{*}}+\frac{\rho{}Uh^{2}}{\mu{}l}v_{y}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}y^{*}}=\frac{h^{2}}{l^{2}}\frac{\partial^{2}v_{x}^{*}}{\partial{}x^{*2}}+\frac{\partial^{2}v_{x}^{*}}{\partial{}y^{*2}}-\frac{h^{2}p_{c}}{\mu{}Ul}\frac{\partial{}p^{*}}{\partial{}x^{*}}+\frac{h^{2}\rho}{\mu{}U}g_{x}
+\end{equation*}
+Recognize the Reynolds number terms
+
+\begin{equation*}
+  \text{Re}_{l}\frac{h^{2}}{l^{2}}\left(\frac{\partial{}v_{x}^{*}}{\partial{}t^{*} }+v_{x}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}x^{*}}+v_{y}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}y^{*}}\right)=\frac{h^{2}}{l^{2}}\frac{\partial^{2}v_{x}^{*}}{\partial{}x^{*2}}+\frac{\partial^{2}v_{x}^{*}}{\partial{}y^{*2}}-\frac{h^{2}p_{c}}{\mu{}Ul}\frac{\partial{}p^{*}}{\partial{}x^{*}}+\frac{h^{2}\rho}{\mu{}U}g_{x}
+\end{equation*}
+If $\text{Re}_{l}\frac{h^{2}}{l^{2}}<<1$ and $\frac{h^{2}}{l^{2}}<<1$ then we can simplify this expression
+
+\begin{equation*}
+  0=\frac{\partial^{2}v_{x}^{*}}{\partial{}y^{*2}}-\frac{h^{2}p_{c}}{\mu{}Ul}\frac{\partial{}p^{*}}{\partial{}x^{*}}+\frac{h^{2}\rho}{\mu{}U}g_{x}
+\end{equation*}
+Rearranging terms we can redimensionalize
+
+\begin{equation*}
+  0=\frac{\mu{}U}{h^{2}}\frac{\partial^{2}v_{x}^{*}}{\partial{}y^{*2}}-\frac{p_{c}}{l}\frac{\partial{}p^{*}}{\partial{}x^{*}}+\rho{}g_{x}
+\end{equation*}
+
+\begin{equation*}
+  \mu\frac{\partial^{2}(Uv_{x}^{*})}{\partial(hy^{*2})}-\frac{\partial(p_{c}p^{*})}{\partial(lx^{*})}+\rho{}g_{x}=0
+\end{equation*}
+So the governing equation of motion for lubrication theory in the $x$-direction is the following, where $g_{x}$ is the component of gravity along the $x$-axis.
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Lubrication theory $x$-direction:}} &\hspace{0.5in} \mu\frac{\partial^{2}v_{x}}{\partial^{2}}-\frac{\partial{}p}{\partial{}x}+\rho{}g_{x}=0
+\end{empheq}
+
+We can now separate this equation and integrate it back to obtain an expression for the velocity.
+However, we require two boundary conditions, and these depend on the problem being solved.
+A free surface corresponds to Neumann boundary conditions, those where the shear stress at the free surface are zero, and so the relationship of velocity and shear stress says that the derivative of the velocity with respect to the perpendicular direction are zero.
+Will clear this up later.
+Dirichlet boundary conditions are those where the velocity itself takes a certain value rather than derivative.
+Integrate the governing equation back.
+
+\begin{equation*}
+  \mu\int d\frac{dv_{x}}{dy}=\int\left(\frac{\partial{}p}{\partial{}x}-\rho{}g_{x}\right)dy
+\end{equation*}
+
+\begin{equation*}
+  \mu\frac{dv_{x}}{dy}=\left(\frac{\partial{}p}{\partial{}x}-\rho{}g_{x}\right)y+C_{1}
+\end{equation*}
+
+\begin{equation*}
+  \mu\int dv_{x}=\int\left(\frac{\partial{}p}{\partial{}x}-\rho{}g_{x}\right)ydy+\int C_{1}dy
+\end{equation*}
+
+\begin{equation*}
+  \mu{}v_{x}=\frac{1}{2}\left(\frac{\partial{}p}{\partial{}x}-\rho{}g_{x}\right)y^{2}+C_{1}y+C_{2}
+\end{equation*}
+
+\subsubsection{$y$-direction}
+
+Taking the Navier-Stokes equation in the $y$-direction and substituting in the dimensional terms we have
+\begin{equation*}
+  \rho\left(\frac{\partial(v_{y}^{*}V)}{\partial(t^{*}t_{c})}+v_{x}^{*}U\frac{\partial(v_{y}^{*}V)}{\partial(x^{*}l)}+v_{y}^{*}V\frac{\partial(v_{y}^{*}V)}{\partial(y^{*}h)}\right)=\mu\left[\frac{\partial^{2}(v_{y}^{*}V)}{\partial(x^{*}l)^{2}}+\frac{\partial^{2}(v_{y}^{*}V)}{\partial{}(y^{*}h)^{2}}\right]-\frac{\partial(p^{*}p_{c})}{\partial(y^{*}h)}+\rho{}g_{y}
+\end{equation*}
+Pulling out the characteristic values so the derivatives are dimensionless
+\begin{equation*}
+  \rho\biggr(\frac{V}{t_{c}}\frac{\partial{}v_{y}^{*}}{\partial{}t^{*} }+\frac{UV}{l}v_{x}^{*}\frac{\partial{}v_{y}^{*}}{\partial{}x^{*}}+\frac{V^{2}}{h}v_{y}^{*}\frac{\partial{}v_{y}^{*}}{\partial{}y^{*}}\biggr)=\mu\biggr[\frac{V}{l^{2}}\frac{\partial^{2}v_{y}^{*}}{\partial{}x^{*2}}+\frac{V}{h^{2}}\frac{\partial^{2}v_{y}^{*}}{\partial{}y^{*2}}\biggr]-\frac{p_{c}}{h}\frac{\partial{}p^{*}}{\partial{}y^{*}}+\rho{}g_{y}
+\end{equation*}
+First substitute in the expression from conservation of mass that gives the scaling of $V$, and the characteristic time
+\begin{equation*}
+  V\sim\frac{Uh}{l}
+\end{equation*}
+this gives
+\begin{equation*}
+  \rho\biggr(\frac{Uh}{l}\frac{1}{t_{c}}\frac{\partial{}v_{y}^{*}}{\partial{}t^{*} }+\frac{U^{2}h}{l^{2}}v_{x}^{*}\frac{\partial{}v_{y}^{*}}{\partial{}x^{*}}+\frac{U^{2}h}{l^{2}}v_{y}^{*}\frac{\partial{}v_{y}^{*}}{\partial{}y^{*}}\biggr)=\mu\biggr[\frac{Uh}{l^{3}}\frac{\partial^{2}v_{y}^{*}}{\partial{}x^{*2}}+\frac{U}{hl}\frac{\partial^{2}v_{y}^{*}}{\partial{}y^{*2}}\biggr]-\frac{p_{c}}{h}\frac{\partial{}p^{*}}{\partial{}y^{*}}+\rho{}g_{y}
+\end{equation*}
+Something here about if the flow is slowly varying, the timescale in the $y$-direction is roughly the same as timescale in the $x$-direction, so we use again
+\begin{equation*}
+  t_{c}=\frac{l}{U}
+\end{equation*}
+
+\begin{equation*}
+  \frac{\rho{}U^{2}h}{l^{2}}\frac{\partial{}v_{x}^{*}}{\partial{}t^{*} }+\frac{\rho{}U^{2}h}{l^{2}}v_{x}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}x^{*}}+\frac{\rho{}U^{2}h}{l^{2}}v_{y}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}y^{*}}=\frac{\mu{}Uh}{l^{3}}\frac{\partial^{2}v_{y}^{*}}{\partial{}x^{*2}}+\frac{\mu{}U}{hl}\frac{\partial^{2}v_{y}^{*}}{\partial{}y^{*2}}-\frac{p_{c}}{h}\frac{\partial{}p^{*}}{\partial{}y^{*}}+\rho{}g_{y}
+\end{equation*}
+
+\begin{equation*}
+  \frac{\rho{}U^{2}h}{l^{2}}\left(\frac{\partial{}v_{y}^{*}}{\partial{}t^{*} }+v_{x}^{*}\frac{\partial{}v_{y}^{*}}{\partial{}x^{*}}+v_{y}^{*}\frac{\partial{}v_{y}^{*}}{\partial{}y^{*}}\right)=\frac{\mu{}Uh}{l^{3}}\frac{\partial^{2}v_{y}^{*}}{\partial{}x^{*2}}+\frac{\mu{}U}{hl}\frac{\partial^{2}v_{y}^{*}}{\partial{}y^{*2}}-\frac{p_{c}}{h}\frac{\partial{}p^{*}}{\partial{}y^{*}}+\rho{}g_{y}
+\end{equation*}
+
+multiply both sides by
+
+\begin{equation*}
+  \frac{l^{3}}{U\mu{}h}\frac{h^{3}}{l^{3}}=\frac{h^{2}}{U\mu}
+\end{equation*}
+
+Where the first term we can see would make the coefficient on the left side become the Reynolds number $\text{Re}=\frac{\rho{}Ul}{\mu}$.
+Then, the second term would make the left hand side be $\text{Re}\left(\frac{h}{l}\right)^{3}$.
+That way if we can say that $\text{Re}\left(\frac{h}{l}\right)^{3}<<1$, then the whole left side goes away.
+We will see what happens to the right hand side.
+
+\begin{equation*}
+  \text{Re}\left(\frac{h}{l}\right)^{3}\left(\frac{\partial{}v_{y}^{*}}{\partial{}t^{*} }+v_{x}^{*}\frac{\partial{}y_{x}^{*}}{\partial{}x^{*}}+v_{y}^{*}\frac{\partial{}y_{x}^{*}}{\partial{}y^{*}}\right)=\left(\frac{h}{l}\right)^{3}\frac{\partial^{2}v_{y}^{*}}{\partial{}x^{*2}}+\frac{h}{l}\frac{\partial^{2}v_{y}^{*}}{\partial{}y^{*2}}-\frac{p_{c}h}{U\mu}\frac{\partial{}p^{*}}{\partial{}y^{*}}+\frac{h^{2}}{U\mu}\rho{}g_{y}
+\end{equation*}
+
+And so if $\frac{h}{l}<<1$ and $\text{Re}\frac{h}{l}<<1$ then this equation can be simplified to
+
+\begin{equation*}
+  \frac{h^{2}}{U\mu}\rho{}g_{y}-\frac{p_{c}h}{U\mu}\frac{\partial{}p^{*}}{\partial{}y^{*}}=0
+\end{equation*}
+
+Now we redimensionalize again, remembering that
+
+\begin{equation*}
+  \frac{1}{U}\sim\frac{h}{Vl}
+\end{equation*}
+
+\begin{equation*}
+  \frac{h^{3}}{Vl\mu}\rho{}g_{y}-\frac{p_{c}h^{2}}{Vl\mu}\frac{\partial{}p^{*}}{\partial{}y^{*}}=0
+\end{equation*}
+
+\begin{equation*}
+  \frac{h^{3}}{Vl\mu}\rho{}g_{y}-\frac{h^{3}}{Vl\mu}\frac{\partial(p_{c}p^{*})}{\partial(hy^{*})}=0
+\end{equation*}
+Finally we have
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Lubrication theory $y$-direction:}} &\hspace{0.5in} \rho{}g_{y}-\frac{\partial{}p}{\partial{}y}=0
+\end{empheq}
+
+And integrating this expression back, we can have the following function for pressure, where we have to apply boundary conditions to solve for the constant
+
+\begin{equation*}
+  p=\rho{}g_{y}y+C_{1}
+\end{equation*}
+
+\begin{empheq}[box={\labelBox[Lubrication Theory Equations: Cartesian]}]{alignat*=3}
+  &\mbox{x-\textbf{momentum}} \hspace{0.5in}& \mu\frac{d^{2}v_{x}}{dy^{2}}-\frac{\partial{}p}{\partial{}x}+\rho{}g_{x}&=0 \\
+  &\mbox{y-\textbf{momentum}} &\hspace{0.5in} \rho{}g_{y}-\frac{\partial{}p}{\partial{}y}&=0 \\
+  &\mbox{\textbf{Continuity}} &\hspace{0.5in} \frac{\partial{}v_{x}}{\partial{}x}+\frac{\partial{}v_{y}}{\partial{}y}&=0
+\end{empheq}
+
+\section{Cylindrical Polar Coordinates}
+
+\begin{equation*}
+  v_{r}=v_{r}^{*}U
+  \hspace{0.4in}
+  v_{z}=v_{z}^{*}V
+  \hspace{0.4in}
+  t=t^{*}\frac{R}{U}
+  \hspace{0.4in}
+  z=z^{*}h
+  \hspace{0.4in}
+  r=r^{*}R
+  \hspace{0.4in}
+  p=p^{*}p_{c}
+\end{equation*}
+
+\subsection{Conservation of Mass}
+
+\begin{equation*}
+  \frac{1}{r}\frac{\partial(rv_{r})}{\partial{}r}+\frac{\partial{}v_{z}}{z}=0
+\end{equation*}
+
+Plut in quantities expressed in terms of the dimensionless and characteristic
+
+\begin{equation*}
+  \frac{U}{R}\frac{1}{r^{*}}\frac{\partial(r^{*}v_{r}^{*})}{\partial{}r^{*}}+\frac{V}{h}\frac{\partial(v_{z}^{*})}{z^{*}}=0
+\end{equation*}
+
+and so from this we see
+
+\begin{equation*}
+  \frac{U}{R}\sim\frac{V}{h}
+\end{equation*}
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  V\sim\frac{Uh}{R}
+\end{empheq}
+
+\subsection{Navier-Stokes Equation}
+
+Neglect gravity and azimuthally symmetric (fully developed in the $\theta$ direction)
+
+\subsubsection{$r$-direction}
+
+This equation is for azimuthally symmetric flow on a spinning disk.
+
+\begin{equation*}
+  \rho\left(\frac{\partial{}v_{r}}{\partial{}t}+v_{r}\frac{\partial{}v_{r}}{\partial{}r}+\frac{v_{\theta}}{r}\frac{\partial{}v_{r}}{\partial\theta}-\frac{v_{\theta}^{2}}{r}+v_{z}\frac{\partial{}v_{r}}{\partial{}z}\right)=\mu\left[\frac{\partial}{\partial{}r}\left(\frac{1}{r}\frac{\partial}{\partial{}r}(rv_{r})\right)+\frac{\partial^{2}v_{r}}{\partial{}z^{2}}\right]-\frac{\partial{}p}{\partial{}r}
+\end{equation*}
+
+The velocity $v_{\theta}$ was moved over to the right side and $v_{\theta}=r\omega$.
+Then we get
+
+\begin{equation*}
+  \rho\left(\frac{\partial{}v_{r}}{\partial{}t}+v_{r}\frac{\partial{}v_{r}}{\partial{}r}+v_{z}\frac{\partial{}v_{r}}{\partial{}z}\right)=\mu\left[\frac{\partial}{\partial{}r}\left(\frac{1}{r}\frac{\partial}{\partial{}r}(rv_{r})\right)+\frac{\partial^{2}v_{r}}{\partial{}z^{2}}\right]-\frac{\partial{}p}{\partial{}r}+\rho\omega^{2}r
+\end{equation*}
+
+Now plugging in the non dimensional quantities we get
+
+\begin{equation*}
+  \begin{split}
+    &\rho\left(\frac{\partial(v_{r}^{*}U)}{\partial(t^{*}\frac{R}{U})}+v_{r}^{*}U\frac{\partial(v_{r}^{*}U)}{\partial(r^{*}R)}+v_{z}^{*}V\frac{\partial(v_{r}^{*}U)}{\partial(z^{*}h)}\right)\\
+    &=\mu\left[\frac{\partial}{\partial(r^{*}R)}\left(\frac{1}{r^{*}R}\frac{\partial}{\partial(r^{*}R)}(r^{*}Rv_{r}^{*}U)\right)+\frac{\partial^{2}(v_{r}^{*}U)}{\partial(z^{*}h)^{2}}\right]-\frac{\partial(p^{*}p_{c})}{\partial(r^{*}R)}+\rho\omega^{2}r^{*}R
+  \end{split}
+\end{equation*}
+
+\begin{equation*}
+  \begin{split}
+    &\rho\left(\frac{U^{2}}{R}\frac{\partial{}v_{r}^{*}}{t^{*}}+\frac{U^{2}}{R}v_{r}^{*}\frac{\partial{}v_{r}^{*}}{\partial{}r^{*}}+\frac{VU}{h}v_{z}^{*}\frac{\partial{}v_{r}^{*}}{\partial{}z^{*}}\right) \\
+    &=\mu\left[\frac{U}{R^{2}}\frac{\partial}{\partial{}r^{*}}\left(\frac{1}{r^{*}}\frac{\partial(r^{*}v_{r}^{*})}{\partial{}r^{*}}\right)+\frac{U}{h^{2}}\frac{\partial^{2}v_{r}^{*}}{\partial{}z^{*2}}\right]-\frac{p_{c}}{R}\frac{\partial{}p^{*}}{\partial{}r^{*}}+R\rho\omega^{2}r^{*}
+  \end{split}
+\end{equation*}
+
+Using the relationship from continuity
+
+\begin{equation*}
+  V\sim\frac{Uh}{R}
+\end{equation*}
+
+we get
+
+\begin{equation*}
+  \frac{\rho{}U^{2}}{R}\left(\frac{\partial{}v_{r}^{*}}{t^{*}}+v_{r}^{*}\frac{\partial{}v_{r}^{*}}{\partial{}r^{*}}+v_{z}^{*}\frac{\partial{}v_{r}^{*}}{\partial{}z^{*}}\right)=\mu\left[\frac{U}{R^{2}}\frac{\partial}{\partial{}r^{*}}\left(\frac{1}{r^{*}}\frac{\partial(r^{*}v_{r}^{*})}{\partial{}r^{*}}\right)+\frac{U}{h^{2}}\frac{\partial^{2}v_{r}^{*}}{\partial{}z^{*2}}\right]-\frac{p_{c}}{R}\frac{\partial{}p^{*}}{\partial{}r^{*}}+R\rho\omega^{2}r^{*}
+\end{equation*}
+
+We want to get $\text{Re}_{R}\left(\frac{h}{R}\right)^{2}<<1$ on the left hand side to cancel all those terms, so want the left hand side to have coefficient
+
+\begin{equation*}
+  \text{Re}_{R}\left(\frac{h}{R}\right)^{2}=
+  \frac{\rho{}UR}{\mu}\frac{h^{2}}{R^{2}}=
+  \frac{\rho{}Uh^{2}}{\mu{}R}<<1
+\end{equation*}
+
+so to do this, multiply both sides by
+
+\begin{equation*}
+  \frac{h^{2}}{\mu{}U}
+\end{equation*}
+
+giving
+
+\begin{equation*}
+  \begin{split}
+    &\text{Re}_{R}\left(\frac{h}{R}\right)^{2}\left(\frac{\partial{}v_{r}^{*}}{t^{*}}+v_{r}^{*}\frac{\partial{}v_{r}^{*}}{\partial{}r^{*}}+v_{z}^{*}\frac{\partial{}v_{r}^{*}}{\partial{}z^{*}}\right) \\
+    &=\frac{h^{2}}{U}\left[\frac{U}{R^{2}}\frac{\partial}{\partial{}r^{*}}\left(\frac{1}{r^{*}}\frac{\partial(r^{*}v_{r}^{*})}{\partial{}r^{*}}\right)+\frac{U}{h^{2}}\frac{\partial^{2}v_{r}^{*}}{\partial{}z^{*2}}\right]-\frac{p_{c}h^{2}}{R\mu{}U}\frac{\partial{}p^{*}}{\partial{}r^{*}}+\frac{h^{2}R\rho}{\mu{}U}\omega^{2}r^{*}
+  \end{split}
+\end{equation*}
+
+simplifying
+
+\begin{equation*}
+  \begin{split}
+    &\text{Re}_{R}\left(\frac{h}{R}\right)^{2}\left(\frac{\partial{}v_{r}^{*}}{t^{*}}+v_{r}^{*}\frac{\partial{}v_{r}^{*}}{\partial{}r^{*}}+v_{z}^{*}\frac{\partial{}v_{r}^{*}}{\partial{}z^{*}}\right) \\
+    &=\left[\frac{h^{2}}{R^{2}}\frac{\partial}{\partial{}r^{*}}\left(\frac{1}{r^{*}}\frac{\partial(r^{*}v_{r}^{*})}{\partial{}r^{*}}\right)+\frac{\partial^{2}v_{r}^{*}}{\partial{}z^{*2}}\right]-\frac{p_{c}h^{2}}{R\mu{}U}\frac{\partial{}p^{*}}{\partial{}r^{*}}+\frac{h^{2}R\rho}{\mu{}U}\omega^{2}r^{*}
+  \end{split}
+\end{equation*}
+
+simplifying
+
+\begin{equation*}
+  0=\frac{\partial^{2}v_{r}^{*}}{\partial{}z^{*2}}-\frac{p_{c}h^{2}}{R\mu{}U}\frac{\partial{}p^{*}}{\partial{}r^{*}}+\frac{h^{2}R\rho}{\mu{}U}\omega^{2}r^{*}
+\end{equation*}
+
+we want to keep the pressure term, so the characteristic pressure should scale as
+
+\begin{equation*}
+  p_{c}=\frac{\mu{}UR}{h^{2}}
+\end{equation*}
+
+giving
+
+\begin{equation*}
+  0=\frac{\partial^{2}v_{r}^{*}}{\partial{}z^{*2}}-\frac{\partial{}p^{*}}{\partial{}r^{*}}+\frac{h^{2}R\rho}{\mu{}U}\omega^{2}r^{*}
+\end{equation*}
+
+Redimensionalizing
+
+\begin{equation*}
+  0=\frac{\partial^{2}\left(\frac{v_{r}}{U}\right)}{\partial\left(\frac{z}{h}\right)^{2}}-\frac{\partial\left(\frac{p}{p_{c}}\right)}{\partial\left(\frac{r}{R}\right)}+\frac{h^{2}R\rho}{\mu{}U}\omega^{2}\frac{r}{R}
+\end{equation*}
+
+\begin{equation*}
+  0=\frac{h^{2}}{U}\frac{\partial^{2}v_{r}}{\partial{}z^{2}}-\frac{R}{p_{c}}\frac{\partial{}p}{\partial{}r}+\frac{h^{2}r\rho}{\mu{}U}\omega^{2}
+\end{equation*}
+
+\begin{equation*}
+  0=\frac{h^{2}}{U}\frac{\partial^{2}v_{r}}{\partial{}z^{2}}-\frac{Rh^{2}}{\mu{}UR}\frac{\partial{}p}{\partial{}r}+\frac{h^{2}r\rho}{\mu{}U}\omega^{2}
+\end{equation*}
+
+\begin{equation*}
+  \frac{\partial^{2}v_{r}}{\partial{}z^{2}}-\frac{1}{\mu}\frac{\partial{}p}{\partial{}r}+\frac{r\rho}{\mu}\omega^{2}=0
+\end{equation*}
+
+And if $\frac{\partial{}p}{\partial{}r}$ is very small this reduces to
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  \mu\frac{\partial^{2}v_{r}}{\partial{}z}+\rho\omega^{2}r=0
+\end{empheq}
+
+\chapter{Potential Flows}
+
+In fluid dynamics, potential flow describes the velocity field as the gradient of a scalar function: the velocity potential.
+As a result, a potential flow is characterized by an irrotational velocity field, which is a valid approximation for several applications.
+The irrotationality of a potential flow is due to the curl of a gradient always being equal to zero.
+A velocity potential is used in fluid dynamics, when a fluid occupies a simply-connected region and is irrotational.
+In such a case
+
+\begin{equation*}
+  \underline{\nabla}\times\underline{u}=0
+\end{equation*}
+
+where $\underline{u}$ denotes the flow velocity of the fluid.
+As a result, $\underline{u}$ can be represented as the gradient of a scalar function $\Phi$:
+
+\begin{equation*}
+  \underline{u}=\underline{\nabla}\Phi
+\end{equation*}
+
+$\Phi$ is known as a velocity potential for $\underline{u}$.
+Unlike a stream function, a velocity potential can exist in three-dimensional flow.
+The stream function is defined for two-dimensional flows of various kinds.
+The stream function can be used to plot streamlines
+In most cases, the stream function is the imaginary part of the complex potential, while the potential function is the real part.
+
+The general procedure for solving a potential flow problem is:
+
+\begin{enumerate}
+  \item{to guess a proper potential function $\Phi$}
+  \item{check that it satisfies the Laplace equation $\underline{\nabla}^{2}\Phi=0$}
+  \item{check whether the corresponding velocity field $\underline{v}=\underline{\nabla}\Phi$ satisfies the boundary conditions}
+\end{enumerate}
+
+\section{Stream Function}
+
+The stream function is defined in general only for 2-D flows.
+There are some special cases of 3-D flows where the stream function is used, but for this class we will consider only the stream function for 2-D flow.
+Let stream function be defined so that
+
+\begin{equation*}
+  v_{x}=\frac{\partial\psi}{\partial{}y}
+  \quad
+  v_{y}=-\frac{\partial\psi}{\partial{}x}
+\end{equation*}
+
+\begin{defn-dan}[Streamline]
+  Curve that is everywhere tangent to velocity field
+\end{defn-dan}
+
+Looking at a velocity vector and the streamline, we can see there are similar triangles.
+
+% TODO@dpwiese - insert picture here
+
+So along a streamline we have
+\begin{equation*}
+  \frac{dy}{dx}=\frac{v_{y}}{v_{x}}
+\end{equation*}
+which can be written
+\begin{equation*}
+  v_{x}dy-v_{y}dx=0
+\end{equation*}
+Substituting the definition for stream function in
+\begin{equation*}
+  \frac{\partial\psi}{\partial{}y}dy+\frac{\partial\psi}{\partial{}x}dx=0
+\end{equation*}
+Notice that this is the derivative $d\psi$ as evaluated using chain rule, giving
+\begin{equation*}
+  d\psi=0
+\end{equation*}
+So this shows the important fact that \textit{the stream function is constant along stream lines}.
+Schwarz's theorem: if $\psi$ has continuous 2nd order partial derivatives (\textit{when is this true for the stream function?}) over all space, then
+\begin{equation*}
+  \frac{\partial^{2}\psi}{\partial{}x\partial{}y}=\frac{\partial^{2}\psi}{\partial{}y\partial{}x}
+\end{equation*}
+
+\begin{equation*}
+  \frac{\partial}{\partial{}x}\left(\frac{\partial\psi}{\partial{}y}\right)=\frac{\partial}{\partial{}y}\left(\frac{\partial\psi}{\partial{}x}\right)
+\end{equation*}
+
+\begin{equation*}
+  \frac{\partial}{\partial{}x}v_{x}=-\frac{\partial}{\partial{}y}v_{y}
+\end{equation*}
+
+\begin{equation*}
+  \frac{\partial{}v_{x}}{\partial{}x}+\frac{\partial{}v_{y}}{\partial{}y}=0
+\end{equation*}
+
+And so stream function is defined in a way that automatically satisfies continuity for incompressible flow.
+Units of stream function, as mass flow between two streamlines.
+
+\begin{example}
+  \textbf{Volumetric flow rate between two streamlines}
+\end{example}
+
+\begin{defn-dan}[Pathline]
+  Locus of points through which a particle of fixed identity has traveled
+\end{defn-dan}
+
+For steady flow path lines and streamlines are identical.
+See wikipedia streamline page video.
+
+\chapter{Vorticity}
+
+The vorticity $\omega$ is defined as the curl of the velocity field:
+
+\begin{equation*}
+  \underline{\omega}=\underline{\nabla}\times\underline{u}
+\end{equation*}
+Kelvin's circulation theorem states that the circulation $\Gamma$ does not change with respect to time.
+
+\begin{equation*}
+  \Gamma=\oint_{C}\underline{v}\cdot\underline{dl}
+\end{equation*}
+Recall Euler's equation\ \eqref{eqn.fluids.eulers-equation}.
+
+\begin{equation*}
+  \rho\left(\frac{\partial\underline{v}}{\partial{}t}+\underline{v}\cdot\underline{\nabla}\;\underline{v}\right)=-\underline{\nabla}p+\rho\underline{g}
+\end{equation*}
+Simplify for steady flow $\partial\underline{v}/\partial{}t=0$ gives
+
+\begin{equation*}
+  \rho(\underline{v}\cdot\underline{\nabla}\;\underline{v})=-\underline{\nabla}p+\rho\underline{g}
+\end{equation*}
+Use the identity, which is a general form of $\underline{\nabla}(A\cdot B)$
+
+\begin{equation*}
+  \frac{1}{2}\underline{\nabla}(\underline{v}\cdot\underline{v})=\underline{v}\times\underline{\nabla}\times\underline{v}+\underline{v}\cdot\underline{\nabla}\;\underline{v}
+\end{equation*}
+
+\begin{equation*}
+  \rho\left(\frac{1}{2}\underline{\nabla}(\underline{v}\cdot\underline{v})-\underline{v}\times\underline{\nabla}\times\underline{v}\right)=-\underline{\nabla}p+\rho\underline{g}
+\end{equation*}
+
+\begin{equation*}
+  \rho(\underline{v}\times\underline{\nabla}\times\underline{v})=\rho\frac{1}{2}\underline{\nabla}(\underline{v}\cdot\underline{v})+\underline{\nabla}p-\rho\underline{g}
+\end{equation*}
+And we can substitute in for gravity $\underline{g}=-g\underline{\nabla}h$ giving
+
+\begin{equation*}
+  \rho(\underline{v}\times\underline{\nabla}\times\underline{v})=\rho\frac{1}{2}\underline{\nabla}(\underline{v}\cdot\underline{v})+\underline{\nabla}p+\rho{}g\underline{\nabla}h
+\end{equation*}
+
+\begin{equation*}
+  \rho(\underline{v}\times\underline{\nabla}\times\underline{v})=\underline{\nabla}\left(\rho\frac{1}{2}v^{2}+p+\rho{}gh\right)
+\end{equation*}
+To look at this along a streamline take the unit vector $s$ along a streamline and dot it onto both sides.
+The directional derivative by definition is $\frac{\partial{}f}{\partial{}s}=\underline{\nabla}f\cdot s$.
+And so we have the change in Bernoulli's along a streamline.
+On the left hand side, orthogonality of the vectors dotted into $\underline{s}$ gives zero.
+Looking at how this quantity changes normal to a streamline, we take a unit vector $\underline{n}$ normal to the streamline.
+
+\begin{equation*}
+  \rho(\underline{v}\times\underline{\omega})=\underline{\nabla}\left(\rho\frac{1}{2}v^{2}+p+\rho{}gh\right)
+\end{equation*}
+Integrate both sides from 1 to 2.
+
+\chapter{Boundary Layers}
+
+The essential characteristics of regions described by boundary layer theory are that they are thin and that they have steep velocity gradients that make the viscous effects important.
+See Panton page 418.
+
+% TODO@dpwiese - See notes from online for derivation below
+\section{Derivation of the Boundary Layer Equations: Cartesian Coordinates}
+
+\paragraph{Derivation Outline and Assumptions}
+\begin{itemize}
+  \item{Start with Navier-Stokes equation in the $x-$ and $y$-direction, and conservation of mass}
+  \item{Assume \textbf{steady, 2-D flow} and \textbf{neglect gravity} to simplify the Navier-Stokes equations}
+  \item{Nondimensionalize to get the boundary layer equations}
+  \begin{itemize}
+    \item{Assume during the non-dimensionalization that $\textbf{Re}\mathbf{>>1}$}
+    \item{$\left(\frac{L}{\delta}\right)^{2}\sim\text{Re}>>1$ so $\left(\frac{L}{\delta}\right)^{2}>>1$}
+    \item{\textbf{Laminar}}
+  \end{itemize}
+\end{itemize}
+
+\noindent Start with Navier-Stokes equation in the $x$-direction and conservation of mass as shown below
+\begin{empheq}[]{alignat*=3}
+  &\mbox{\textbf{NSE ($x$):}}
+  &\hspace{0.5in} \rho\left(\frac{\partial{}v_{x}}{\partial{}t}+v_{x}\frac{\partial{}v_{x}}{\partial{}x}+v_{y}\frac{\partial{}v_{x}}{\partial{}y}+v_{z}\frac{\partial{}v_{x}}{\partial{}z}\right) \\
+  & &=\mu\left[\frac{\partial^{2}}{\partial{}x^{2}}v_{x}+\frac{\partial^{2}}{\partial{}y^{2}}v_{x}+\frac{\partial^{2}}{\partial{}z^{2}}v_{x}\right]-\frac{\partial{}p}{\partial{}x}+\rho{}g_{x} \\
+  &\mbox{\textbf{Continuity:}} &\hspace{0.5in} \frac{\partial{}v_{x}}{\partial{}x}+\frac{\partial{}v_{y}}{\partial{}y}
+  &=0
+\end{empheq}
+The $x$ Navier-Stokes equation can be simplified by only considering 2-D steady flow, where gravity is in the $y$-direction, reducing this equation to
+\begin{equation*}
+  \rho\left(v_{x}\frac{\partial{}v_{x}}{\partial{}x}+v_{y}\frac{\partial{}v_{x}}{\partial{}y}\right)=\mu\left[\frac{\partial^{2}}{\partial{}x^{2}}v_{x}+\frac{\partial^{2}}{\partial{}y^{2}}v_{x}\right]-\frac{\partial{}p}{\partial{}x}
+\end{equation*}
+
+\subsection{Non-Dimensionalize to Get Boundary Layer Equations}
+
+Define the following dimensionless quantities
+\begin{equation*}
+  x^{*}=\frac{x}{L}
+  \hspace{0.4in}
+  y^{*}=\frac{y}{\delta}
+  \hspace{0.4in}
+  v_{x}^{*}=\frac{v_{x}}{U_{\infty}}
+  \hspace{0.4in}
+  v_{y}^{*}=\frac{v_{y}}{V_{c}}
+  \hspace{0.4in}
+  p^{*}=\frac{p}{p_{c}}
+\end{equation*}
+where $V_{c}$ is a characteristic velocity.
+Solving for the dimensional quantities in terms of the dimensionless ones, we have
+\begin{equation*}
+  x=x^{*}L
+  \hspace{0.4in}
+  y=y^{*}\delta
+  \hspace{0.4in}
+  v_{x}=v_{x}^{*}U_{\infty}
+  \hspace{0.4in}
+  v_{y}=v_{y}V_{c}
+  \hspace{0.4in}
+  p=p^{*}p_{c}
+\end{equation*}
+
+\subsubsection{Non-dimensionalizing Conservation of Mass}
+
+Substituting in the dimensional variables
+\begin{equation*}
+  \frac{U_{\infty}}{L}\frac{\partial{}v_{x}^{*}}{\partial{}x^{*}}+\frac{V_{c}}{\delta}\frac{\partial{}v_{y}^{*}}{\partial{}y^{*}}=0
+\end{equation*}
+And so from this we see
+\begin{equation*}
+  \frac{U_{\infty}}{L}\sim\frac{V_{c}}{\delta}
+\end{equation*}
+and so our characteristic length scale is
+\begin{equation*}
+  L\sim\frac{U_{\infty}\delta}{V_{c}}
+\end{equation*}
+
+\subsubsection{Nondimensionalizing Navier-Stokes Equations in $x$-Direction}
+
+Plugging all the dimensional variables into the simplified Navier-Stokes equation we have
+\begin{equation*}
+  \rho\left(v_{x}^{*}U_{\infty}\frac{\partial(v_{x}^{*}U_{\infty})}{\partial(x^{*}L)}+v_{y}^{*}V_{c}\frac{\partial(v_{x}^{*}U_{\infty})}{\partial(y^{*}\delta)}\right)=\mu\left[\frac{\partial^{2}(v_{x}^{*}U_{\infty})}{\partial(x^{*}L)^{2}}+\frac{\partial^{2}(v_{x}^{*}U_{\infty})}{\partial{}(y^{*}\delta)^{2}}\right]-\frac{\partial(p^{*}p_{c})}{\partial(x^{*}L)}
+\end{equation*}
+Pulling out the dimensional quantities from the derivative terms
+\begin{equation*}
+  \frac{U_{\infty}^{2}}{L}v_{x}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}x^{*}}+\frac{V_{c}U_{\infty}}{\delta}v_{y}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}y^{*}}=\frac{\mu}{\rho}\left[\frac{U_{\infty}}{L^{2}}\frac{\partial^{2}v_{x}^{*}}{\partial{}x^{*2}}+\frac{U_{\infty}}{\delta^{2}}\frac{\partial^{2}v_{x}^{*}}{\partial{}y^{*2}}\right]-\frac{p_{c}}{L\rho}\frac{\partial{}p^{*}}{\partial{}x^{*}}
+\end{equation*}
+Dividing through
+\begin{equation*}
+  v_{x}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}x^{*}}+\frac{V_{c}L}{\delta U_{\infty}}v_{y}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}y^{*}}=\nu\left[\frac{1}{LU_{\infty}}\frac{\partial^{2}v_{x}^{*}}{\partial{}x^{*2}}+\frac{L}{\delta^{2}U_{\infty}}\frac{\partial^{2}v_{x}^{*}}{\partial{}y^{*2}}\right]-\frac{p_{c}}{\rho{}U_{\infty}^{2}}\frac{\partial{}p^{*}}{\partial{}x^{*}}
+\end{equation*}
+Using the result of non-dimensionalizing conservation of mass, and recognizing the Reynolds number term this becomes
+\begin{equation*}
+  v_{x}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}x^{*}}+v_{y}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}y^{*}}=\frac{1}{\text{Re}}\frac{\partial^{2}v_{x}^{*}}{\partial{}x^{*2}}+\frac{\nu{}L}{\delta^{2}U_{\infty}}\frac{\partial^{2}v_{x}^{*}}{\partial{}y^{*2}}-\frac{p_{c}}{\rho{}U_{\infty}^{2}}\frac{\partial{}p^{*}}{\partial{}x^{*}}
+\end{equation*}
+Manipulating one of the terms on the right hand side this gives
+\begin{equation*}
+  v_{x}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}x^{*}}+v_{y}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}y^{*}}=\frac{1}{\text{Re}}\frac{\partial^{2}v_{x}^{*}}{\partial{}x^{*2}}+\frac{\nu}{LU_{\infty}}\frac{L^{2}}{\delta^{2}}\frac{\partial^{2}v_{x}^{*}}{\partial{}y^{*2}}-\frac{p_{c}}{\rho{}U_{\infty}^{2}}\frac{\partial{}p^{*}}{\partial{}x^{*}}
+\end{equation*}
+Now we recognize this as another coefficient with the Reynolds number in it
+\begin{equation*}
+  v_{x}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}x^{*}}+v_{y}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}y^{*}}=\frac{1}{\text{Re}}\frac{\partial^{2}v_{x}^{*}}{\partial{}x^{*2}}+\frac{1}{\text{Re}}\frac{L^{2}}{\delta^{2}}\frac{\partial^{2}v_{x}^{*}}{\partial{}y^{*2}}-\frac{p_{c}}{\rho{}U_{\infty}^{2}}\frac{\partial{}p^{*}}{\partial{}x^{*}}
+\end{equation*}
+We can also see what the characteristic pressure needs to be to satisfy this non dimensional equation
+\begin{equation*}
+  p_{c}=\rho{}U_{\infty}^{2}
+\end{equation*}
+giving
+\begin{equation*}
+  v_{x}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}x^{*}}+v_{y}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}y^{*}}=\frac{1}{\text{Re}}\frac{\partial^{2}v_{x}^{*}}{\partial{}x^{*2}}+\frac{1}{\text{Re}}\frac{L^{2}}{\delta^{2}}\frac{\partial^{2}v_{x}^{*}}{\partial{}y^{*2}}-\frac{\partial{}p^{*}}{\partial{}x^{*}}
+\end{equation*}
+So when the Reynolds number gets big, the first term with Reynolds number in the denominator goes away.
+But in order for the second viscous term to remain when the Reynolds number gets big, we need the following scaling relationship to hold
+\begin{equation*}
+  \frac{L^{2}}{\delta^{2}}\sim\text{Re}
+\end{equation*}
+So this gives that $\delta$ needs to scale as
+\begin{equation*}
+  \delta\sim\frac{L}{\sqrt{\text{Re}}}
+\end{equation*}
+With the assumption that Reynolds number is large, and with $\delta$ scaling as above, the boundary layer equation becomes
+\begin{equation*}
+  v_{x}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}x^{*}}+v_{y}^{*}\frac{\partial{}v_{x}^{*}}{\partial{}y^{*}}=\frac{1}{\text{Re}}\frac{L^{2}}{\delta^{2}}\frac{\partial^{2}v_{x}^{*}}{\partial{}y^{*2}}-\frac{\partial{}p^{*}}{\partial{}x^{*}}
+\end{equation*}
+The dimensionless quantities can then be substituted back in for, yielding the dimensional form of the $x$-momentum equation for a boundary layer.
+
+\subsubsection{Nondimensionalizing Navier-Stokes Equations in $y$-Direction}
+
+\subsection{Boundary Layer Equations in Cartesian Summary}
+
+To summarize, the simplified equations are shown below.
+\begin{empheq}[box={\labelBox[Boundary Layer Equations: Cartesian]}]{alignat*=3}
+  &\mbox{x-\textbf{momentum}} \hspace{0.5in}& \rho\left(v_{x}\frac{\partial{}v_{x}}{\partial{}x}+v_{y}\frac{\partial{}v_{x}}{\partial{}y}\right)&=\mu\frac{\partial^{2}v_{x}}{\partial{}y^{2}}-\frac{\partial{}p}{\partial{}x} \\
+  &\mbox{y-\textbf{momentum}} &\hspace{0.5in} \frac{\partial{}p}{\partial{}y}&=0 \\
+  &\mbox{\textbf{Continuity}} &\hspace{0.5in} \frac{\partial{}v_{x}}{\partial{}x}+\frac{\partial{}v_{y}}{\partial{}y}&=0
+\end{empheq}
+
+We can see the shape that the boundary layer makes over a surface depending on the pressure gradient in the $x$-direction.
+That is, at the surface we have $v_{x}=v_{y}=0$, so for $\frac{\partial{}p}{\partial{}x}<0$, $\frac{\partial{}p}{\partial{}x}=0$, and $\frac{\partial{}p}{\partial{}x}>0$ we can see the $\frac{\partial{}v_{x}}{\partial{}y}$, that is, the curvature of the velocity profile.
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Displacement thickness}} \hspace{0.5in}& \delta^{*}&=\int_{0}^{\infty}\left(1-\frac{v_{x}(y)}{U_{\infty}}\right)dy \\
+  &\mbox{\textbf{Momentum thickness}} \hspace{0.5in}& \theta&=\int_{0}^{\infty}\frac{v_{x}}{U_{\infty}}\left(1-\frac{v_{x}(y)}{U_{\infty}}\right)dy \\
+  &\mbox{\textbf{Momentum Integral Equation}} \hspace{0.5in}& \frac{d}{dx}(U^{2}\theta)+\delta^{*}U\frac{dU}{dx}&=\frac{\tau_{0}}{\rho}
+\end{empheq}
+
+\begin{equation*}
+\delta\sim\sqrt{\nu{}t^{*}}
+\end{equation*}
+
+\begin{equation*}
+t^{*}=\frac{x}{U_{\infty}}
+\end{equation*}
+
+\chapter{Surface Tension}
+
+Surface tension is not a property of materials but of interfaces between two (or more) materials.
+It is implicit in its definition that the interface separates two kinds of materials that behave differently (otherwise the interface would be just some imaginary surface inside the one material with no physical meaning) and so there must always be some surface tension that sustains the physical interface.
+First of all, Marek is right that a surface tension exists only between two different materials (well, I would say between two different phases, for example water and ice)
+
+$\sigma$ is the surface tension.
+
+\begin{figure}[H]
+  \begin{center}
+    \begin{tikzpicture}[>=Stealth,scale=0.5, thick]
+    \draw[line width=1 mm,->](2,0) node[left]{$p(x)$} -- (4,0);
+    \draw [color=black] circle(4cm);
+    \end{tikzpicture}
+  \end{center}
+\end{figure}
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Surface tension for cylinder:}} &\hspace{0.5in} \Delta{}p=\frac{\sigma}{r}
+\end{empheq}
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Surface tension for sphere:}} &\hspace{0.5in} \Delta{}p=\frac{2\sigma}{r}
+\end{empheq}
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Young-Laplace equation:}} &\hspace{0.5in} \Delta{}p=\sigma\left(\frac{1}{r_{x}}+\frac{1}{r_{y}}\right)
+\end{empheq}
+
+Contact angle $\alpha$ is a property of the fluid, the material it is touching, and the third fluid it is in (like air).
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Young's equation:}} &\hspace{0.5in} \cos\theta_{E}=\frac{\sigma_{sv}-\sigma_{sl}}{\sigma_{lv}}
+\end{empheq}
+where $s$, $l$, and $v$ are solid, liquid, and vapor, respectively, and $\theta_{E}$ is the equilibrium contact angle.
+
+\chapter{Appendix}
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Volume of sphere:}} &\hspace{0.5in} V=\frac{4}{3}\pi{}r^{3}
+\end{empheq}
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Surface area of sphere:}} &\hspace{0.5in} A=4\pi{}r^{2}
+\end{empheq}
+
+Power of fan or pump where $\dot{W}$ is the time derivative of work, aka power, and $\eta$ is the fan or pump efficiency.
+
+\begin{equation*}
+  \eta\dot{W}=\frac{1}{2}\rho{}v^{2}Q
+\end{equation*}
+
+Work of fluid with velocity $U$ applying force $F$
+
+\begin{equation*}
+  W_{\text{ext}}=FU
+\end{equation*}
+
+Power is
+
+\begin{equation*}
+  P=F_{\text{ext}}U
+\end{equation*}
+
+Work is
+\begin{equation*}
+  W=Q\Delta{}p
+\end{equation*}
+
+\section{Equation Summary Sheet}
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Bernoulli's along streamline:}} &\hspace{0.5in} \frac{1}{2}\rho{}v_{s2}^{2}+p_{2}+\rho{}gz_{2}=\frac{1}{2}\rho{}v_{s1}^{2}+p_{1}+\rho{}gz_{1}
+\end{empheq}
+
+Reynolds transport theorem (form A)
+
+\begin{equation*}
+  \frac{d}{dt}\int_{CV(t)}\phi dV+\int_{CS}\phi (\underline{v}-\underline{v}_{c})\cdot\underline{n}dA=\frac{d}{dt}\int_{MV}\phi dV
+\end{equation*}
+
+Material Derivative
+
+\begin{equation*}
+  \rho\frac{D\underline{v}}{Dt}=\left(\frac{\partial\underline{v}}{\partial{}t}+\underline{v}\cdot\underline{\nabla}\underline{v}\right)
+\end{equation*}
+
+Navier Stokes Equation
+
+\begin{equation*}
+  \hspace{0.5in} \rho\frac{D\underline{v}}{Dt}=-\underline{\nabla}p+\mu\nabla^{2}\underline{v}+\rho\underline{g}
+\end{equation*}
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Incompressible Navier-Stokes}} \hspace{0.5in}& \rho\left(\frac{\partial\underline{v}}{\partial{}t}+\underline{v}\cdot\underline{\nabla}\underline{v}\right)=-\underline{\nabla}p+\mu\nabla^{2}\underline{v}+\rho\underline{g} \\
+  & &\hspace{0.5in} \rho\frac{D\underline{v}}{Dt}=-\underline{\nabla}p+\underline{\nabla}\cdot\uuline{\sigma}+\rho\underline{g} \\
+  & &\hspace{0.5in} \rho\frac{D\underline{v}}{Dt}=-\underline{\nabla}p+\mu\nabla^{2}\underline{v}+\rho\underline{g}
+\end{empheq}
+
+\begin{empheq}[box={\labelBox[Mass Conservation]}]{alignat*=3}
+  &\mbox{\textbf{Form A:}} &\hspace{0.5in} \frac{d}{dt}\int_{CV(t)}\rho{}dV+\int_{CS(t)}\rho{}(\overline{v}-\overline{v}_{c})\cdot\overline{n}dA=0 \\[6pt]
+  &\mbox{\textbf{Form B:}} &\hspace{0.5in} \int_{CV(t)}\frac{\partial\rho}{\partial{}t}dV+\int_{CS(t)}\rho{}v_{n}dA=0
+\end{empheq}
+
+\begin{equation*}
+  v_{rn}=(\overline{v}-\overline{v}_{c})\cdot\overline{n}
+\end{equation*}
+
+$\overline{v}$ is the velocity across the control surface.
+
+\begin{empheq}[box={\labelBox[Momentum Conservation]}]{alignat*=3}
+  &\mbox{\textbf{Form A:}} &\hspace{0.5in} \frac{d}{dt}\int_{CV(t)}\rho\overline{v}dV+\int_{CS(t)}\rho\overline{v}(\overline{v}-\overline{v}_{c})\cdot\overline{n}dA=\overline{F}_{CV}(t) \\[6pt]
+  &\mbox{\textbf{Form B:}} &\hspace{0.5in} \int_{CV(t)}\frac{\partial(\rho\overline{v})}{\partial{}t}dV+\int_{CS(t)}\rho\overline{v}v_{n}dA=\overline{F}_{CV}(t)
+\end{empheq}
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Vorticity:}} &\hspace{0.5in} \underline{\omega}=\underline{\nabla}\times\underline{v}
+\end{empheq}
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+&\mbox{\textbf{Derivative of Error Function:}} &\hspace{0.5in} \frac{d}{dz}\text{erf}(z)=\frac{2}{\sqrt{\pi}}e^{-z^{2}}
+\end{empheq}
+
+\section{Stokes}
+
+\subsection{From Stokes First Problem}
+
+look at the dimensional analysis sheet and see that the time scale for the diffusion of viscous effects into the fluid are like
+\begin{equation*}
+  t_{c}\sim\frac{L^{2}}{\nu}
+\end{equation*}
+and we need to pick a characteristic length scale, which is usually the boundary layer thickness $\delta$.
+This gives
+\begin{equation*}
+  t_{c}\sim\frac{\delta^{2}}{\nu}
+\end{equation*}
+Solving for $\delta$ we have
+\begin{equation*}
+  \delta\sim\sqrt{\nu{}t_{c}}
+\end{equation*}
+And we can approximate the shear stress as a linear velocity profile over the boundary layer
+\begin{equation*}
+  \tau_{w}\sim\frac{\mu{}U}{\delta}\sim\frac{\mu{}U}{\sqrt{\nu{}t}}
+\end{equation*}
+To find boundary layer growth, we have the characteristic time scale for convection
+\begin{equation*}
+  t_{c}=\frac{L}{U}
+\end{equation*}
+so Blasius boundary layer grows like
+\begin{equation*}
+  \delta\sim\sqrt{\frac{\nu{}L}{U}}
+\end{equation*}
+which is the solution for the growth over a flat plate.
+But the boundary layer is usually really small compared to the radius of curvature of non-flat surfaces, so we can pretty much use this always.
+
+\begin{empheq}[box={\labelBox[Lubrication Theory Equations: Cartesian]}]{alignat*=3}
+  &\mbox{x-\textbf{momentum}} \hspace{0.5in}& \mu\frac{d^{2}v_{x}}{dy^{2}}-\frac{\partial{}p}{\partial{}x}+\rho{}g_{x}&=0 \\
+  &\mbox{y-\textbf{momentum}} &\hspace{0.5in} \rho{}g_{y}-\frac{\partial{}p}{\partial{}y}&=0 \\
+  &\mbox{\textbf{Continuity}} &\hspace{0.5in} \frac{\partial{}v_{x}}{\partial{}x}+\frac{\partial{}v_{y}}{\partial{}y}&=0
+\end{empheq}
+
+\subsection{Boundary Layer Equations in Cartesian Summary}
+
+To summarize, the simplified equations are shown below.
+\begin{empheq}[box={\labelBox[Boundary Layer Equations: Cartesian]}]{alignat*=3}
+  &\mbox{x-\textbf{momentum}} \hspace{0.5in}& \rho\left(v_{x}\frac{\partial{}v_{x}}{\partial{}x}+v_{y}\frac{\partial{}v_{x}}{\partial{}y}\right)&=\mu\frac{\partial^{2}v_{x}}{\partial{}y^{2}}-\frac{\partial{}p}{\partial{}x} \\
+  &\mbox{y-\textbf{momentum}} &\hspace{0.5in} \frac{\partial{}p}{\partial{}y}&=0 \\
+  &\mbox{\textbf{Continuity}} &\hspace{0.5in} \frac{\partial{}v_{x}}{\partial{}x}+\frac{\partial{}v_{y}}{\partial{}y}&=0
+\end{empheq}
+
+We can see the shape that the boundary layer makes over a surface depending on the pressure gradient in the $x$-direction.
+That is, at the surface we have $v_{x}=v_{y}=0$, so for $\frac{\partial{}p}{\partial{}x}<0$, $\frac{\partial{}p}{\partial{}x}=0$, and $\frac{\partial{}p}{\partial{}x}>0$ we can see the $\frac{\partial{}v_{x}}{\partial{}y}$, that is, the curvature of the velocity profile.
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Displacement thickness}} \hspace{0.5in}& \delta^{*}&=\int_{0}^{\infty}\left(1-\frac{v_{x}(y)}{U_{\infty}}\right)dy \\
+  &\mbox{\textbf{Momentum thickness}} \hspace{0.5in}& \theta&=\int_{0}^{\infty}\frac{v_{x}}{U_{\infty}}\left(1-\frac{v_{x}(y)}{U_{\infty}}\right)dy \\
+  &\mbox{\textbf{Momentum Integral Equation}} \hspace{0.5in}& \frac{d}{dx}(U^{2}\theta)+\delta^{*}U\frac{dU}{dx}&=\frac{\tau_{0}}{\rho}
+\end{empheq}
+
+\begin{equation*}
+  \delta\sim\sqrt{\nu{}t^{*}}
+\end{equation*}
+
+\begin{equation*}
+  t^{*}=\frac{x}{U_{\infty}}
+\end{equation*}
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Young-Laplace equation:}} &\hspace{0.5in} \Delta{}p=\sigma\left(\frac{1}{r_{x}}+\frac{1}{r_{y}}\right)
+\end{empheq}
+
+\begin{empheq}[box=\fboxTwo]{alignat*=3}
+  &\mbox{\textbf{Surface Tension Energy:}} &\hspace{0.5in} dE=\sigma{}dA \\
+  & &\hspace{0.5in}  E_{\text{surf}}=\sigma{}A_{\text{surf}}
+\end{empheq}
+
+\section{What Formulas to use When}
+
+If the question says, show that a given functional form satisfies some governing equation, rather than trying to derive the given functional form from some governing equation, instead pick a governing equation and plug the given functional form in just to check that it satisfies it.
+Relating $u$ to $v$: think continuity!
+When asked to compare gravity and surface tension forces, compare hydrostatic pressure of the whole column of fluid to the pressure due to surface tension as calculated from the Young-Laplace equation.
+
+% TODO@dpwiese - Find general equations for Lubrication in cylindrical, and boundary layer in cylindrical
+
+\section{Stuff to Remember for Quals}
+
+\begin{equation*}
+  \frac{\partial\rho}{\partial{}t}+\underline{\nabla}\cdot(\rho\underline{v})=0
+\end{equation*}
+
+\begin{equation*}
+  \frac{\partial{}v_{x}}{\partial{}x}+\frac{\partial{}v_{y}}{\partial{}y}=0
+\end{equation*}
+
+\begin{equation*}
+  \rho\left(\frac{\partial{}v_{x}}{\partial{}t}+v_{x}\frac{\partial{}v_{x}}{x}+v_{y}\frac{\partial{}v_{x}}{\partial{}y}+v_{z}\frac{\partial{}v_{x}}{\partial{}z}\right)=\mu\left[\frac{\partial^{2}v_{x}}{\partial{}x^{2}}+\frac{\partial^{2}v_{x}}{\partial{}y^{2}}+\frac{\partial^{2}v_{x}}{\partial{}z^{2}}\right]-\frac{\partial{}p}{\partial{}x}+\rho{}g_{x}
+\end{equation*}
+
+\begin{equation*}
+  \frac{\partial\rho}{\partial{}t}+\frac{1}{r}(\rho{}rv_{r})+\frac{1}{r}\frac{\partial}{\partial\theta}(\rho{}v_{\theta})+\frac{\partial}{\partial{}z}(\rho{}v_{z})=0
+\end{equation*}
+
+\begin{equation*}
+  \rho\left(\frac{\partial{}v_{z}}{\partial{}t}+v_{r}\frac{\partial{}v_{z}}{\partial{}r}+\frac{v_{\theta}}{r}\frac{\partial{}v_{z}}{\partial\theta}+v_{z}\frac{\partial{}v_{z}}{\partial{}z}\right)=\mu\left[\frac{1}{r}\frac{\partial}{\partial{}r}\left(r\frac{\partial{}v_{z}}{\partial{}r}\right)+\frac{1}{r^{2}}\frac{\partial^{2}v_{z}}{\partial\theta^{2}}+\frac{\partial^{2}v_{z}}{\partial{}z^{2}}\right]+\rho{}g_{z}-\frac{\partial{}p}{\partial{}z}
+\end{equation*}
+
+$\Delta{}p=\sigma\left(\frac{1}{r_{x}}+\frac{1}{r_{y}}\right)$
+
+Boundary layer:
+\begin{itemize}
+  \setlength{\itemsep}{-4pt}
+  \item{Start with Navier-Stokes equation in the $x-$ and $y$-direction, and conservation of mass}
+  \item{Assume \textbf{steady, 2-D flow} and \textbf{neglect gravity} to simplify the Navier-Stokes equations}
+  \item{Nondimensionalize to get the boundary layer equations}
+  \begin{itemize}
+    \item{Assume during the non-dimensionalization that $\textbf{Re}\mathbf{>>1}$}
+    \item{$\left(\frac{L}{\delta}\right)^{2}\sim\text{Re}>>1$ so $\left(\frac{L}{\delta}\right)^{2}>>1$}
+    \item{\textbf{Laminar}}
+  \end{itemize}
+\end{itemize}
+
+\begin{equation*}
+  \frac{d}{dt}\int_{CV(t)}\rho\overline{v}dV+\int_{CS(t)}\rho\overline{v}(\overline{v}-\overline{v}_{c})\cdot\overline{n}dA=\overline{F}_{CV}(t)
+\end{equation*}

@@ -1,0 +1,1076 @@
+\chapter{Real Analysis}
+
+\section{Notation and Preliminaries}
+
+\begin{figure}[H]
+  \begin{center}
+    \psfragfig[width=4.5in]{\figurepath/union_intersection_v1}{%
+      \psfrag{y}[bc][bc][1.0]{$Y$}
+      \psfrag{x}[bc][bc][1.0]{$X$}
+      \psfrag{s}[bc][bc][1.0]{$S$}
+    }
+    \caption{From left to right: $X\cap Y$, $X\cup Y$, and $X^{\mathsf{c}}$}
+  \end{center}
+\end{figure}
+
+\subsection{Random Stuff}
+
+\begin{itemize}
+  \item{Zero (0) is even}
+  \item{Rational numbers are countable}
+\end{itemize}
+
+\section{Chapter 1}
+
+\begin{itemize}
+  \item{associativity: $(x+y)+z=x+(y+z)$ and $(xy)z=x(yz)$}
+  \item{commutativity: $x+y=y+x$ and $xy=yx$}
+  \item{distributivity: $x(y+z)=xy+xz$}
+\end{itemize}
+
+\begin{defn-dan}[Fundamental theorem of arthimetic]
+  Every positive integer $\geq2$ can be written as a product of primes in exactly one way up to rearrangements.
+  See Hully and Wright Introduction to the Theory of Numbers sec 2.11.
+\end{defn-dan}
+
+\begin{rem-dan}
+  A set is completely characterized by the elements in it.
+  That is to say if $X$ and $Y$ are sets then $X=Y$ if and only if, for all $x$, $x\in X$ if and only if $x\in Y$.
+\end{rem-dan}
+
+\begin{defn-dan}[Proper subset]
+  A set $X$ is a proper subset of $Y$ if $X\subset Y$ but $X\neq Y$.
+\end{defn-dan}
+
+\begin{example}[Pythagorean Proposition]
+  There exists no such rational number $r$ such that $r^{2}=2$.
+
+  \begin{proof-dan}
+    By contradiction.
+    Suppose $r=m/n$ is a rational number, that $r^{2}=2$, and that $m$ and $n$ have no common factor.
+    \begin{equation*}
+      r=\frac{m}{n}
+    \end{equation*}
+    \begin{equation*}
+      r^{2}=\frac{m^{2}}{n^{2}}=2
+    \end{equation*}
+    Rearranging the fraction
+    \begin{equation*}
+      m^{2}=2n^{2}
+    \end{equation*}
+    Any integer $n$ when squared remains an integer.
+    When this integer $n^{2}$ is multiplied by two, the resulting quantity $2n^{2}$ is an even number.
+    Thus $m^{2}$ is an even number, and thus $m$ must be even as well.
+    Since $m$ is an even number, it can be expressed as the following, for some integer $k$.
+    \begin{equation*}
+      m=2k
+    \end{equation*}
+    Substituting this expression into the above gives
+    \begin{equation*}
+      2k^{2}=n^{2}
+    \end{equation*}
+    By the same argument as before, $n$ is also an even number.
+    With $m$ and $n$ both even, they have a common factor, 2, and the beginning supposition is contradicted.
+  \end{proof-dan}
+\end{example}
+
+\begin{defn-dan}[1.5 \textemdash{} Order]
+  If $S$ is a set, a relation $<$ is an order on S if:
+  \begin{enumerate}[(i)]
+    \item{for any $x,y\in S$ exactly one of the following holds}
+  \begin{equation*}
+  x<y \qquad x=y \qquad x>y
+  \end{equation*}
+    \item{For any $x,y,z\in S$ $x<y$ and $y<z$ implies $x<z$}
+  \end{enumerate}
+  The relation $<$ acts on the \textit{elements} of the set $S$.
+  Some examples of sets on which the order is defined are $\mathbb{N}$, $\mathbb{Z}$, and $\mathbb{Q}$, where $<$ is the usual relation, that is $<$ means for $r,s\in\mathbb{Q}$ that $r<s$ means $s-r$ is a positive rational number.\\[6pt]
+  Another example is the set $\mathbb{L}=\{\text{strings of letters}\}$ where the relation $<$ is lexicographic order.
+  That is, the order operation is defined on $\mathbb{L}$ that puts strings of letters (words) in order as they are found in the dictionary: alphabetical order.\\[6pt]
+  A non-example is subsets of $\mathbb{N}$ under C?\@
+  That $\{1,2\}$ not comparable to $\{3,4\}$?
+  It is important to think beyond the traditional greater than or less than.
+  We will see later a way in which the complex numbers can be an ordered set, although the complex numbers cannot be an ordered field.
+\end{defn-dan}
+
+\begin{defn-dan}[1.6 \textemdash{} Ordered set]
+  An ordered set is a set $S$ in which an order relation is defined.
+\end{defn-dan}
+
+\begin{defn-dan}[1.7 \textemdash{} Bounded above / upper bound]
+  if $S$ is an ordered set and $E\subset S$ then $E$ is bounded above if there is a $\beta\in S$ such that $\beta\geq\gamma\;\forall\gamma\in E$.
+  Such a $\beta$ is called an upper bound for $E$.
+\end{defn-dan}
+
+\begin{defn-dan}[1.8 \textemdash{} Least upper bound / supremum]
+  If $E\subset S$ is bounded above and if $\alpha\in S$ obeys both of the following
+  \begin{enumerate}[(i)]
+    \item{$\alpha$ is an upper bound for $E$}
+    \item{If $\gamma<\alpha$ then $\gamma$ is not an upper bound of $E$}
+  \end{enumerate}
+  then $\alpha$ is the least upper bound of $E$, and we write $\alpha=\sup E$.
+  The supremum $\alpha$ need not be a member of $E$.
+\end{defn-dan}
+
+Similarly define: bounded below/lower bound, and greatest lower bound/infimum.
+
+\begin{defn-dan}[1.10 \textemdash{} Least upper bound property]
+  An ordered set $S$ has the least upper bound property if any set $E\subset S$ which is bounded above has a least upper bound.
+  That is that $\sup E$ exists in $S$.
+\end{defn-dan}
+
+\begin{example}[]
+  $\mathbb{N}$ or $\mathbb{Z}$ under $<$.
+\end{example}
+
+\begin{example}[]
+  The following is a counterexample.
+  $\mathbb{Q}$ under $<$.
+  The set $E=\{p\in \mathbb{Q}|p^{2}<2\}$ is bounded above but has no least upper bound.
+\end{example}
+
+\begin{thm-dan}[1.11]
+  If $S$ is an ordered set with the least upper bound property, and $B\subset S$ is nonempty and bounded below, then $L=\{\beta\in S:\beta \text{ is a lower bound for }B\}$ is bounded above and $\sup L= \inf B$
+\end{thm-dan}
+
+\begin{proof-dan}
+  Recall the definition for least-upper-bound property which states that the $\sup B$ exists in $S$.
+
+  \begin{figure}[H]
+    \begin{center}
+      \psfragfig[width=2.5in]{\figurepath/rudin_111theorem}{%
+        \psfrag{s}[bc][bc][1.0]{$S$}
+        \psfrag{l}[bc][bc][1.0]{$L$}
+        \psfrag{b}[bc][bc][1.0]{$B$}
+        \psfrag{a}[tc][tc][1.0]{$\alpha=\sup L=\inf B$}
+      }
+    \end{center}
+  \end{figure}
+
+  \begin{enumerate}
+    \item{Since $B$ is bounded below, $L$ is not empty.}
+    \item{By 1.7 Definition for lower bound, $L\subset S$ consists of all $y\in S$ such that $y\leq x$ for every $x\in B$.}
+    \begin{equation*}
+      L=\{y\in S\;|\;y\leq x\;\forall x\in B\}
+    \end{equation*}
+    \item{Every $x\in B$ is an upper bound of $L$ by 1.7 Definition.}
+    \item{Thus $L$ is bounded above}
+    \item{Because $S$ is an ordered set with the least-upper-bound property, $L\subset S$, and $L$ is bounded above, by definition $\alpha=\sup L$ exists in $S$.}
+    \item{If we take a value $\gamma$ with $\gamma<\alpha$, then $\gamma$ is not an upper bound of $L$, and $\gamma\notin B$.}
+    \item{%
+      Every $x\in B$ is an upper bound for $L$, but we don't know yet that the least upper bound of $L$ lives in $B$.
+      All we know is that the least upper bound $\alpha$ is equal to or less than the smallest upper bound that lives in $B$.
+      That is $\alpha\leq x$ for every $x\in B$.
+    }
+    \item{From step (2) where the definition for a bound was used to define $L$, we see that $\alpha\in L$.}
+    \item{If we pick a $\beta>\alpha$, then $\beta\notin L$ since $\alpha$ is an upper bound for $L$, so picking something larger cannot be in $L$.}
+    \item{%
+      Since $L$ is the set of lower bounds of $B$, and that if we take a value $\beta>\alpha$ that $\beta\notin L$ then $\beta$ is not a lower bound.
+      But we already showed that $\alpha\in L$ was a lower bound for $B$.
+      Therefore $\alpha$ is the greatest lower bound.
+    }
+    \item{$\alpha=\inf B$}
+  \end{enumerate}
+\end{proof-dan}
+
+\subsection{Fields}
+
+\begin{rem-dan}
+  The neutral element $0$ defined in the A4 the field axiom for addition is unique.
+\end{rem-dan}
+
+\begin{proof-dan}
+  Proof strategy: assume there exists another neutral element $\hat{0}$ and then show that the two neutral elements must be equal.
+  The definition of neutral element is a $0$ such that $0+x=x\;\forall x\in\mathbb{F}$.
+  Following this definition:
+  \begin{align*}
+    0+x&=x\quad\forall x\in\mathbb{F} \\
+    \hat{0}+x&=x\quad\forall x\in\mathbb{F}
+  \end{align*}
+  Using these definitions for our two neutral elements, both of the following must hold
+  \begin{equation*}
+    0+\hat{0}=\hat{0}
+  \end{equation*}
+  \begin{equation*}
+    \hat{0}+0=0
+  \end{equation*}
+  giving
+  \begin{equation*}
+    \hat{0}=\hat{0}+0=0
+  \end{equation*}
+  and so the two neutral elements must be in fact the same
+  \begin{empheq}[box=\roomyfbox]{equation*}
+    \hat{0}=0
+  \end{empheq}
+\end{proof-dan}
+
+\begin{rem-dan}
+  The additive inverse element defined in the A5 the field axiom for addition is unique.
+\end{rem-dan}
+
+\begin{proof-dan}
+  Proof strategy: assume there exists another inverse element of $a$ and show that the two inverse elements of $a$ must be the same.
+\end{proof-dan}
+
+Some notes on fields.
+Given the field axioms, the neutral elements for addition and multiplication are unique.
+In addition, the additive and multiplicative inverse elements are also unique.
+
+\begin{thm-dan}[1.20 \textemdash{} Archimedean Principle]
+  For every $x$, $y\in\mathbb{R}$ and $x>0$ there exists $n\in\mathbb{N}$ such that
+  \begin{equation*}
+    nx>y
+  \end{equation*}
+\end{thm-dan}
+
+\begin{figure}[H]
+  \begin{center}
+    \psfragfig[width=4.0in]{\figurepath/rudin_120theorem}{%
+      \psfrag{r}[tc][tc][1.0]{$\mathbb{R}$}
+      \psfrag{x}[tc][tc][1.0]{$x$}
+      \psfrag{2x}[tc][tc][1.0]{$2x$}
+      \psfrag{3x}[tc][tc][1.0]{$3x$}
+      \psfrag{d}[tc][tc][1.0]{$\dots$}
+      \psfrag{n1x}[tc][tc][1.0]{$(n-1)x$}
+      \psfrag{y}[tc][tc][1.0]{$y$}
+      \psfrag{nx}[tc][tc][1.0]{$nx$}
+    }
+  \end{center}
+\end{figure}
+
+\begin{proof-dan}[By contradiction]
+  Let $A=\{nx\;|\;n\in\mathbb{N}\}$.
+  To prove that $nx>y$ we want to assume the opposite, and show how this leads to a contradiction.
+  So, the opposite of $nx>y$ is to assume that
+  \begin{equation*}
+    nx\leq y
+  \end{equation*}
+  for all $n\in\mathbb{N}$.
+  If this was true, then $y$ would be an upper bound of $A$.
+  By 1.19 Theorem, $\mathbb{R}$ has the least upper bound property, giving, with 1.10 Definition, that the least upper bound of $A$ must be in $\mathbb{R}$.
+  This is stated
+  \begin{equation*}
+    \alpha=\sup{A}\quad\alpha\in\mathbb{R}
+  \end{equation*}
+  So, since $x>0$ and $\alpha=\sup{A}$, we can say
+  \begin{equation*}
+    \alpha-x<\alpha
+  \end{equation*}
+  Since we defined $\alpha$ to be the least upper bound, and $x>0$, then taking a value $\alpha-x$ will not be an upper bound of $A$.
+  Since $A$ is the set of $mx$ where $m\in\mathbb{N}$, with an upper bound $\alpha$, if we take a value $\alpha-x$ which is less than $\alpha$, we know there will be some $m\in\mathbb{N}$ such that $mx\in A$.
+  This means then that for some $m\in\mathbb{N}$
+  \begin{equation*}
+    \alpha-x<mx
+  \end{equation*}
+  Rearranging this expression we get
+  \begin{equation*}
+    \alpha<x(m+1)
+  \end{equation*}
+  We see that $x(m+1)$ lives in $A$ since $m+1$ is a natural number.
+  However, we said that $\alpha$ was the least upper bound of $A$.
+  That is, no value which lives in $A$ can possibly be larger than $\alpha$.
+  This is a contradiction to our original assumption that $nx\leq y\;\forall n\in\mathbb{N}$, so we know then that
+  \begin{empheq}[box=\roomyfbox]{equation*}
+    nx>y
+  \end{empheq}
+\end{proof-dan}
+
+\begin{cor-dan}[There are no infinitely small numbers.]
+  That is, for every $x\in\mathbb{R}$, $x>0$ there is $n\in\mathbb{N}$ such that
+  \begin{equation*}
+  0<1/n<x
+  \end{equation*}
+\end{cor-dan}
+
+% TODO@dpwiese - What does this contradict?
+\begin{proof-dan}
+  Assume there is an $x\in\mathbb{R}$ with $x>0$ such that $x<1/n$ for all $n\in\mathbb{N}$.
+  If this were true, we would get $0<x<1/n$, and cross-multiplying would give $1/x>n$ for all $n\in\mathbb{N}$.
+\end{proof-dan}
+
+\begin{cor-dan}
+  For every real number $x$ there is an integer $n$ such that $x<n\leq x+1$.
+\end{cor-dan}
+
+% TODO@dpwiese - Finish me later
+\begin{proof-dan}
+\end{proof-dan}
+
+\begin{cor-dan}[The rationals are dense in the reals.]
+   This corollary to the Archimedean Principle states that between any two real numbers there is a rational number.
+\end{cor-dan}
+
+\begin{proof-dan}
+  Start with two real numbers $x,y\in\mathbb{R}$ on the number line, with $y>x$.
+  We want to show that somewhere between $x$ and $y$ there is a rational number, no matter how close $x$ and $y$ are together.
+  If $y=x+1$, than we know there will be an integer on this interval.
+  The thought process is: as $x$ and $y$ get closer together, we can scale the interval up by an integer and stretch it out until $x$ and $y$ are a distance of 1 apart, find the integer that is between $x$ and $y$, and then divide this integer by how much we had to scale up the interval, giving us a natural number.
+
+  The quantity $z=y-x$ is a real number.
+  We know from the corollary that states there are no infinitely small numbers that $1/n<z$.
+  Or, $1/n<y-x$.
+  We then ``stretch'' this interval by $n$, multiplying both sides of the inequality.
+  \begin{equation*}
+    1<ny-nx
+  \end{equation*}
+  rearranging
+  \begin{equation*}
+    1+nx<ny
+  \end{equation*}
+  Now it is also clear that $nx<nx+1$ and we also know there must be an integer $m$ in between $nx$ and $nx+1$.
+  \begin{equation*}
+    nx<m<1+nx<ny
+  \end{equation*}
+  Now divide back through by $n$
+  \begin{equation*}
+    x<m/n<(1+nx)/n<y
+  \end{equation*}
+  and the proof is complete
+  \begin{empheq}[box=\roomyfbox]{equation*}
+    x<\frac{m}{n}<\frac{x+1}{n}<y
+  \end{empheq}
+\end{proof-dan}
+
+% TODO@dpwiese - Finish me later.
+\begin{thm-dan}[1.21 Theorem \textemdash{} Extraction of nth roots / uniqueness of nth roots]
+\end{thm-dan}
+
+\begin{defn-dan}[Axiom of Completeness]
+  Every set of real numbers that is bounded above has a least upper bound.
+\end{defn-dan}
+
+\begin{defn-dan}[Well-Ordering Principle]
+  Every non-empty set of natural numbers has a least element.
+\end{defn-dan}
+
+\begin{thm-dan}[1.35 \textemdash{} Cauchy-Schwartz Inequality]
+  For complex numbers $a_{1},\dots,a_{n};\:b_{1},\dots,b_{n}\in\mathbb{C}$, or $a_{j},\;b_{j}\in\mathbb{C}$ then
+  \begin{equation*}
+  \biggr|\sum_{j=1}^{n}a_{j}\overline{b_{j}}\biggr|^{2}\leq\sum_{j=1}^{n}|a_{j}|^{2}\sum_{j=1}^{n}|b_{j}|^{2}
+  \end{equation*}
+  For real vectors in $\mathbb{R}^{n}$ this is expressed as
+  \begin{equation*}
+  |x^{\mathsf{T}}y|\leq\|x\|\|y\|
+  \end{equation*}
+\end{thm-dan}
+
+\begin{proof-dan}
+  First define the following quantities.
+  Let
+  \begin{equation*}
+    A=\sum_{j=1}^{n}|a_{j}|^{2}\in\mathbb{R}\hspace{0.5in}
+    B=\sum_{j=1}^{n}|b_{j}|^{2}\in\mathbb{R}\hspace{0.5in}
+    C=\sum_{j=1}^{n}a_{j}\overline{b_{j}}\in\mathbb{C}
+  \end{equation*}
+  and let both $A>0$ and $B>0$, or the Cauchy-Schwartz inequality is trivial.
+  Start by evaluating the following expression
+  \begin{equation*}
+    \sum_{j=1}^{n}|Ba_{j}-Cb_{j}|^{2}=?
+  \end{equation*}
+  Letting $z=Ba_{j}-Cb_{j}$ this can be written
+  \begin{equation*}
+    \sum_{j=1}^{n}|z|^{2}=?
+  \end{equation*}
+  Using Rudin Theorem 1.32 the absolute value of a complex number $z$ is given by $|z|=(z\overline{z})^{1/2}$, allowing the above expression to be written
+  \begin{equation*}
+    \sum_{j=1}^{n}|z|^{2}=\sum_{j=1}^{n}[(z\overline{z})^{1/2}]^{2}=\sum_{j=1}^{n}z\overline{z}
+  \end{equation*}
+  Substituting back in $z=Ba_{j}-Cb_{j}$
+  \begin{equation*}
+    \sum_{j=1}^{n}|Ba_{j}-Cb_{j}|^{2}=\sum_{j=1}^{n}(Ba_{j}-Cb_{j})(\overline{Ba_{j}-Cb_{j}})
+  \end{equation*}
+  Using the property from Rudin Theorem 1.31 for complex numbers $z$ and $w$ that $\overline{z+w}=\overline{z}+\overline{w}$, $\overline{zw}=\overline{z}\;\overline{w}$, and Definition 1.30 that the conjugate of a real number is just itself gives
+  \begin{equation*}
+    \sum_{j=1}^{n}|Ba_{j}-Cb_{j}|^{2}=\sum_{j=1}^{n}(Ba_{j}-Cb_{j})(\overline{Ba_{j}}-\overline{Cb_{j}})
+  \end{equation*}
+  \begin{equation*}
+    \sum_{j=1}^{n}|Ba_{j}-Cb_{j}|^{2}=\sum_{j=1}^{n}(Ba_{j}-Cb_{j})(\overline{B}\;\overline{a_{j}}-\overline{C}\;\overline{b_{j}})
+  \end{equation*}
+  \begin{equation*}
+    \sum_{j=1}^{n}|Ba_{j}-Cb_{j}|^{2}=\sum_{j=1}^{n}(Ba_{j}-Cb_{j})(B\overline{a_{j}}-\overline{C}\;\overline{b_{j}})
+  \end{equation*}
+  Multiplying out
+  \begin{equation*}
+    \sum_{j=1}^{n}|Ba_{j}-Cb_{j}|^{2}=\sum_{j=1}^{n}B^{2}a_{j}\overline{a_{j}}-Ba_{j}\overline{C}\;\overline{b_{j}}-Cb_{j}B\overline{a_{j}}+Cb_{j}\overline{C}\;\overline{b_{j}}
+  \end{equation*}
+  \begin{equation*}
+    \sum_{j=1}^{n}|Ba_{j}-Cb_{j}|^{2}=\sum_{j=1}^{n}B^{2}a_{j}\overline{a_{j}}-\sum_{j=1}^{n}Ba_{j}\overline{C}\;\overline{b_{j}}-\sum_{j=1}^{n}Cb_{j}B\overline{a_{j}}+\sum_{j=1}^{n}Cb_{j}\overline{C}\;\overline{b_{j}}
+  \end{equation*}
+  \begin{equation*}
+    \sum_{j=1}^{n}|Ba_{j}-Cb_{j}|^{2}=B^{2}\sum_{j=1}^{n}a_{j}\overline{a_{j}}-B\overline{C}\sum_{j=1}^{n}a_{j}\overline{b_{j}}-CB\sum_{j=1}^{n}b_{j}\overline{a_{j}}+C\overline{C}\sum_{j=1}^{n}b_{j}\overline{b_{j}}
+  \end{equation*}
+  Using Rudin Definition 1.32 for the absolute value of a complex number
+  \begin{equation*}
+    \sum_{j=1}^{n}|Ba_{j}-Cb_{j}|^{2}=B^{2}\sum_{j=1}^{n}|a_{j}|^{2}-B\overline{C}\sum_{j=1}^{n}a_{j}\overline{b_{j}}-CB\sum_{j=1}^{n}b_{j}\overline{a_{j}}+C\overline{C}\sum_{j=1}^{n}|b_{j}|^{2}
+  \end{equation*}
+  Substituting in the expressions for $A$, $B$, and $C$
+  \begin{equation*}
+    \sum_{j=1}^{n}|Ba_{j}-Cb_{j}|^{2}=B^{2}A-B\overline{C}C-CB\sum_{j=1}^{n}b_{j}\overline{a_{j}}+C\overline{C}B
+  \end{equation*}
+  \begin{equation*}
+    \sum_{j=1}^{n}|Ba_{j}-Cb_{j}|^{2}=B^{2}A-CB\sum_{j=1}^{n}b_{j}\overline{a_{j}}
+  \end{equation*}
+  Because $C=\sum_{j=1}^{n}a_{j}\overline{b_{j}}$ then $\overline{C}=\sum_{j=1}^{n}\overline{a_{j}}{b}_{j}$ allowing the above to be written
+  \begin{equation*}
+    \sum_{j=1}^{n}|Ba_{j}-Cb_{j}|^{2}=B^{2}A-CB\overline{C}
+  \end{equation*}
+  \begin{equation*}
+    \sum_{j=1}^{n}|Ba_{j}-Cb_{j}|^{2}=B^{2}A-B|C|^{2}
+  \end{equation*}
+  \begin{equation*}
+    \sum_{j=1}^{n}|Ba_{j}-Cb_{j}|^{2}=B(AB-|C|^{2})
+  \end{equation*}
+  Because (by Rudin Theorem 1.33) the absolute value of a complex quantity is always non-negative, the left hand side of the above equation is non-negative.
+  Therefore
+  \begin{equation*}
+    B(AB-|C|^{2})\geq0
+  \end{equation*}
+  Since $B>0$ then
+  \begin{equation*}
+    AB-|C|^{2}\geq0
+  \end{equation*}
+  Finally, substituting back in the expressions for $A$, $B$, and $C$
+  \begin{equation*}
+    \sum_{j=1}^{n}|a_{j}|^{2}\sum_{j=1}^{n}|b_{j}|^{2}-\biggr|\sum_{j=1}^{n}a_{j}\overline{b_{j}}\biggr|^{2}\geq0
+  \end{equation*}
+  rearranging
+  \begin{empheq}[box=\roomyfbox]{equation*}
+    \biggr|\sum_{j=1}^{n}a_{j}\overline{b_{j}}\biggr|^{2}\leq\sum_{j=1}^{n}|a_{j}|^{2}\sum_{j=1}^{n}|b_{j}|^{2}
+  \end{empheq}
+  which is the desired inequality.
+\end{proof-dan}
+
+\begin{example}[]
+  Prove the following inequality for vectors $x$ and $y$
+  \begin{equation*}
+    \bigr|\|x\|-\|y\|\bigr|\leq\|x+y\|
+  \end{equation*}
+
+  \begin{proof-dan}
+    First start by expressing $x$ as
+    \begin{equation*}
+      x=x+y-y
+    \end{equation*}
+    with norm
+    \begin{equation*}
+      \|x\|=\|x+y-y\|
+    \end{equation*}
+    using $a=x+y$ and $b=-y$
+    \begin{equation*}
+      \|x\|=\|a+b\|
+    \end{equation*}
+    By the triangle inequality
+    \begin{equation*}
+      \|x\|=\|a+b\|\leq\|a\|+\|b\|=\|x+y\|+\|-y\|
+    \end{equation*}
+    \begin{equation*}
+      \|x\|\leq\|x+y\|+\|y\|
+    \end{equation*}
+    giving
+    \begin{empheq}[box=\roomyfbox]{equation*}
+      \|x\|-\|y\|\leq\|x+y\|
+    \end{empheq}
+    Next express $y$ as
+    \begin{equation*}
+      y=y+x-x
+    \end{equation*}
+    with norm
+    \begin{equation*}
+      \|y\|=\|y+x-x\|
+    \end{equation*}
+    now using $a=x+y$ and $c=-x$
+    \begin{equation*}
+      \|y\|=\|a+c\|
+    \end{equation*}
+    By the triangle inequality
+    \begin{equation*}
+      \|y\|=\|a+c\|\leq\|a\|+\|c\|=\|x+y\|+\|-x\|
+    \end{equation*}
+    \begin{equation*}
+      \|y\|\leq\|x+y\|+\|x\|
+    \end{equation*}
+    giving
+    \begin{empheq}[box=\roomyfbox]{equation*}
+      \|y\|-\|x\|\leq\|x+y\|
+    \end{empheq}
+    If $\|x\|>\|y\|$ then $\bigr|\|x\|-\|y\|\bigr|=\|x\|-\|y\|$ and the inequality is satisfied by the first boxed equation.
+    If $\|y\|>\|x\|$ then $\bigr|\|x\|-\|y\|\bigr|=\|y\|-\|x\|$ and the inequality is then satisfied by the second equation.
+    That is, for real numbers $a$ and $b$
+    \begin{equation*}
+      |a-b|=
+      \begin{cases}
+        a-b & \text{if }a>b \\
+        0 & \text{if }a=b \\
+        b-a, & \text{if }a<b
+      \end{cases}
+    \end{equation*}
+    so saying $|a-b|<x$ is the same as saying $a-b<x$ and $b-a<x$.
+    So another way to think about the proof is to prove two things:
+    Prove both of the following inequality for vectors $x$ and $y$
+    \begin{equation*}
+      \|x\|-\|y\|\leq\|x+y\|
+    \end{equation*}
+    and
+    \begin{equation*}
+      \|y\|-\|x\|\leq\|x+y\|
+    \end{equation*}
+    Which is what was done.
+  \end{proof-dan}
+\end{example}
+
+\subsection{Problems}
+
+\begin{example}[Rudin Ch1 Prob 8]
+  No order can be defined in the complex field that turns it into an ordered field.
+
+  \begin{proof-dan}
+    In order to attempt a solution to this problem, review 1.17 Definition on page 7 of what an ordered field is.
+    An ordered field, which is also an ordered set, must therefore satisfy 1.5 Definition of an order relation.
+    Note that the neutral element is $0\in\mathbb{C}=(0,0)$ and begin with a complex number $z\in\mathbb{C}$, with $z\neq 0$.
+    By trichotomy, one and only one of the following statements can hold
+    \begin{equation*}
+      z>0\quad\text{or}\quad z<0
+    \end{equation*}
+    Then state that the complex number $i=(0,1)$ is not equal to the neutral element, and therefore must either be greater than or less than the neutral element.
+    Examine both of these cases.
+    Suppose first that $i>0$
+    \begin{equation*}
+      i>0
+    \end{equation*}
+    \begin{equation*}
+      ii>0i
+    \end{equation*}
+    \begin{equation*}
+      i^{2}>0
+    \end{equation*}
+    \begin{equation*}
+      -1>0
+    \end{equation*}
+    Now examine the case when $i<0$.
+    Then
+    \begin{equation*}
+    -i>0
+    \end{equation*}
+    \begin{equation*}
+    (-i)(-i)>0
+    \end{equation*}
+    \begin{equation*}
+    i^{2}>0(-i)
+    \end{equation*}
+    \begin{equation*}
+    -1>0
+    \end{equation*}
+  \end{proof-dan}
+\end{example}
+
+\section{Chapter 2}
+
+\begin{itemize}
+  \item{Injective = one-to-one}
+  \item{Surjective = onto}
+  \item{Bijective = both injective and surjective}
+\end{itemize}
+
+\begin{prop-dan}
+  A set is infinite if and only if it may be put into one-to-one correspondence with a proper subset of itself.
+\end{prop-dan}
+
+\begin{proof-dan}
+  Assume the set $X$ is finite, and has $n$ elements where $n\in\mathbb{N}$, and assume the set $Y$ is a proper subset of $X$.
+  Then, because $X$ is finite and $Y$ is a proper subset of $X$, $Y$ must have fewer elements in it than $X$.
+  That is, $Y$ will have $m$ elements, where $m\in\mathbb{N}$ with $m<n$.
+  The only way to put two finite sets in one-to-one correspondence is if they have the same number of elements, which $X$ and $Y$ do not.
+  This proves the ``if'' part of the statement, concluding that\ldots
+\end{proof-dan}
+
+\begin{thm-dan}[2.12]
+  Let $\{E_{n}\},\;n=1,2,3,\dots$, be a sequence of countable sets, and put
+  \begin{equation*}
+    S=\bigcup_{n=1}^{\infty}E_{n}
+  \end{equation*}
+  Then $S$ is countable.
+\end{thm-dan}
+
+\begin{proof-dan}
+  Basically take each set $E_{i}$ and write its elements in a row.
+  This will arrange all of the elements of each set $E_{i}$ in an infinite array.
+  Then form a sequence by ordering the elements along the diagonals.
+  If any two of the sets $E_{i}$ have elements in common, these will appear more than once in the sequence.
+  Hence there is a subset $T$ of the set of all the positive integeres such that $S\sim T$, which shows that $S$ is at most countable by 2.8 Theorem.
+  Since $E_{1}\subset S$ and $E_{1}$ is infinite, $S$ is infinite, and thus countable.
+\end{proof-dan}
+
+\begin{thm-dan}[2.14]
+  Let $A$ be the set of all sequences whose elements are the digits 0 and 1.
+  This set $A$ is uncountable.
+\end{thm-dan}
+
+\begin{proof-dan}
+  Here is the set $A$, whose members themselves are infinite sequences of 0 and 1.
+  \begin{equation*}
+    A=\{\underbrace{\{1,0,0,1,\dots\}}_{s_{1}},\underbrace{\{1,0,1,0,\dots\}}_{s_{2}},\underbrace{\{0,1,1,0,\dots\}}_{s_{3}},\underbrace{\{1,1,1,0,\dots\}}_{s_{4}},\dots\}
+  \end{equation*}
+  Let $E$ be a countable subset of $A$.
+  \begin{equation*}
+    E=\{s_{1},s_{2},s_{3},s_{4},\dots\}
+  \end{equation*}
+  Arrange the elements of $E$ by stacking the rows formed by the sequences $s_{i}$ on top of each other, making an array.
+  Then define a sequence $s$ by taking the diagonal values from this array, but switching 0 to 1 and vice versa.
+  \begin{equation*}
+    \begin{array}{c|cccc} % chktex 44
+      & 1 & 2 & 3 & 4 \\
+      \hline % chktex 44
+      s_{1} & 1 & 0 & 0 & 1 \\
+      s_{2} & 1 & 0 & 1 & 0 \\
+      s_{3} & 0 & 1 & 1 & 0 \\
+      s_{4} & 1 & 1 & 1 & 0
+    \end{array}
+  \end{equation*}
+  So the sequence $s$ is
+  \begin{equation*}
+    s=\{0,1,0,1,\dots\}
+  \end{equation*}
+  Because at least one element in each sequence $s_{i}$ was changed, this new sequence $s$ is different from all of the $s_{i}\in E$.
+  The existence of this sequence which is in $A$ but not in $E$ shows that $E$ is a proper subset of $A$.
+  Because we took an arbitrary countable subset of $A$ and showed that it is a proper subset of $A$, then $A$ is uncountable (for otherwise $A$ would be a proper subset of $A$ which is absurd).
+\end{proof-dan}
+
+\begin{defn-dan}[2.18a \textemdash{} Neighborhood]
+  A \textit{neighborhood} around a point $p$\dots
+  \begin{figure}[H]
+    \begin{center}
+      \psfragfig[width=1.5in]{\figurepath/rudin_218definition_a}{%
+        \psfrag{p}[bc][bc][1.0]{$p$}
+        \psfrag{r}[bc][bc][1.0]{$r$}
+        \psfrag{e}[tr][tr][1.0]{$E$}
+      }
+      \caption{Rudin 2.18 Definition neighborhood of point $p$}
+    \end{center}
+  \end{figure}
+\end{defn-dan}
+
+\begin{thm-dan}[2.19]
+  Every neighborhood is an open set.
+\end{thm-dan}
+
+\begin{proof-dan}
+  First reviewing some definitions:
+  \begin{itemize}
+    \item{By 2.18 Definition (a) a neighborhood about the point $p$ is the set of all points within some radius $r$ of $p$}
+    \item{A set $E$ is open if all of the points of $E$ satisfy the definition of interior point}
+    \item{A point $p$ is an interior point of the set $E$ if there is a neighborhood $N$ of point $p$ that is entirely contained in $E$: $N\subset E$.}
+  \end{itemize}
+  Now continue with the proof.
+  \begin{figure}[H]
+    \begin{center}
+      \psfragfig[width=3.5in]{\figurepath/rudin_219theorem}{%
+        \psfrag{p}[bc][bc][1.0]{$p$}
+        \psfrag{r}[bc][bc][1.0]{$r$}
+        \psfrag{e}[bc][bc][1.0]{$E=N_{r}(p)$}
+        \psfrag{s}[bc][bc][1.0]{$s$}
+        \psfrag{S}[bc][bc][1.0]{$S$}
+        \psfrag{h}[bc][bc][1.0]{$h$}
+        \psfrag{q}[bc][bc][1.0]{$q$}
+        \psfrag{dpq}[bc][bc][1.0]{$d(p,q)$}
+        \psfrag{dps}[bc][bc][1.0]{$d(p,s)$}
+        \psfrag{dqs}[bc][bc][1.0]{$d(q,s)$}
+      }
+      \caption{Rudin 2.19 theorem}
+    \end{center}
+  \end{figure}
+  \begin{enumerate}
+    \item{Start with a neighborhood $E=N_{r}(p)$ around the point $p$.}
+    \item{Pick a point $q$ which is inside this neighborhood $E$.}
+    \item{Then define a radius $h$ around the point $q$, where the radius $h$ exists such that the following is true}
+  \begin{equation*}
+    d(p,q)=r-h
+  \end{equation*}
+  \item{Then, we have by the triangle inequality that there is a point $s$ such that}
+  \begin{equation*}
+    d(p,s)\leq d(p,q)+d(q,s)
+  \end{equation*}
+  \item{But if we consider the points $s\in S$ such that $d(q,s)<h$, we can write}
+  \begin{equation*}
+    d(p,s)\leq d(p,q)+d(q,s)<d(p,q)+h
+  \end{equation*}
+  \item{But earlier we defined $d(p,q)=r-h$ so we can substitute this in to get}
+  \begin{equation*}
+    d(p,s)\leq d(p,q)+d(q,s)<r-h+h
+  \end{equation*}
+  finally giving
+  \begin{equation*}
+    d(p,s)<r
+  \end{equation*}
+  and the point $s$ is in $E$.
+  \item{%
+    This proof shows that if we start with a set $E$, any point $q$ inside $E$ has a neighborhood around it which is entirely contained in $E$.
+    This neighborhood we called $S$, and all of the points $s\in S$ are in $E$, so the neighborhood $S\subset E$, and the neighborhood $E$ is an open set.
+  }
+  \end{enumerate}
+\end{proof-dan}
+
+\begin{thm-dan}[2.23]
+  A set $E$ is open if and only if its complement is closed.
+\end{thm-dan}
+
+\begin{proof-dan}
+  Insert figure.
+  \begin{enumerate}
+    \item{Suppose $E^{c}$ is closed}
+    \item{Pick $x\in E$}
+    \item{By definition $x\notin E^{c}$}
+    \begin{itemize}
+      \item{%
+        Also, $x$ is not a limit point of $E^{c}$.
+        This is because we supposed $E^{c}$ was closed, which means $E^{c}$ contains all its limit points.
+        And since $x\notin E^{c}$ it is not a limit point of $E^{c}$.
+      }
+    \end{itemize}
+    \item{%
+      Because $x$ is not a limit point, that means we can put any size neighborhood $N_{r}(x)$ of radius $r$ around the point $x$ that will not intersect $E^{c}$ anywhere.
+      That means this neighborhood is entirely in $E$.
+      By the definition of an interior point, because we found a neighborhood $N_{r}(x)$ around the point $x$ that was entirely in $E$, the point $x$ is an interior point.
+    }
+  \end{enumerate}
+  Because this point $x$ was picked arbitrarily and found to be an interior point of $E$, that means that every point of $E$ is an interior point of $E$, and by definition, $E$ is open.
+  \begin{enumerate}
+    \item{Now suppose $E$ is open}
+    \item{Let $x$ be a limit point of $E^{c}$ (without saying whether or not $x$ is in $E^{c}$)}
+    \item{By definition of limit point, every neighborhood $N_{r}(x)$ around $x$ contains a point $y\in E^{c}$ with $y\neq x$}
+    \item{Therefore $x$ is not an interior point of $E$}
+    \begin{itemize}
+      \item{Because for $x$ to be an interior point of $E$ there has to exist some neighborhood around $x$ that is entirely contained in $E$.}
+      \item{However, no matter how small we pick this neighborhood, it will always contain a $y\in E^{c}$ with $y\neq x$}
+      \item{This means that neighborhood is not a subset of $E$}
+    \end{itemize}
+    \item{By definition, for $E$ to be open, every point of $E$ must be an interior point of $E$}
+    \begin{itemize}
+      \item{Since $x$ is not an interior point of $E$ $x\notin E$}
+      \item{Thus $x\in E^{c}$}
+    \end{itemize}
+  \end{enumerate}
+  Thus for an arbitrarily selected limit point in $E^{c}$, it is contained in $E^{c}$.
+  This shows that $E^{c}$ contains all of its limit points, so $E^{c}$ is closed.
+\end{proof-dan}
+
+\begin{thm-dan}[2.24]
+  Page 34.
+  \begin{enumerate}[(a)]
+    \item{For any collection $\{G_{\alpha}\}$ of open sets, $\cup_{\alpha}G_{\alpha}$ is open}
+    \item{For any collection $\{F_{\alpha}\}$ of closed sets, $\cup_{\alpha}F_{\alpha}$ is closed}
+    \item{For any finite collection $G_{1},\dots,G_{n}$ of open sets, $\cup_{i=1}^{n}G_{i}$ is open}
+    \item{For any finite collection $F_{1},\dots,F_{n}$ of closed sets, $\cup_{i=1}^{n}F_{i}$ is closed}
+  \end{enumerate}
+\end{thm-dan}
+
+\begin{proof-dan}
+proof
+\end{proof-dan}
+
+\subsection{Convex Sets and Functions}
+
+\begin{defn-dan}[Line segment]
+  A line segment connecting points $y$ and $x$ which belong to the set $\Omega\subset\mathbb{R}^{n}$ is shown in the figure below.
+  The point $z$ can be described as $z=y+\lambda m$ where $\lambda\in[0,1]$.
+  The set of all points $z$ is a line segment $L$.
+  That is $L=\{y+\lambda m\;|\;\lambda\in[0,1]\}$.
+\end{defn-dan}
+
+\begin{figure}[H]
+  \begin{center}
+    \psfragfig[width=2.5in]{\figurepath/line_segment_v1}{%
+      \psfrag{y}[bc][bc][1.0]{$y$}
+      \psfrag{x}[bc][bc][1.0]{$x$}
+      \psfrag{m}[bl][bl][1.0]{$m=x-y$}
+      \psfrag{o}[bc][bc][1.0]{$\Omega$}
+      \psfrag{z}[bc][bc][1.0]{$z$}
+    }
+    \caption{Line segment in subset $\Omega\subset\mathbb{R}^{n}$\label{real.label_fig_1}}
+  \end{center}
+\end{figure}
+
+Every point between $y$ and $x$ can be written $z=y+\lambda m\;|\;\lambda\in[0,1]$ where $y+m=x\rightarrow m=x-y$.
+\begin{align*}
+  &z=y+\lambda m \\
+  &z=y+\lambda (x-y) \\
+  &z=y+\lambda x-\lambda y
+\end{align*}
+
+\begin{empheq}[box=\roomyfbox]{equation*}
+  z=\lambda{}x+(1-\lambda)y
+\end{empheq}
+
+\begin{defn-dan}[2.17 \textemdash{} Segment, interval, k-cell, ball, convex set]
+  See Rudin page 31.
+
+  \textbf{Ball} If $x\in\mathbb{R}^{k}$ and $r>0$ the open (or closed) ball $B$ with center at $x$ and radius $r$ is defined to be the set of all $y\in\mathbb{R}^{k}$ such that $|y-x|<r$ (or $|y-x|\leq r$).
+
+  \textbf{Convex set} A set $\Omega\subset\mathbb{R}^{n}$ is convex if for two points $x$ and $y$ that belong to $\Omega$, all points on the line segment $L$ also belong to $\Omega$.
+  That is:
+  \begin{empheq}[box=\roomyfbox]{equation*}
+    [\forall{}x,y\in\Omega\subset\mathbb{R}^{n}]\rightarrow[z=\lambda{}x+(1-\lambda)y\in\Omega]\quad\forall\;0\leq\lambda\leq1
+  \end{empheq}
+\end{defn-dan}
+
+\begin{figure}[H]
+  \begin{center}
+    \psfragfig[width=2.5in]{\figurepath/convex_subsets_v1}{%
+      \psfrag{y}[bc][bc][1.0]{convex}
+      \psfrag{n}[bc][bc][1.0]{not convex}
+    }
+    \caption{$\mathbb{R}^{2}$ examples\label{real.label_fig_2}}
+  \end{center}
+\end{figure}
+
+\begin{proof-dan}[Balls are convex]
+  A ball with center at $x$ and radius $r$ is given by $|y-x|<r$ where the equality is possible for a closed ball.
+  In order to prove that a ball is convex, pick two arbitrary points within the ball, and show that the line between these points is in the ball, by showing that it satisfies the definition for convex set.
+  The points we will pick are $a$ and $b$, and in order to be in the ball must satisfy
+  \begin{align*}
+    |a-x|&<r \\
+    |b-x|&<r
+  \end{align*}
+  any point $z$ between these two points must then satisfy
+  \begin{equation*}
+    |z-x|<r
+  \end{equation*}
+  Since $z$ is given by the line segment between $a$ and $b$, this can be written using $z=\lambda a+(1-\lambda)b$ as the following, where we want the inequality to hold, but have not yet proved that it does.
+  \begin{equation*}
+    |\lambda a+(1-\lambda)b-x|<r
+  \end{equation*}
+  Now we start manipulating this expression
+  \begin{equation*}
+    |\lambda a-\lambda x+(1-\lambda)b-x+\lambda x|<r
+  \end{equation*}
+  \begin{equation*}
+    |\lambda(a-x)+(1-\lambda)b-(1-\lambda)x|<r
+  \end{equation*}
+  \begin{equation*}
+    |\lambda(a-x)+(1-\lambda)(b-x)|<r
+  \end{equation*}
+  By the triangle inequality we have that
+  \begin{equation*}
+    |\lambda(a-x)+(1-\lambda)(b-x)|\leq|\lambda(a-x)|+|(1-\lambda)(b-x)|
+  \end{equation*}
+  \begin{equation*}
+    |\lambda(a-x)+(1-\lambda)(b-x)|\leq\lambda|a-x|+(1-\lambda)|b-x|
+  \end{equation*}
+  And because the points $a$ and $b$ were in our open ball to begin with $|a-x|<r$ and $|b-x|<r$ hold.
+  \begin{equation*}
+    |\lambda(a-x)+(1-\lambda)(b-x)|\leq\lambda|a-x|+(1-\lambda)|b-x|<\lambda r+(1-\lambda)r
+  \end{equation*}
+  \begin{equation*}
+    |\lambda(a-x)+(1-\lambda)(b-x)|<r
+  \end{equation*}
+  \begin{equation*}
+    |\lambda a+(1-\lambda)b-x|<r
+  \end{equation*}
+  which is the inequality we were trying to prove.
+\end{proof-dan}
+
+\subsection{Convex Function}
+
+A function $f:\mathbb{R}^{n}\rightarrow\mathbb{R}$ is convex if the graph of the function lies below the line segment joining any two points of the graph.
+That is:
+\begin{empheq}[box=\roomyfbox]{equation*}
+  f(z)\leq\lambda{}f(x)+(1-\lambda)f(y)\quad\forall0\leq\lambda\leq1
+\end{empheq}
+
+\begin{figure}[H]
+  \begin{center}
+    \psfragfig[width=2.5in]{\figurepath/convex_function_v1}{%
+      \psfrag{x}[bc][bc][1.0]{$x$}
+      \psfrag{y}[bc][bc][1.0]{$y$}
+      \psfrag{z}[bc][bc][1.0]{$z$}
+      \psfrag{fx}[bc][bc][1.0]{$f(x)$}
+      \psfrag{fy}[bc][bc][1.0]{$f(y)$}
+      \psfrag{fz}[tc][tc][1.0]{$f(z)$}
+    }
+    \caption{Convex function\label{real.label_fig_3}}
+  \end{center}
+\end{figure}
+
+Equivalently, a function is convex if its epigraph (the set of points on or above the graph of the function) is a convex set.
+
+\begin{proof-dan}[Every norm is a convex function]
+  For a function $f(z)$ to be a convex function, it must satisfy the following:
+  \begin{equation*}
+    f(\lambda x+(1-\lambda)y)\leq\lambda f(x)+(1-\lambda)f(y)\quad\forall0\leq\lambda\leq1
+  \end{equation*}
+  For $f(z)=\|z\|$ with $z=\lambda x+(1-\lambda)y$ we have $f(z)=\|\lambda x+(1-\lambda)y\|$.
+  \begin{equation*}
+    \|\lambda x+(1-\lambda)y\|\leq\|\lambda x\|+\|(1-\lambda)y\|
+  \end{equation*}
+  by the triangle inequality.
+  \begin{equation*}
+    \|\lambda x\|+\|(1-\lambda)y\|=\lambda\|x\|+(1-\lambda)\|y\|
+  \end{equation*}
+  by homogeneity, giving
+  \begin{equation*}
+    \|\lambda x+(1-\lambda)y\|\leq\lambda\|x\|+(1-\lambda)\|y\|
+  \end{equation*}
+  \begin{equation*}
+    f(\lambda x+(1-\lambda)y)\leq\lambda f(x)+(1-\lambda)f(y)
+  \end{equation*}
+  which is the condition we needed to satisfy for the function $f(z)=\|z\|$ to be convex.
+\end{proof-dan}
+
+\begin{proof-dan}[Norm squared is a convex function]
+  For a function $f(z)$ to be a convex function, it must satisfy the following:
+  \begin{equation*}
+    f(\lambda x+(1-\lambda)y)\leq\lambda f(x)+(1-\lambda)f(y)\quad\forall0\leq\lambda\leq1
+  \end{equation*}
+  For $f(z)=\|z\|^{2}$ with $z=\lambda x+(1-\lambda)y$ the following must be satisfied.
+  \begin{equation*}
+    \|\lambda x+(1-\lambda)y\|^{2}\leq\lambda\|x\|^{2}+(1-\lambda)\|y\|^{2}
+  \end{equation*}
+  Rearranging this expression
+  \begin{equation*}
+    \|\lambda x+(1-\lambda)y\|^{2}-\lambda\|x\|^{2}-(1-\lambda)\|y\|^{2}=?
+  \end{equation*}
+  writing out the norms using the definition for Euclidean norm from Rudin page 16 that $\|a\|=(a\!\stackrel{\scriptscriptstyle\bullet}{{}}\!a)^{1/2}$ and then $\|a+b\|=[(a+b)\!\stackrel{\scriptscriptstyle\bullet}{{}}\!(a+b)]^{1/2}$.
+  So $\|a+b\|^{2}=(a+b)\!\stackrel{\scriptscriptstyle\bullet}{{}}\!(a+b)$
+  \begin{equation*}
+    \|\lambda x+(1-\lambda)y\|^{2}-\lambda\|x\|^{2}-(1-\lambda)\|y\|^{2}=[\lambda x+(1-\lambda)y]\!\stackrel{\scriptscriptstyle\bullet}{{}}\![\lambda x+(1-\lambda)y]-\lambda\|x\|^{2}-(1-\lambda)\|y\|^{2}
+  \end{equation*}
+  \begin{equation*}
+    =\lambda^{2}x\!\stackrel{\scriptscriptstyle\bullet}{{}}\!x+2\lambda(1-\lambda)x\!\stackrel{\scriptscriptstyle\bullet}{{}}\!y+(1-\lambda)^{2}y\!\stackrel{\scriptscriptstyle\bullet}{{}}\!y-\lambda\|x\|^{2}-(1-\lambda)\|y\|^{2}
+  \end{equation*}
+  \begin{equation*}
+    =\lambda^{2}\|x\|^{2}+2\lambda(1-\lambda)x\!\stackrel{\scriptscriptstyle\bullet}{{}}\!y+(1-\lambda)^{2}\|y\|^{2}-\lambda\|x\|^{2}-(1-\lambda)\|y\|^{2}
+  \end{equation*}
+  \begin{equation*}
+    =\lambda(\lambda-1)\|x\|^{2}+2\lambda(1-\lambda)x\!\stackrel{\scriptscriptstyle\bullet}{{}}\!y+(1-\lambda)[(1-\lambda)-1]\|y\|^{2}
+  \end{equation*}
+  \begin{equation*}
+    =-\lambda(1-\lambda)\|x\|^{2}+2\lambda(1-\lambda)x\!\stackrel{\scriptscriptstyle\bullet}{{}}\!y-\lambda(1-\lambda)\|y\|^{2}
+  \end{equation*}
+  \begin{equation*}
+    =-\lambda(1-\lambda)\left(\|x\|^{2}-2x\!\stackrel{\scriptscriptstyle\bullet}{{}}\!y+\|y\|^{2}\right)
+  \end{equation*}
+  Using the inner product definition in Rudin $\|a-b\|^{2}=(a-b)\!\stackrel{\scriptscriptstyle\bullet}{{}}\!(a-b)=a\!\stackrel{\scriptscriptstyle\bullet}{{}}\!a-2a\!\stackrel{\scriptscriptstyle\bullet}{{}}\!b+b\!\stackrel{\scriptscriptstyle\bullet}{{}}\!b=\|a\|^{2}-2a\!\stackrel{\scriptscriptstyle\bullet}{{}}\!b+\|b\|^{2}$ giving
+  \begin{equation*}
+    \|\lambda x+(1-\lambda)y\|^{2}-\lambda\|x\|^{2}-(1-\lambda)\|y\|^{2}=-\lambda(1-\lambda)\|x-y\|^{2}
+  \end{equation*}
+  The quantity $\lambda(1-\lambda)$ is non-negative for $0\leq\lambda\leq1$, and $\|x-y\|^{2}$ is also always non-negative, so
+  \begin{equation*}
+    \|\lambda x+(1-\lambda)y\|^{2}-\lambda\|x\|^{2}-(1-\lambda)\|y\|^{2}=-\lambda(1-\lambda)\|x-y\|^{2}\leq0
+  \end{equation*}
+  \begin{equation*}
+    \|\lambda x+(1-\lambda)y\|^{2}-\lambda\|x\|^{2}-(1-\lambda)\|y\|^{2}\leq0
+  \end{equation*}
+  which is rearranged to yield what we were originally trying to prove
+  \begin{empheq}[box=\roomyfbox]{equation*}
+    \|\lambda{}x+(1-\lambda)y\|^{2}\leq\lambda\|x\|^{2}+(1-\lambda)\|y\|^{2}
+  \end{empheq}
+\end{proof-dan}
+
+\section{Chapter 3 \textemdash{} Numerical Sequences and Series}
+
+\begin{defn-dan}[3.12 \textemdash{} Complete]
+  A metric space in which every Cauchy sequence converges.
+\end{defn-dan}
+
+\begin{example}[Complete metric spaces]
+  All Euclidean metric spaces and all compact metric spaces are complete.
+\end{example}
+
+\section{Chapter 4 \textemdash{} Continuity}
+
+The following definition of continuity of a function is known as a $\delta-\varepsilon$ definition.
+Other definitions can be given in terms of limits of functions or limits of sequences.
+This definition is like that found in Slotine pg 123.
+
+\subsection{Continuous Function}
+
+Roughly speaking, a continuous function is one in which ``small'' changes in the input to the function result in ``small'' changes in the output of the function.
+In other words, when the input to the function is changed an infinitesimal amount, there should be no ``jumps'' in the output of the function.
+The definition is given below.
+
+\begin{defn-dan}[Continuous function]
+  (Rudin Page 85) A function $f(x):E\subset X\rightarrow Y$ is continuous at the point $p$ if:
+  \begin{equation*}
+    \forall\varepsilon>0,\;\exists\delta(\varepsilon,p)>0\;\text{such that}\;\forall x,\;d_{X}(x,p)<\delta\Rightarrow d_{Y}(f(x),f(p))<\varepsilon
+  \end{equation*}
+\end{defn-dan}
+What this says is that for all $p$ in the domain of the function, and any value of $\varepsilon$ that we would like to pick, for the function to be continuous there must exists a $\delta$ such that for any $x$ value we pick that is within $\delta$ of $p$, this implies that the function value $f(x)$ is within $\varepsilon$ of $f(p)$.
+The following figure shows a continuous function.
+
+\begin{figure}[H]
+  \begin{center}
+    \psfragfig[width=3.5in]{\figurepath/continuity_v1}{%
+      \psfrag{f}[br][br][1.0]{$f$}
+      \psfrag{fcp}[bl][bl][1.0]{$f(p)+\varepsilon$}
+      \psfrag{fc}[br][br][1.0]{$f(p)$}
+      \psfrag{fcm}[bl][bl][1.0]{$f(p)-\varepsilon$}
+      \psfrag{fx}[tl][tl][1.0]{$f(x)$}
+      \psfrag{cm}[br][br][1.0]{$p-\delta$}
+      \psfrag{c}[br][br][1.0]{$p$}
+      \psfrag{cp}[bl][bl][1.0]{$p+\delta$}
+    }
+    \caption{Continuous function\label{real.label_fig_4}}
+  \end{center}
+\end{figure}
+
+When the function $f(x):\mathbb{R}\rightarrow\mathbb{R}$ is continuous at the point $p$ if:
+\begin{equation*}
+  \forall\varepsilon>0,\;\exists\delta(\varepsilon,p)>0\;\text{such that}\;\forall x,\;|x-p|<\delta\Rightarrow|f(x)-f(p)|<\varepsilon
+\end{equation*}
+
+We pick an arbitrary point $p$ in the domain of the function.
+We then sweep across all possible values of $\varepsilon$.
+Regardless of how we pick $\varepsilon$, there is always a $\delta$ such that if $x$ is within this $\delta$, that $f(x)$ will be inside $\varepsilon$.
+No matter how $p$, $\varepsilon$, and $x$ are picked, we can always find a $\delta$ that satisfies the definition.
+This may be more clear with an example of a discontinuous function.
+
+\begin{figure}[H]
+  \begin{center}
+    \psfragfig[width=3.5in]{\figurepath/continuity_not_v1}{%
+      \psfrag{f}[br][br][1.0]{$f$}
+      \psfrag{fcp}[bl][bl][1.0]{$f(p)+\varepsilon$}
+      \psfrag{fc}[br][br][1.0]{$f(p)$}
+      \psfrag{fcm}[bl][bl][1.0]{$f(p)-\varepsilon$}
+      \psfrag{fx}[tl][tl][1.0]{$f(x)$}
+      \psfrag{cm}[br][br][1.0]{$p-\delta$}
+      \psfrag{c}[br][br][1.0]{$p$}
+      \psfrag{cp}[bl][bl][1.0]{$p+\delta$}
+    }
+    \caption{Discontinuous function\label{real.label_fig_5}}
+  \end{center}
+\end{figure}
+
+In this example, a value of $p$ is selected.
+For all values of $\varepsilon$ we want to pick (such as the one shown here) and all $x$ (such as the one shown here), we must be able to find a $\delta$ such that $f(x)$ is within $\varepsilon$ on $f(c)$.
+From this figure, regardless of how big or small of a $\delta$ that is picked, $f(x)$ will never be inside the $\varepsilon$ region shown.
+Therefore this function is not continuous.
+
+\section{Uniform Continuity}
+
+For a continuous function, we said that once we selected an $\varepsilon$, we simply needed to be able to find a $\delta$ such that if $x$ was inside the $\delta$ region, that $f(x)$ would be inside the $\varepsilon$ region.
+Nothing was ever stated how large or small the value of $\delta$ could or needed to be, only that one existed.
+
+For a function to be uniformly continuous, the value of $\delta$ does not depend on $p$.
+In particular, $\delta$ does not shrink as $p\rightarrow\infty$.
+
+\begin{defn-dan}[Uniformly Continuous function]
+  A function $f(x):\mathbb{R}\rightarrow\mathbb{R}$ is uniformly continuous if:
+  \begin{equation*}
+    \forall\varepsilon>0,\;\exists\delta(\varepsilon)>0\;\forall p,\;\forall x:\;|x-p|<\delta\Rightarrow|f(x)-f(p)|<\varepsilon
+  \end{equation*}
+\end{defn-dan}
+
+\begin{example}
+  The following example shows a continuous function which is not uniformly continuous.
+  Take the function $f(x):\mathbb{R}\rightarrow\mathbb{R}$ below:
+  \begin{equation*}
+    f(x)=x^{2}
+  \end{equation*}
+\end{example}
+
+\begin{example}
+  The following example shows a continuous function which is not uniformly continuous.
+  Take the function $f(x):\mathbb{R}\rightarrow\mathbb{R}$ below:
+  \begin{equation*}
+    f(x)=e^{x}
+  \end{equation*}
+\end{example}
